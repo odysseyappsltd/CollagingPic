@@ -9,8 +9,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         System.out.println();
-        //This is test branch
-        //This is Master
+        //kendrio
         setContentView(R.layout.activity_main);
     }
 }

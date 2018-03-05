@@ -6,11 +6,10 @@ import android.os.Bundle;
 public class MainActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         System.out.println();
-        //This is Master
-        //
+        //This is test branch 
         setContentView(R.layout.activity_main);
     }
 }

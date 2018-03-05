@@ -11,6 +11,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.println();
         //kendrio
         //badda
+        //direct push
         setContentView(R.layout.activity_main);
     }
 }

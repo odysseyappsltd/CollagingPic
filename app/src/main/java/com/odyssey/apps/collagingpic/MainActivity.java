@@ -10,7 +10,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         System.out.println();
         //This is Master
-        //
         setContentView(R.layout.activity_main);
     }
 }

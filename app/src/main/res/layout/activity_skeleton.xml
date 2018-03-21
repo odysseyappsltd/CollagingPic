@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FF00F0"
+    tools:context="com.odyssey.apps.collagingpic.skeleton.SkeletonActivity">
+
+    <RelativeLayout
+        android:id="@+id/colage_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toTopOf="@+id/AMAdmob"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.51"
+        >
+
+        <RelativeLayout
+            android:id="@+id/view"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_centerInParent="true"
+            android:background="@android:color/background_light"
+            android:padding="5dp"></RelativeLayout>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/AMAdmob"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/horizontalScrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/colage_view"></FrameLayout>
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@android:color/black"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#808080"
+            android:orientation="horizontal">
+
+            <!--android:onClick="reset"-->
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@mipmap/ic_launcher"
+                android:onClick="frameAct" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <!--android:onClick="testReplace"-->
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="styleAct"
+                android:background="@mipmap/ic_launcher" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <!--android:onClick="testRemove"-->
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="aspectAct"
+                android:background="@mipmap/ic_launcher"
+
+                />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <!--android:onClick="testRemoveAll"-->
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="shareAct"
+                android:background="@mipmap/ic_launcher"
+
+                />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <!--android:onClick="testRemoveAll"-->
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="settingAct"
+                android:background="@mipmap/ic_launcher"
+
+                />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,17 +1,29 @@
 package com.odyssey.apps.collagingpic.starting;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.net.Uri;
+import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.odyssey.apps.collagingpic.R;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by macbookpro on 3/6/18.
@@ -27,7 +39,7 @@ public class GridViewAdapter extends ArrayAdapter<Model_images> {
     ArrayList<Model_images> al_menu = new ArrayList<>();
     int int_position;
     private String selectedPath ;
-//    Boolean bool;
+    //    Boolean bool;
 //    private Bitmap a;
     private String a;
 
@@ -172,10 +184,10 @@ public class GridViewAdapter extends ArrayAdapter<Model_images> {
 
 
 
-            if (MainActivity.selection.contains(a)) {
-                viewHolder.imageView3.setImageResource(R.drawable.tick);
-            }
-            else{
+        if (MainActivity.selection.contains(a)) {
+            viewHolder.imageView3.setImageResource(R.drawable.tick);
+        }
+        else{
 //                if (a == selectedPath) {
 //                    viewHolder.imageView3.setImageResource(R.drawable.tick);
 //                }
@@ -183,7 +195,7 @@ public class GridViewAdapter extends ArrayAdapter<Model_images> {
 //                    viewHolder.imageView3.setImageDrawable(null);
 //                }
 
-                viewHolder.imageView3.setImageDrawable(null);
+            viewHolder.imageView3.setImageDrawable(null);
         }
 
 

@@ -175,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
                     // Continue only if the File was successfully created
                     if (photoFile != null) {
                         Uri photoURI = FileProvider.getUriForFile(MainActivity.this,
+
                                 BuildConfig.APPLICATION_ID + ".provider",
                                 createImageFile());
                         System.out.println("------------------------------"+photoURI);

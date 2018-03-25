@@ -26,6 +26,8 @@ public class IAPAdapter extends BaseAdapter {
     BillingProcessor billingProcessor;
     private String demoPriceList[];
 
+
+
     public IAPAdapter(Context context , BillingProcessor billingProcessor) {
         this.context = context ;
         icons = IAPData.getSharedInstance().getIcons();
@@ -72,6 +74,7 @@ public class IAPAdapter extends BaseAdapter {
             String PRICE = billingProcessor.getPurchaseListingDetails(PRODUCTID).priceText;
             price.setText(PRICE);
         }
+
         else
             price.setText(demoPriceList[i]);
 

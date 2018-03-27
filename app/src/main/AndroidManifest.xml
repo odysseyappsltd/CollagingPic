@@ -26,13 +26,15 @@ package="com.odyssey.apps.collagingpic">
             android:resource="@xml/provider_paths"/>
     </provider>
 
-    <activity android:name="com.odyssey.apps.collagingpic.starting.MainActivity">
+    <activity android:name="com.odyssey.apps.collagingpic.starting.SplashScreen">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
     </activity>
+    <activity android:name="com.odyssey.apps.collagingpic.starting.MainActivity"
+        android:screenOrientation="portrait"/>
     <activity android:name=".starting.AdScreenActivity"
         tools:ignore="DuplicateActivity" />
     <activity android:name=".starting.PhotosActivity"></activity>
@@ -56,3 +58,4 @@ package="com.odyssey.apps.collagingpic">
     <!-- sudipto 1 -->
     <!-- sudipto 2 -->
     <!-- sudipto 3 -->
+    <!-- monir 2 -->

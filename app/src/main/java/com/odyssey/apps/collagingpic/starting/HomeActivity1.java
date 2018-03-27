@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -16,7 +17,7 @@ import com.odyssey.apps.collagingpic.R;
 
 import java.util.Random;
 
-public class HomeActivity extends Activity {
+public class HomeActivity1 extends Activity {
 
     private int[] imageArray;
     int i;
@@ -38,7 +39,7 @@ public class HomeActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_home1);
 
 
 //        imageArray = new int[]{R.drawable.pic12, R.drawable.pic3, R.drawable.sqr3};
@@ -61,16 +62,14 @@ public class HomeActivity extends Activity {
 //        ImageView mImageView4 = (ImageView) findViewById(R.id.collageView4);
 
         RelativeLayout rootLayout = (RelativeLayout) findViewById(R.id.RelativeLayout);
-//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-//        rootLayout.setLayoutParams(params);
-
-
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        rootLayout.setLayoutParams(params);
 
 
         System.out.println("xMaxDp====="+xMaxDp);
         System.out.println("yMaxDp====="+yMaxDp);
 
-        for(i=0; i<MainActivity.selection.size(); i++) {
+        for(i=0;i<MainActivity.selection.size();i++) {
 
 
             Random r = new Random();
@@ -99,7 +98,7 @@ public class HomeActivity extends Activity {
 //            layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
 //            mImageView.setLayoutParams(layoutParams);
 
-            mImageView.setOnTouchListener(new MultiTouchListener(HomeActivity.this));
+            mImageView.setOnTouchListener(new MultiTouchListener(HomeActivity1.this));
 
 
 //
@@ -192,49 +191,6 @@ public class HomeActivity extends Activity {
 
     public int PxToDp(Context context, int px) {
         return (int)(px / context.getResources().getDisplayMetrics().density);
-    }
-
-
-    public void frameAct(View view){
-
-        finish();
-    }
-    public void styleAct(View view){
-
-//        Intent style = new Intent(HomeActivity.this,PopUpActivity.class);
-//        startActivity(style);
-
-
-    }
-    public void aspectAct(View view){
-
-    }
-    public void shareAct(View view){
-
-//    layout to bitmap image
-      /*  RelativeLayout forImage = (RelativeLayout)findViewById(R.id.RelativeLayout);
-
-        forImage.setDrawingCacheEnabled(true);
-
-        forImage.buildDrawingCache();
-
-        Bitmap bm = forImage.getDrawingCache();  */
-
-
-//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.p200);
-//        String path = bitmap.toString();
-//        Uri imageUri = Uri.parse(path);
-//        System.out.println(imageUri);
-//        Intent imageEditorIntent = new AdobeImageIntent.Builder(this).setData(imageUri).build();
-//        startActivityForResult(imageEditorIntent, 1);
-//        finish(); // Comment this out to receive edited image
-
-
-    }
-    public void settingAct(View view){
-//        Intent setting = new Intent(HomeActivity.this,SettingsActivity.class);
-//        startActivity(setting);
-
     }
 
 

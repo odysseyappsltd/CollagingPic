@@ -222,9 +222,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Intent skeleton= new Intent(MainActivity.this, SkeletonActivity.class);
-                startActivity(skeleton);
-
 
                     if (listViewCellNumber == 0) {
                         selectedPath = allImage.get(i);
@@ -362,7 +359,8 @@ public class MainActivity extends AppCompatActivity {
 
                                             }
                                             else{
-
+                                                Intent skeleton= new Intent(MainActivity.this, SkeletonActivity.class);
+                                                startActivity(skeleton);
                                             }
 
                                         }
@@ -552,7 +550,8 @@ public class MainActivity extends AppCompatActivity {
 
                                                 }
                                                 else{
-
+                                                    Intent skeleton= new Intent(MainActivity.this, SkeletonActivity.class);
+                                                    startActivity(skeleton);
                                                 }
 
                                             }

@@ -445,6 +445,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
 
     public void frameAct(View view){
 
+        finish();
     }
     public void styleAct(View view){
 

@@ -64,6 +64,8 @@ dependencies {
     // Monir vai needed
     compile ('jp.wasabeef:blurry:2.1.1')
     compile ('com.github.bumptech.glide:glide:3.7.0')
+    //add splash screen library
+    compile 'gr.pantrif:easy-android-splash-screen:0.0.1'
 
 
 }

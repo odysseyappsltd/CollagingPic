@@ -8,6 +8,7 @@ package="com.odyssey.apps.collagingpic">
     <uses-feature android:name="android.hardware.camera" />
 
 <application
+    android:name=".skeleton.MainApplication"
     android:allowBackup="true"
     android:icon="@mipmap/ic_launcher"
     android:label="@string/app_name"
@@ -43,6 +44,7 @@ package="com.odyssey.apps.collagingpic">
 
     </activity>
     <activity android:name="com.odyssey.apps.IAP.IAPActivity"></activity>
+    <activity android:name=".skeleton.SkeletonActivity"></activity>
     <activity android:name="com.odyssey.apps.Settings.SettingsActivity"></activity>
 
 
@@ -53,3 +55,4 @@ package="com.odyssey.apps.collagingpic">
     <!-- monir 1 -->
     <!-- sudipto 1 -->
     <!-- sudipto 2 -->
+    <!-- sudipto 3 -->

@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -19,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.adobe.creativesdk.aviary.AdobeImageIntent;
 import com.odyssey.apps.Settings.SettingsActivity;
 import com.odyssey.apps.collagingpic.R;
 import com.odyssey.apps.popUp.PopUpActivity;
@@ -453,6 +455,15 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
 
     }
     public void shareAct(View view){
+
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.p200);
+        String path = bitmap.toString();
+        Uri imageUri = Uri.parse(path);
+        System.out.println(imageUri);
+        Intent imageEditorIntent = new AdobeImageIntent.Builder(this).setData(imageUri).build();
+        startActivityForResult(imageEditorIntent, 1);
+        finish(); // Comment this out to receive edited image
+
 
     }
     public void settingAct(View view){

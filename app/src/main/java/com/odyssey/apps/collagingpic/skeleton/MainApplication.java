@@ -1,8 +1,7 @@
-package com.odyssey.apps.collagingpic.AviaryPhotoEdit;
+package com.odyssey.apps.collagingpic.skeleton;
 
 import android.app.Application;
 
-import com.adobe.creativesdk.foundation.auth.IAdobeAuthClientCredentials;
 import com.adobe.creativesdk.foundation.AdobeCSDKFoundation;
 import com.adobe.creativesdk.foundation.auth.IAdobeAuthClientCredentials;
 

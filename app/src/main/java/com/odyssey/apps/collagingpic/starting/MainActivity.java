@@ -33,6 +33,7 @@ import android.widget.Toast;
 
 import com.odyssey.apps.collagingpic.BuildConfig;
 import com.odyssey.apps.collagingpic.R;
+import com.odyssey.apps.collagingpic.skeleton.SkeletonActivity;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -221,6 +222,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+                Intent skeleton= new Intent(MainActivity.this, SkeletonActivity.class);
+                startActivity(skeleton);
 
 
                     if (listViewCellNumber == 0) {
@@ -622,6 +625,10 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                     }
+
+
+
+
 
             }
         });

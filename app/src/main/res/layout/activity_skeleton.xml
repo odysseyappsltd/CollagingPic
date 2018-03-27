@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF00F0"
+    android:background="#000000"
     tools:context="com.odyssey.apps.collagingpic.skeleton.SkeletonActivity">
 
     <RelativeLayout
@@ -42,7 +42,7 @@
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:background="@android:color/black"
         android:fillViewport="true"
         android:scrollbars="none"
@@ -60,7 +60,8 @@
             <Button
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@mipmap/ic_launcher"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/tab_bar_frames_normal2x"
                 android:onClick="frameAct" />
 
             <View
@@ -72,8 +73,9 @@
             <Button
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:onClick="styleAct"
-                android:background="@mipmap/ic_launcher" />
+                android:layout_marginTop="5dp"
+                android:background="@drawable/tab_bar_style_normal2x"
+                android:onClick="styleAct" />
 
             <View
                 android:layout_width="wrap_content"
@@ -84,10 +86,10 @@
             <Button
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:onClick="aspectAct"
-                android:background="@mipmap/ic_launcher"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/tab_bar_aspect_normal2x"
 
-                />
+                android:onClick="aspectAct" />
 
             <View
                 android:layout_width="wrap_content"
@@ -98,10 +100,11 @@
             <Button
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:onClick="shareAct"
-                android:background="@mipmap/ic_launcher"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/tab_bar_share_normal2x"
 
-                />
+                android:onClick="shareAct" />
+
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -111,10 +114,10 @@
             <Button
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:onClick="settingAct"
-                android:background="@mipmap/ic_launcher"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/settings"
 
-                />
+                android:onClick="settingAct" />
 
         </LinearLayout>
     </HorizontalScrollView>

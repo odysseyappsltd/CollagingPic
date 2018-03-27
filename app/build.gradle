@@ -51,9 +51,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     // Adobe CSDK framework dependencies
-    compile ('com.adobe.creativesdk.foundation:auth:0.9.1186')
-    compile ('com.adobe.creativesdk:image:4.8.4')
-    compile ('com.localytics.android:library')
+    compile 'com.adobe.creativesdk.foundation:auth:0.9.1251'
+    compile 'com.adobe.creativesdk:image:4.8.4'
+    compile 'com.localytics.android:library:4.0.1'
     compile ('info.hoang8f:android-segmented:1.0.6')
 
 

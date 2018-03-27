@@ -4,16 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:sc_corner_radius="10dp"
+
     >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#808080"
         android:orientation="vertical"
+        android:weightSum="7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:weightSum="7">
+        app:layout_constraintTop_toTopOf="parent">
 
         <SeekBar
             android:id="@+id/seekBar"
@@ -22,8 +25,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_weight="1"
-            android:background="#F0F0F0" />
+            android:layout_weight="1" />
 
         <info.hoang8f.android.segmented.SegmentedGroup
 
@@ -71,8 +73,7 @@
             android:id="@+id/dynamicViewGroup"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="5"
-            android:background="#969696">
+            android:layout_weight="5">
 
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>

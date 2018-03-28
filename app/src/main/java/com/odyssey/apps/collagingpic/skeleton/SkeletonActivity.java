@@ -21,6 +21,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+
 import com.adobe.creativesdk.aviary.AdobeImageIntent;
 import com.odyssey.apps.Settings.SettingsActivity;
 import com.odyssey.apps.collagingpic.R;

@@ -13,6 +13,7 @@ import android.graphics.RectF;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,16 +21,20 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+
 import com.adobe.creativesdk.aviary.AdobeImageIntent;
 import com.odyssey.apps.Settings.SettingsActivity;
 import com.odyssey.apps.collagingpic.R;
 import com.odyssey.apps.popUp.PopUpActivity;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 public class SkeletonActivity extends AppCompatActivity implements View.OnTouchListener {
 
-
+    private static final String TAG = SkeletonActivity.class.getName();
+    private static final int IMAGE_EDITOR_RESULT = 1;
     private Colage[] allColages = new Colage[50];
     ViewGroup mainView;
     private int initialPosX;
@@ -457,11 +462,16 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
     }
     public void shareAct(View view){
 
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.p200);
-        String path = bitmap.toString();
-        Uri imageUri = Uri.parse(path);
-        System.out.println(imageUri);
-        Intent imageEditorIntent = new AdobeImageIntent.Builder(this).setData(imageUri).build();
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.pp2);
+        File f = new File(getExternalCacheDir()+"/collagingpictempimage.png");
+        try {
+            FileOutputStream outStream = new FileOutputStream(f);
+            bm.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+            outStream.flush();
+            outStream.close();
+        } catch (Exception e) { throw new RuntimeException(e); }
+        System.out.println(Uri.fromFile(f));
+        Intent imageEditorIntent = new AdobeImageIntent.Builder(this).setData(Uri.fromFile(f)).build();
         startActivityForResult(imageEditorIntent, 1);
         finish(); // Comment this out to receive edited image
 
@@ -473,24 +483,27 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case IMAGE_EDITOR_RESULT:
+                    Uri editedImageUri = data.getParcelableExtra(AdobeImageIntent.EXTRA_OUTPUT_URI);
+                    Log.d(TAG, "editedImageUri: " + editedImageUri.toString());
+                    Bundle extra = data.getExtras();
+                    if (extra != null) {
+                        boolean changed = extra.getBoolean(AdobeImageIntent.EXTRA_OUT_BITMAP_CHANGED);
+                        Log.d(TAG, "Image edited: " + changed);
+                        if (changed) {
+                            //
+                        }
+                    }
+                    break;
+            }
+        }
+
+    }
 }
 
-        /*Button popButton = (Button) findViewById(R.id.popButton);
-        popButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,PopUpActivity.class));
-
-
-            }
-        });
-
-        Button settingButtom = (Button) findViewById(R.id.settingsButton);
-        settingButtom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,SettingsActivity.class));
-
-
-            }
-        });*/

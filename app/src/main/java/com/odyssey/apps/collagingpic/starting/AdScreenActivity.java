@@ -53,7 +53,7 @@ public class AdScreenActivity extends AppCompatActivity {
 //        profilePic.setImageDrawable(roundedBitmapDrawable);
 
 
-        ListView listView = findViewById(R.id.ListView);
+        ListView listView = (ListView) findViewById(R.id.ListView);
         CustomAdapter customAdapter = new CustomAdapter(this);
         listView.setAdapter(customAdapter);
 

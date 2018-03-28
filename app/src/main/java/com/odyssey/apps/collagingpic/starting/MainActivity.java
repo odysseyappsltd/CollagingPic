@@ -110,12 +110,12 @@ public class MainActivity extends AppCompatActivity {
         lv_folder = (ListView) findViewById(R.id.listView);
         gv_folder = (GridView) findViewById(R.id.gridView);
         galleryButton = (Button) findViewById(R.id.button2);
-        imageView = findViewById(R.id.imageView);
+        imageView = (ImageView) findViewById(R.id.imageView);
         cameraButton = (Button) findViewById(R.id.button);
-        imageLinearLayout =  findViewById(R.id.imageLinearLayout);
-        horizontalScrollView = findViewById(R.id.horizontalScrollView);
-        cancelButton = findViewById(R.id.cancelButton);
-        button5 = findViewById(R.id.button5);
+        imageLinearLayout = (LinearLayout) findViewById(R.id.imageLinearLayout);
+        horizontalScrollView = (HorizontalScrollView) findViewById(R.id.horizontalScrollView);
+        cancelButton = (Button) findViewById(R.id.cancelButton);
+        button5 = (Button) findViewById(R.id.button5);
 
 
 

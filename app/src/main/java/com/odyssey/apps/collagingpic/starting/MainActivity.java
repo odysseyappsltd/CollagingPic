@@ -30,7 +30,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import com.odyssey.apps.collagingpic.BuildConfig;
 import com.odyssey.apps.collagingpic.R;
 import com.odyssey.apps.collagingpic.skeleton.SkeletonActivity;
@@ -83,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
     int[] layout;
     Bitmap myBitmap;
 
+//    private FirebaseAnalytics mFirebaseAnalytics;
+
     private int[] frameNumberArray = {6,7,5,10,9,6,3,12,3,2,2,2,2,2,2,2};
     private int[][] layoutArray = {{1000,0,1,3,6,15},{1000,3,4,5,6,7,8},{1000,2,11,15,16},{1000,1,9,10,12,13,14,17,19,20},{1000,18,24,25,31,38,39,43,46},{1000,23,32,33,41,42},
             {1000,37,40},{1000,21,22,26,27,34,35,36,44,45,47,48},{1000,29,30},{1000,50},{1000,51},{1000,52},{1000,49},{1000,53},{1000,54},{1000,28}};
@@ -92,6 +93,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Obtain the FirebaseAnalytics instance.
+//        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
 
         final Handler handler = new Handler();

@@ -5,7 +5,6 @@
     <string name="Cancel">Cancel</string>
     <string name="PRO_VERSION">Get Pro Features</string>
     <string name="HelpSettings">HELP &amp; SETTINGS</string>
-    <string name="Store">Store</string>
     <string name="Help">Help</string>
     <string name="TellAFriend">Tell a Friend</string>
     <string name="ContactUs">Contact us</string>
@@ -36,4 +35,5 @@
     <string name="AdvertisementsTitle">Advertisements</string>
     <string name="PatternsSubitle">Unlock 200+ Background Patterns</string>
     <string name="AdvertisementsSubitle">Remove Annoying Advertisements</string>
+    <string name="Store">Store</string>
 </resources>

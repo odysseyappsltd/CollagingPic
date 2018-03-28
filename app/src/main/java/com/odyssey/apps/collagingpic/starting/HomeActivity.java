@@ -2,6 +2,7 @@ package com.odyssey.apps.collagingpic.starting;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -219,6 +220,13 @@ public class HomeActivity extends Activity {
         forImage.buildDrawingCache();
 
         Bitmap bm = forImage.getDrawingCache();  */
+
+      //image filtering
+//        Bitmap result = stickerView.createBitmap();
+//        Bitmap imageviewImageBitmap = Bitmap.createBitmap(result, bgImage.getLeft(), bgImage.getTop(), bgImage.getWidth(), bgImage.getHeight());
+//        DataPassingSingelton.getInstance().setImage(imageviewImageBitmap);
+//        Intent erase = new Intent(MainActivity.this, FilterActivity.class);
+//        startActivityForResult(erase, REQUEST_GET_FILTER_IMAGE);
 
 
 //        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.p200);

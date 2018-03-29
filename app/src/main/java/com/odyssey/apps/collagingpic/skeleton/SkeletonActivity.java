@@ -1,5 +1,6 @@
 package com.odyssey.apps.collagingpic.skeleton;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -11,6 +12,7 @@ import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.net.Uri;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,7 +25,10 @@ import android.widget.RelativeLayout;
 
 
 import com.adobe.creativesdk.aviary.AdobeImageIntent;
+import com.odyssey.apps.IAP.IAPData;
 import com.odyssey.apps.Settings.SettingsActivity;
+import com.odyssey.apps.StaticClasses.CheckIf;
+import com.odyssey.apps.StaticClasses.NotificationCenter;
 import com.odyssey.apps.collagingpic.R;
 import com.odyssey.apps.popUp.PopUpActivity;
 
@@ -67,9 +72,46 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
     private RectF fakeMainView;
     private int layerid;
 
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            purchasedJustNow();
+            System.out.println("Notified !");
+        }
+    };
+
+    @Override
+    public void onDestroy() {
+
+        /*if(mInterstitialAd.isLoaded() && !CheckIf.isPurchased("admob",EditTextActivity.this)){
+            mInterstitialAd.show();
+        }*/
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+        super.onDestroy();
+
+    }
+
+    private void purchasedJustNow(){
+        //collectionView.invalidate();
+        if(CheckIf.isPurchased(IAPData.getSharedInstance().PATTERN,this)) {
+            //findViewById(R.id.ETAdmob).setVisibility(View.GONE);
+        }
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+
         super.onCreate(savedInstanceState);
+
+        //Notifications
+        NotificationCenter.addReceiver("Purchased",mMessageReceiver,this);
+
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_skeleton);
         mVSize = getScreenWidth()-50;

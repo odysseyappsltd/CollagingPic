@@ -14,11 +14,14 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.odyssey.apps.IAP.IAPActivity;
 import com.odyssey.apps.IAP.IAPData;
 import com.odyssey.apps.StaticClasses.CheckIf;
+import com.odyssey.apps.StaticClasses.NotiData;
+import com.odyssey.apps.StaticClasses.NotificationCenter;
 import com.odyssey.apps.collagingpic.R;
 
 /**
@@ -82,6 +85,7 @@ public class PopUpActivity extends Activity {
                                 //Now A Notification is needed to send to change the
                                 //background color as in Singleton
                                 //Send here . . .
+                                NotificationCenter.broadcast(NotiData.getSharedInstance().TIME_TO_PICK_COLOR,PopUpActivity.this);
 
 
 
@@ -130,6 +134,25 @@ public class PopUpActivity extends Activity {
             @Override
             public void onClick(View view) {
                 addLayoutToDynamicView(shapePicker);
+            }
+        });
+
+
+        SeekBar seekBarShrink = (SeekBar) findViewById(R.id.AP_SeekBar_Shrink);
+        seekBarShrink.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                System.out.println(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
             }
         });
 

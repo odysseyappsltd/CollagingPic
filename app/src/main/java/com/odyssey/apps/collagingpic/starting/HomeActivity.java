@@ -1,23 +1,58 @@
 package com.odyssey.apps.collagingpic.starting;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.odyssey.apps.IAP.IAPData;
+import com.odyssey.apps.StaticClasses.CheckIf;
+import com.odyssey.apps.StaticClasses.NotiData;
+import com.odyssey.apps.StaticClasses.NotificationCenter;
 import com.odyssey.apps.collagingpic.R;
+import com.odyssey.apps.popUp.PopUpData;
 
 import java.util.Random;
 
 public class HomeActivity extends Activity {
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            changeColor();
+            System.out.println("Notified !");
+        }
+    };
+
+    @Override
+    public void onDestroy() {
+
+        /*if(mInterstitialAd.isLoaded() && !CheckIf.isPurchased("admob",EditTextActivity.this)){
+            mInterstitialAd.show();
+        }*/
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+        super.onDestroy();
+
+    }
+
+    private void changeColor(){
+
+
+        // Code here to change color . . .
+        System.out.println("Chosen color : " + PopUpData.getSharedInstance().getColor());
+    }
+
 
     private int[] imageArray;
     int i;
@@ -40,6 +75,9 @@ public class HomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        //Notifications
+        NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_COLOR,mMessageReceiver,this);
 
 
 //        imageArray = new int[]{R.drawable.pic12, R.drawable.pic3, R.drawable.sqr3};

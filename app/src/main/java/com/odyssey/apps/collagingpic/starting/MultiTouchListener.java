@@ -1,11 +1,18 @@
 package com.odyssey.apps.collagingpic.starting;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.Toast;
+
 
 public class MultiTouchListener implements OnTouchListener {
 
@@ -80,10 +87,13 @@ public class MultiTouchListener implements OnTouchListener {
     }
 
     private GestureDetector gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+
         @Override
         public boolean onDoubleTap(MotionEvent e) {
 //            Log.d("TEST", "onDoubleTap");
+
             Toast.makeText(context, "onDoubleTap", Toast.LENGTH_SHORT).show();
+
             return super.onDoubleTap(e);
         }
     });
@@ -93,6 +103,8 @@ public class MultiTouchListener implements OnTouchListener {
         mScaleGestureDetector.onTouchEvent(view, event);
         view.bringToFront();
         gestureDetector.onTouchEvent(event);
+
+
         if (!isTranslateEnabled) {
             return true;
         }
@@ -195,4 +207,7 @@ public class MultiTouchListener implements OnTouchListener {
         public float minimumScale;
         public float maximumScale;
     }
+
+
+
 }

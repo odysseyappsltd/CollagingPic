@@ -48,6 +48,8 @@ package="com.odyssey.apps.collagingpic">
     <activity android:name="com.odyssey.apps.IAP.IAPActivity"></activity>
     <activity android:name=".skeleton.SkeletonActivity"></activity>
     <activity android:name="com.odyssey.apps.Settings.SettingsActivity"></activity>
+    <activity android:name="com.odyssey.apps.collagingpic.starting.FilterActivity"
+        android:screenOrientation="portrait"/>
 
 
 </application>

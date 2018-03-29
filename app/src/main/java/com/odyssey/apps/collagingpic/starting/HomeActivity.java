@@ -6,15 +6,26 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.adobe.creativesdk.aviary.AdobeImageIntent;
+import com.odyssey.apps.Settings.SettingsActivity;
 import com.odyssey.apps.collagingpic.R;
+import com.odyssey.apps.collagingpic.skeleton.SkeletonActivity;
+import com.odyssey.apps.popUp.PopUpActivity;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.Random;
 
 public class HomeActivity extends Activity {
@@ -34,6 +45,9 @@ public class HomeActivity extends Activity {
     int xMaxDp;
     int yMaxDp;
     int[][] positionArray = {{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}};
+
+    private static final String TAG = SkeletonActivity.class.getName();
+    private static final int IMAGE_EDITOR_RESULT = 1;
 
 
     @Override
@@ -82,7 +96,6 @@ public class HomeActivity extends Activity {
             System.out.println("yRandom====="+yRandom);
 
             ImageView mImageView = new ImageView(this);
-//            mImageView.setImageResource(imageArray[i]);
             mImageView.setImageBitmap( resize(BitmapFactory.decodeFile(MainActivity.selection.get(i)),800,800) );
 
             float scaleX = (float) (mImageView.getScaleX() * 0.5);
@@ -92,6 +105,8 @@ public class HomeActivity extends Activity {
             mImageView.setX(xRandom-xRandom*scaleX);
             mImageView.setY(yRandom-yRandom*scaleY);
             mImageView.setRotation(rotation);
+
+            mImageView.setTag(Integer.valueOf(i));
             rootLayout.addView(mImageView);
 //            setContentView(rootLayout);
 
@@ -202,46 +217,79 @@ public class HomeActivity extends Activity {
     }
     public void styleAct(View view){
 
-//        Intent style = new Intent(HomeActivity.this,PopUpActivity.class);
-//        startActivity(style);
+        Intent style = new Intent(HomeActivity.this,PopUpActivity.class);
+        startActivity(style);
 
 
     }
     public void aspectAct(View view){
 
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.pp2);
+        File f = new File(getExternalCacheDir()+"/collagingpictempimage.png");
+        try {
+            FileOutputStream outStream = new FileOutputStream(f);
+            bm.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+            outStream.flush();
+            outStream.close();
+        } catch (Exception e) { throw new RuntimeException(e); }
+        System.out.println(Uri.fromFile(f));
+        Intent imageEditorIntent = new AdobeImageIntent.Builder(this).setData(Uri.fromFile(f)).build();
+        startActivityForResult(imageEditorIntent, 1);
+//        finish(); // Comment this out to receive edited image
+
     }
+
     public void shareAct(View view){
 
 //    layout to bitmap image
-      /*  RelativeLayout forImage = (RelativeLayout)findViewById(R.id.RelativeLayout);
+        RelativeLayout forImage = (RelativeLayout)findViewById(R.id.RelativeLayout);
 
         forImage.setDrawingCacheEnabled(true);
 
         forImage.buildDrawingCache();
 
-        Bitmap bm = forImage.getDrawingCache();  */
+        Bitmap result = forImage.getDrawingCache();
 
       //image filtering
-//        Bitmap result = stickerView.createBitmap();
-//        Bitmap imageviewImageBitmap = Bitmap.createBitmap(result, bgImage.getLeft(), bgImage.getTop(), bgImage.getWidth(), bgImage.getHeight());
-//        DataPassingSingelton.getInstance().setImage(imageviewImageBitmap);
-//        Intent erase = new Intent(MainActivity.this, FilterActivity.class);
-//        startActivityForResult(erase, REQUEST_GET_FILTER_IMAGE);
 
+        ByteArrayOutputStream bs = new ByteArrayOutputStream();
+        result.compress(Bitmap.CompressFormat.PNG, 100, bs);
+        byte[] byteArray = bs.toByteArray();
+        Intent send = new Intent(HomeActivity.this, FilterActivity.class);
+        send.putExtra("collageBitmap",byteArray);
+        startActivity(send);
 
-//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.p200);
-//        String path = bitmap.toString();
-//        Uri imageUri = Uri.parse(path);
-//        System.out.println(imageUri);
-//        Intent imageEditorIntent = new AdobeImageIntent.Builder(this).setData(imageUri).build();
-//        startActivityForResult(imageEditorIntent, 1);
-//        finish(); // Comment this out to receive edited image
 
 
     }
     public void settingAct(View view){
-//        Intent setting = new Intent(HomeActivity.this,SettingsActivity.class);
-//        startActivity(setting);
+        Intent setting = new Intent(HomeActivity.this,SettingsActivity.class);
+        startActivity(setting);
+
+    }
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case IMAGE_EDITOR_RESULT:
+                    Uri editedImageUri = data.getParcelableExtra(AdobeImageIntent.EXTRA_OUTPUT_URI);
+                    Log.d(TAG, "editedImageUri: " + editedImageUri.toString());
+                    Bundle extra = data.getExtras();
+                    if (extra != null) {
+                        boolean changed = extra.getBoolean(AdobeImageIntent.EXTRA_OUT_BITMAP_CHANGED);
+                        Log.d(TAG, "Image edited: " + changed);
+                        if (changed) {
+                            //
+                        }
+                    }
+                    break;
+            }
+        }
 
     }
 

@@ -3,6 +3,7 @@ package com.odyssey.apps.collagingpic.starting;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -73,11 +74,10 @@ public class FilterActivity extends AppCompatActivity {
         doneButton = (Button)  findViewById(R.id.buttonDone);
         cancelButton = (Button) findViewById(R.id.buttonCancel);
 
-//        Bundle extras = getIntent().getExtras();
-//        byte[] byteArray = extras.getByteArray("FilterImage");
-//
-//
-//        bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        Bundle extras = getIntent().getExtras();
+        byte[] byteArray = extras.getByteArray("collageBitmap");
+
+        bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
 
         //bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.smily1);
 
@@ -170,20 +170,19 @@ public class FilterActivity extends AppCompatActivity {
         });
 
 
-        mInterstitialAd = new InterstitialAd(this);
-//        mInterstitialAd.setAdUnitId(AdmobClass.INTERSTITIAL_AD_UNIT_ID);
-        AdRequest request = new AdRequest.Builder().build();
-        mInterstitialAd.loadAd(request);
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-
-                if (mInterstitialAd.isLoaded()) {
-                    mInterstitialAd.show();
-                }
-
-            }
-        });
+//        mInterstitialAd = new InterstitialAd(this);
+//        AdRequest request = new AdRequest.Builder().build();
+//        mInterstitialAd.loadAd(request);
+//        mInterstitialAd.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdLoaded() {
+//
+//                if (mInterstitialAd.isLoaded()) {
+//                    mInterstitialAd.show();
+//                }
+//
+//            }
+//        });
 
 
     }

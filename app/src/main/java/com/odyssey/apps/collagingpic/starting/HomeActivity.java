@@ -42,6 +42,7 @@ public class HomeActivity extends Activity {
         public void onReceive(Context context, Intent intent) {
             // Get extra data included in the Intent
             changeColor();
+            changePattern();
             System.out.println("Notified !");
         }
     };
@@ -61,7 +62,26 @@ public class HomeActivity extends Activity {
 
 
         // Code here to change color . . .
-        System.out.println("Chosen color : " + PopUpData.getSharedInstance().getColor());
+
+        int receviedColor = PopUpData.getSharedInstance().getColor() ;
+        System.out.println("Chosen color : " + receviedColor );
+        ImageView imageView = (ImageView)findViewById(R.id.collageBgView);
+        imageView.setBackgroundColor(receviedColor);
+
+
+    }
+
+    private void changePattern(){
+
+
+        // Code here to change color . . .
+
+        int receviedPatternID = PopUpData.getSharedInstance().getPattern() ;
+        System.out.println("Chosen Pattern : " + receviedPatternID );
+        ImageView imageView = (ImageView)findViewById(R.id.collageBgView);
+        imageView.setImageResource(receviedPatternID);
+
+
     }
 
 
@@ -92,6 +112,8 @@ public class HomeActivity extends Activity {
 
         //Notifications
         NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_COLOR,mMessageReceiver,this);
+        NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_PATTERN,mMessageReceiver,this);
+
 
 
 //        imageArray = new int[]{R.drawable.pic12, R.drawable.pic3, R.drawable.sqr3};

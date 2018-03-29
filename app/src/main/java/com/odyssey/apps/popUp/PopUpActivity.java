@@ -121,6 +121,7 @@ public class PopUpActivity extends Activity {
 
                             PopUpData.getSharedInstance().savePatternForIndex(i);
                             //Send Notification
+                            NotificationCenter.broadcast(NotiData.getSharedInstance().TIME_TO_PICK_PATTERN,PopUpActivity.this);
                         }
 
                     }

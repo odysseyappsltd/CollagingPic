@@ -41,6 +41,7 @@ public class HomeActivity extends Activity {
 
     ImageView imageView;
     ImageView imageView2;
+    int shrinkValue;
 
 
 
@@ -128,7 +129,7 @@ public class HomeActivity extends Activity {
 
     private void changeShrinkValue(){
 
-        int shrinkValue = PopUpData.getSharedInstance().getShrinkValue();
+         shrinkValue = PopUpData.getSharedInstance().getShrinkValue();
         System.out.println(shrinkValue);
     }
 
@@ -331,6 +332,16 @@ public class HomeActivity extends Activity {
 
         Intent style = new Intent(HomeActivity.this,PopUpActivity.class);
         startActivity(style);
+
+
+        for(i=0; i<MainActivity.selection.size(); i++) {
+
+//            float scaleX = (float) (mImageView.getScaleX() * 0.5);
+//            float scaleY = (float) (mImageView.getScaleY() * 0.5);
+//            mImageView.setScaleX(scaleX);
+//            mImageView.setScaleY(scaleY);
+
+        }
 
 
     }

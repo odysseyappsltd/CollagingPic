@@ -81,11 +81,15 @@ public class PopUpActivity extends Activity {
                                 //Here is color
                                 System.out.println(color);
                                 //Color Saved in Singleton
-                                PopUpData.getSharedInstance().saveColor(color);
+
                                 //Now A Notification is needed to send to change the
                                 //background color as in Singleton
                                 //Send here . . .
-                                NotificationCenter.broadcast(NotiData.getSharedInstance().TIME_TO_PICK_COLOR,PopUpActivity.this);
+                                if(color != PopUpData.getSharedInstance().getColor()){
+                                    PopUpData.getSharedInstance().saveColor(color);
+                                    NotificationCenter.broadcast(NotiData.getSharedInstance().TIME_TO_PICK_COLOR,PopUpActivity.this);
+                                }
+
 
 
 
@@ -140,10 +144,15 @@ public class PopUpActivity extends Activity {
 
 
         SeekBar seekBarShrink = (SeekBar) findViewById(R.id.AP_SeekBar_Shrink);
+        seekBarShrink.setProgress(PopUpData.getSharedInstance().getShrinkValue());
         seekBarShrink.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                System.out.println(progress);
+
+                if(progress != PopUpData.getSharedInstance().getShrinkValue()){
+                    PopUpData.getSharedInstance().saveShrinkValue(progress);
+                    NotificationCenter.broadcast(NotiData.getSharedInstance().TIME_TO_PICK_SHRINK_VALUE,PopUpActivity.this);
+                }
             }
 
             @Override

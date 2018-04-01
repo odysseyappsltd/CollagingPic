@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
@@ -37,15 +38,43 @@ import java.util.Random;
 
 public class HomeActivity extends Activity {
 
-    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+
+    ImageView imageView;
+    ImageView imageView2;
+    int shrinkValue;
+
+
+
+
+    private BroadcastReceiver mColorReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             // Get extra data included in the Intent
-            changeColor();
+                changeColor();
+            System.out.println("Notified !");
+        }
+    };
+
+
+    private BroadcastReceiver mPatternReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
             changePattern();
             System.out.println("Notified !");
         }
     };
+    private BroadcastReceiver mShrinkValueReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            changeShrinkValue();
+            System.out.println("Notified !");
+        }
+    };
+
+
+
 
     @Override
     public void onDestroy() {
@@ -53,7 +82,9 @@ public class HomeActivity extends Activity {
         /*if(mInterstitialAd.isLoaded() && !CheckIf.isPurchased("admob",EditTextActivity.this)){
             mInterstitialAd.show();
         }*/
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mColorReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mPatternReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mShrinkValueReceiver);
         super.onDestroy();
 
     }
@@ -62,10 +93,15 @@ public class HomeActivity extends Activity {
 
 
         // Code here to change color . . .
+        imageView.setVisibility(View.VISIBLE);
+        imageView2.setVisibility(View.INVISIBLE);
+//        imageView2.setVisibility(View.VISIBLE);
+//        imageView.setVisibility(View.INVISIBLE);
+
 
         int receviedColor = PopUpData.getSharedInstance().getColor() ;
         System.out.println("Chosen color : " + receviedColor );
-        ImageView imageView = (ImageView)findViewById(R.id.collageBgView);
+
         imageView.setBackgroundColor(receviedColor);
 
 
@@ -75,13 +111,26 @@ public class HomeActivity extends Activity {
 
 
         // Code here to change color . . .
+        imageView2.setVisibility(View.VISIBLE);
+        imageView.setVisibility(View.INVISIBLE);
+//        imageView.setVisibility(View.VISIBLE);
+//        imageView2.setVisibility(View.INVISIBLE);
+
+
 
         int receviedPatternID = PopUpData.getSharedInstance().getPattern() ;
         System.out.println("Chosen Pattern : " + receviedPatternID );
-        ImageView imageView = (ImageView)findViewById(R.id.collageBgView);
-        imageView.setImageResource(receviedPatternID);
+        imageView2.setImageResource(receviedPatternID);
+//        Drawable bm = getResources().getDrawable(receviedPatternID);
+//        imageView.setBackground(bm);
 
 
+    }
+
+    private void changeShrinkValue(){
+
+         shrinkValue = PopUpData.getSharedInstance().getShrinkValue();
+        System.out.println(shrinkValue);
     }
 
 
@@ -111,13 +160,17 @@ public class HomeActivity extends Activity {
         setContentView(R.layout.activity_home);
 
         //Notifications
-        NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_COLOR,mMessageReceiver,this);
-        NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_PATTERN,mMessageReceiver,this);
+        NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_COLOR,mColorReceiver,this);
+        NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_PATTERN,mPatternReceiver,this);
+        NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_SHRINK_VALUE,mShrinkValueReceiver,this);
 
 
 
-//        imageArray = new int[]{R.drawable.pic12, R.drawable.pic3, R.drawable.sqr3};
-//        imageArray = getIntent().getStringExtra("EXTRA_SESSION_ID");
+        imageView = (ImageView)findViewById(R.id.collageBgView);
+        imageView2 = (ImageView)findViewById(R.id.collageBgView2);
+
+//        imageView2.setVisibility(View.INVISIBLE);
+//        imageView.setVisibility(View.VISIBLE);
 
          xMaxDp = PxToDp(this,xMax);
          yMaxDp = PxToDp(this,yMax);
@@ -279,6 +332,16 @@ public class HomeActivity extends Activity {
 
         Intent style = new Intent(HomeActivity.this,PopUpActivity.class);
         startActivity(style);
+
+
+        for(i=0; i<MainActivity.selection.size(); i++) {
+
+//            float scaleX = (float) (mImageView.getScaleX() * 0.5);
+//            float scaleY = (float) (mImageView.getScaleY() * 0.5);
+//            mImageView.setScaleX(scaleX);
+//            mImageView.setScaleY(scaleY);
+
+        }
 
 
     }

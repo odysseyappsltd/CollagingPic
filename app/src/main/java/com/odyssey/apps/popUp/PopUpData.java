@@ -16,9 +16,11 @@ public class PopUpData {
         return instance;
     }
 
-    //Shape Picker
+    //Shape picker
 
-
+    private int shrinkValue = 0;
+    public int getShrinkValue(){return shrinkValue; }
+    public void saveShrinkValue(int value){this.shrinkValue = value ;}
 
     // ColorPicker
     private int color = 0xFF394572;

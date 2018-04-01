@@ -16,7 +16,8 @@ public class NotiData {
 
     public final String TIME_TO_PICK_COLOR = "colorpicker";
     public final String TIME_TO_PICK_PATTERN = "patternpicker";
-    public final String TIME_TO_PICK_SHAPE = "shapepicker";
+    public final String TIME_TO_PICK_SHRINK_VALUE = "shrinkvaluepickerpicker";
+
 
 
 

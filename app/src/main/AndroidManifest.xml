@@ -1,61 +1,62 @@
-<?xml version="1.0" encoding="utf-8"?><manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-package="com.odyssey.apps.collagingpic">
+    package="com.odyssey.apps.collagingpic">
+
     <uses-permission android:name="com.android.vending.BILLING" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
 
-<application
-    android:name=".skeleton.MainApplication"
-    android:allowBackup="true"
-    android:icon="@drawable/collaging"
-    android:label="@string/app_name"
-    android:roundIcon="@drawable/collaging_circle"
-    android:supportsRtl="true"
-    android:theme="@style/AppTheme">
+    <application
+        android:name=".skeleton.MainApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/collaging"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/collaging_circle"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
 
-    <provider
-        android:name="android.support.v4.content.FileProvider"
-        android:authorities="${applicationId}.provider"
-        android:exported="false"
-        android:grantUriPermissions="true">
-        <meta-data
-            android:name="android.support.FILE_PROVIDER_PATHS"
-            android:resource="@xml/provider_paths"/>
-    </provider>
+        <activity android:name=".starting.SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-    <activity android:name="com.odyssey.apps.collagingpic.starting.SplashScreen">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".starting.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".starting.AdScreenActivity"
+            tools:ignore="DuplicateActivity" />
+        <activity android:name=".starting.PhotosActivity" />
+        <activity android:name=".starting.HomeActivity" />
+        <activity
+            android:name="com.odyssey.apps.popUp.PopUpActivity"
+            android:theme="@style/AppTheme.PopUpTheme"></activity>
+        <activity android:name="com.odyssey.apps.IAP.IAPActivity" />
+        <activity android:name=".skeleton.SkeletonActivity" />
+        <activity android:name="com.odyssey.apps.Settings.SettingsActivity" />
+        <activity
+            android:name=".starting.FilterActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".aspectActivity"
+            android:theme="@style/AppTheme.PopUpTheme"></activity>
+    </application>
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
-    <activity android:name="com.odyssey.apps.collagingpic.starting.MainActivity"
-        android:screenOrientation="portrait"/>
-    <activity android:name=".starting.AdScreenActivity"
-        tools:ignore="DuplicateActivity" />
-    <activity android:name=".starting.PhotosActivity"></activity>
-    <activity android:name=".starting.HomeActivity"></activity>
-
-    <activity
-        android:name="com.odyssey.apps.popUp.PopUpActivity"
-        android:theme="@style/AppTheme.PopUpTheme">
-
-    </activity>
-    <activity android:name="com.odyssey.apps.IAP.IAPActivity"></activity>
-    <activity android:name=".skeleton.SkeletonActivity"></activity>
-    <activity android:name="com.odyssey.apps.Settings.SettingsActivity"></activity>
-    <activity android:name="com.odyssey.apps.collagingpic.starting.FilterActivity"
-        android:screenOrientation="portrait"/>
-
-
-</application>
-
-</manifest >
-
+</manifest>
     <!-- monir 1 -->
     <!-- sudipto 1 -->
     <!-- sudipto 2 -->
@@ -66,3 +67,4 @@ package="com.odyssey.apps.collagingpic">
     <!-- monir 3 -->
     <!-- sudipto 6 -->
     <!-- monir 4 -->
+    <!-- sudipto 7 -->

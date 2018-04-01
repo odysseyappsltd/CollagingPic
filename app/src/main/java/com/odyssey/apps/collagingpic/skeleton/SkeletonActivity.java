@@ -10,18 +10,22 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.PointF;
+import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 
 import com.adobe.creativesdk.aviary.AdobeImageIntent;
@@ -48,10 +52,8 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
     int slider_bar;
     int NO_OF_COLLAGE_FRAMES;
 
-    private Matrix matrix1 = new Matrix();
-    private Matrix savedMatrix1 = new Matrix();
-    private Matrix matrix2 = new Matrix();
-    private Matrix savedMatrix2 = new Matrix();
+    private Matrix[] matrix = new Matrix[50];
+    private Matrix[] savedMatrix = new Matrix[50];
     // we can be in one of these 3 states
     private static final int NONE = 0;
     private static final int DRAG = 1;
@@ -61,9 +63,10 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
     private PointF start = new PointF();
     private PointF mid = new PointF();
     private float oldDist = 1f;
+    private PointF[] oldDxy = new PointF[50];//oldDx=0.0f,oldDy=0.0f;
+    private float[] oldScale = new float[50];
 
-    private ImageView view;
-    private  Bitmap bmap;
+
     private int mVSize;
     private Colage topColage;
     private Colage bottomColage;
@@ -71,6 +74,17 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
     private Colage rightColage;
     private RectF fakeMainView;
     private int layerid;
+    private static final float MIN_ZOOM = 1f,MAX_ZOOM = 5f;
+    private int CLICK_ACTION_THRESHOLD = 20;
+    RelativeLayout pop;
+    int swapFrom=0;
+    Boolean isSwap=false;
+    ArrayList<RectF> layerSize;
+    int imgSet[] = new int[]{R.drawable.image,R.drawable.image2,
+            R.drawable.image,R.drawable.image2,
+            R.drawable.image,R.drawable.image2,
+            R.drawable.image,R.drawable.image2,
+            R.drawable.image,R.drawable.image2};
 
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
@@ -116,6 +130,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         setContentView(R.layout.activity_skeleton);
         mVSize = getScreenWidth()-50;
 
+        RelativeLayout fullView = (RelativeLayout)findViewById(R.id.colage_view);
         mainView = (RelativeLayout)findViewById(R.id.view);
         RelativeLayout.LayoutParams mainParam = (RelativeLayout.LayoutParams) mainView.getLayoutParams();
         mainParam.width=mVSize;
@@ -134,7 +149,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
 
         for(int i=0;i<NO_OF_COLLAGE_FRAMES;i++) {
             Colage colage = addColage((int)(mVSize*layerSize.get(i).left), (int)(mVSize*layerSize.get(i).top),
-                    (int)(mVSize*layerSize.get(i).right), (int)(mVSize*layerSize.get(i).bottom));
+                    (int)(mVSize*layerSize.get(i).right), (int)(mVSize*layerSize.get(i).bottom),i);
             mainView.addView(colage);
             allColages[i] = colage;
             colage.setOnTouchListener(this);
@@ -142,8 +157,20 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
             colage.setWidthBrothers(layerWBro.get(i));
 
         }
+        for(int i=0;i<savedMatrix.length;i++){
+            matrix[i]=new Matrix();
+            savedMatrix[i]=new Matrix();
+            oldDxy[i]=new PointF(0.0f,0.0f);
+            oldDxy[i]=new PointF(0.0f,0.0f);
+            oldScale[i]=1.0f;
+        }
+
+        pop = (RelativeLayout) LayoutInflater.from(this).inflate(
+                R.layout.popupview, null);
+        fullView.addView(pop);
+        pop.setVisibility(View.INVISIBLE);
     }
-    public Colage addColage(int x,int y, int width,int height){
+    public Colage addColage(int x,int y, int width,int height, int i){
 
 
         Colage colage = new Colage(this);
@@ -156,15 +183,15 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         colage.setPadding(slider_bar,slider_bar,slider_bar,slider_bar);
 
         ImageView iv = new ImageView(this);
-        iv.setTag("1");
-        iv.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.p2));
+        iv.setTag(Integer.valueOf(i));
+        iv.setImageBitmap(BitmapFactory.decodeResource(getResources(), imgSet[i]));
         iv.setBackgroundColor(Color.parseColor("#225465"));
         iv.setScaleType(ImageView.ScaleType.MATRIX);
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.MATCH_PARENT);
-
         iv.setLayoutParams(lp);
+
         colage.addView(iv);
         iv.setOnTouchListener(this);
         return colage;
@@ -261,7 +288,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         lparam.height=y-(int)fakeMainView.top;
         tc.setLayoutParams(lparam);
         tc.invalidate();
-
+        scaleImageView(tc);
         moveTopCollageBrothers(tc);
     }
     private void moveBottomCollage(int y){
@@ -271,7 +298,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         lparam.topMargin=y;
         bc.setLayoutParams(lparam);
         bc.invalidate();
-
+        scaleImageView(bc);
         moveBottomCollageBrothers(bc);
     }
     private void moveLeftCollage(int x){
@@ -280,6 +307,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         lparam.width=x-(int)fakeMainView.left;
         lc.setLayoutParams(lparam);
         lc.invalidate();
+        scaleImageView(lc);
         moveLeftCollageBrothers(lc);
     }
     private void moveRightCollage(int x){
@@ -291,6 +319,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         lparamrc.leftMargin=x;
         rc.setLayoutParams(lparamrc);
         rc.invalidate();
+        scaleImageView(rc);
         moveRightCollageBrothers(rc);
     }
 
@@ -348,85 +377,165 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
 
         }
     }
+    private void scaleImageView(Colage cl){
+        ImageView view = (ImageView) cl.getChildAt(0);
+        int tag = (Integer) view.getTag();
+        limitDrag(matrix[tag],view,tag);
+        view.setImageMatrix(matrix[tag]);
+        Bitmap bmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(bmap);
+        view.draw(canvas);
+    }
 
     public boolean onTouch(View v, MotionEvent event) {
+
         final int X = (int) event.getRawX();
         final int Y = (int) event.getRawY();
+        ImageView view;
 
         // handle touch events here
+        if(v instanceof ImageView)
+            view = (ImageView) v;
+        else
+        {
+            RelativeLayout rl = (RelativeLayout)v;
+            view = (ImageView) rl.getChildAt(0);
+        }
+
+        int tag = (Integer) view.getTag();
         if(v instanceof ImageView) {
 
-            view = (ImageView) v;
+
             switch (event.getAction() & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_DOWN:
 
-                    if (view.getTag().equals("1"))
-                        savedMatrix1.set(matrix1);
-                    else
-                        savedMatrix2.set(matrix2);
+                    savedMatrix[tag].set(matrix[tag]);
                     start.set(event.getX(), event.getY());
                     mode = DRAG;
+                    //handler.postDelayed(mLongPressed, 300);
                     //lastEvent = null;
                     break;
                 case MotionEvent.ACTION_POINTER_DOWN:
                     oldDist = spacing(event);
-                    if (oldDist > 10f) {
-                        if (view.getTag().equals("1"))
-                            savedMatrix1.set(matrix1);
-                        else
-                            savedMatrix2.set(matrix2);
+                    if (oldDist > 5f) {
+
+                        savedMatrix[tag].set(matrix[tag]);
                         midPoint(mid, event);
                         mode = ZOOM;
                     }
                     break;
                 case MotionEvent.ACTION_UP:
+                    if (isAClick(start.x, event.getX(), start.y, event.getY())) {
+
+                        if(isSwap==true){
+                            ImageView s1 = (ImageView) allColages[swapFrom].getChildAt(0);
+                            ImageView s2 = (ImageView) allColages[(Integer) view.getTag()].getChildAt(0);
+                            Drawable temp = s2.getDrawable();
+                            s2.setImageDrawable(s1.getDrawable());
+                            s1.setImageDrawable(temp);
+
+                            Matrix sm1 = savedMatrix[swapFrom];
+                            savedMatrix[swapFrom] = savedMatrix[(Integer) view.getTag()];
+                            savedMatrix[(Integer) view.getTag()] = sm1;
+                            Matrix m1 = matrix[swapFrom];
+                            matrix[swapFrom] = matrix[(Integer) view.getTag()];
+                            matrix[(Integer) view.getTag()] = m1;
+                            scaleImageView(allColages[swapFrom]);
+                            isSwap=false;
+                            swapFrom=0;
+                        }
+                        else {
+                            if (pop.getVisibility() == View.INVISIBLE) {
+                                pop.setX(event.getRawX() - 20);
+                                pop.setY(event.getRawY());
+                                pop.setVisibility(View.VISIBLE);
+                                swapFrom = (Integer) view.getTag();
+                            } else {
+                                pop.setVisibility(View.INVISIBLE);
+                            }
+                        }
+
+                    }
+                    /*handler.removeCallbacks(mLongPressed);
+
+                    longPress=false;
+                    imgViewFoundWIthPoint=false;*/
                 case MotionEvent.ACTION_POINTER_UP:
                     mode = NONE;
                     //lastEvent = null;
                     break;
                 case MotionEvent.ACTION_MOVE:
+                    /*handler.removeCallbacks(mLongPressed);
+                    if(!longPress) {
+                        if (mode == DRAG) {
+
+
+                            float dx = event.getX() - start.x;
+                            float dy = event.getY() - start.y;
+
+
+                            matrix[tag].set(savedMatrix[tag]);
+                            matrix[tag].postTranslate(dx, dy);
+
+
+                        } else if (mode == ZOOM) {
+                            float newDist = spacing(event);
+                            if (newDist > 5f) {
+
+
+                                matrix[tag].set(savedMatrix[tag]);
+                                float scale = (newDist / oldDist);
+                                matrix[tag].postScale(scale, scale, mid.x, mid.y);
+
+
+                                //limitZoom(matrix[tag]);
+                            }
+                        }
+                    }
+                    else{
+                        if(mode==DRAG){
+                            float dx = X-(int)mainView.getX();
+                            float dy = Y-(int)mainView.getY();
+
+                            if(!imgViewFoundWIthPoint){
+                                dragiv = foundImageViewWithPoints(dx,dy);
+                                imgViewFoundWIthPoint=true;
+                            }
+
+                            dragiv.setX(dx);
+                            dragiv.setY(dy);
+
+                        }
+                    }*/
                     if (mode == DRAG) {
-                        if (view.getTag().equals("1"))
-                            matrix1.set(savedMatrix1);
-                        else
-                            matrix2.set(savedMatrix2);
+
 
                         float dx = event.getX() - start.x;
                         float dy = event.getY() - start.y;
 
-                        if (view.getTag().equals("1"))
-                            matrix1.postTranslate(dx, dy);
-                        else
-                            matrix2.postTranslate(dx, dy);
+
+                        matrix[tag].set(savedMatrix[tag]);
+                        matrix[tag].postTranslate(dx, dy);
+
 
                     } else if (mode == ZOOM) {
                         float newDist = spacing(event);
-                        if (newDist > 10f) {
-                            if (view.getTag().equals("1"))
-                                matrix1.set(savedMatrix1);
-                            else
-                                matrix2.set(savedMatrix2);
+                        if (newDist > 5f) {
 
 
+                            matrix[tag].set(savedMatrix[tag]);
                             float scale = (newDist / oldDist);
+                            matrix[tag].postScale(scale, scale, mid.x, mid.y);
 
-                            if (view.getTag().equals("1"))
-                                matrix1.postScale(scale, scale, mid.x, mid.y);
-                            else
-                                matrix2.postScale(scale, scale, mid.x, mid.y);
+
+                            //limitZoom(matrix[tag]);
                         }
                     }
                     break;
             }
-            Matrix matrix;
-            matrix = matrix2;
-            if (view.getTag().equals("1"))
-                matrix = matrix1;
 
-            view.setImageMatrix(matrix);
-            bmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.RGB_565);
-            Canvas canvas = new Canvas(bmap);
-            view.draw(canvas);
+
+
 
         }
         else{
@@ -444,7 +553,43 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
                     // _FixedDeltaX=X;
             }
         }
+        limitDrag(matrix[tag],view,tag);
+        view.setImageMatrix(matrix[tag]);
+        Bitmap bmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(bmap);
+        view.draw(canvas);
+
         return true;
+    }
+    private boolean isAClick(float startX, float endX, float startY, float endY) {
+        float differenceX = Math.abs(startX - endX);
+        float differenceY = Math.abs(startY - endY);
+        return !(differenceX > CLICK_ACTION_THRESHOLD/* =5 */ || differenceY > CLICK_ACTION_THRESHOLD);
+    }
+    public void swap(View view){
+        isSwap=true;
+        pop.setVisibility(View.INVISIBLE);
+        Toast.makeText(this, "select an image to swap", Toast.LENGTH_SHORT).show();
+    }
+    public void setaspect(){
+        float aspectratio=1.0f;
+        RelativeLayout.LayoutParams mainParam = (RelativeLayout.LayoutParams) mainView.getLayoutParams();
+        mainParam.width=mVSize;
+        mainParam.height=(int)(mVSize*aspectratio);
+        mainView.setLayoutParams(mainParam);
+        for(int i=0;i<NO_OF_COLLAGE_FRAMES;i++){
+            Colage colage = allColages[i];
+            /*RelativeLayout.LayoutParams colparam = (RelativeLayout.LayoutParams) colage.getLayoutParams();
+            colparam.height=(int)(mVSize*aspectratio);
+            colparam.topMargin=(int)(colparam.topMargin*aspectratio);*/
+
+            RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(
+                    (int)(mainParam.width*layerSize.get(i).right),(int)(mainParam.height*layerSize.get(i).bottom));
+            rlp.topMargin = (int)(mainParam.height*layerSize.get(i).top);
+            rlp.leftMargin = (int)(mainParam.width*layerSize.get(i).left);
+            colage.setLayoutParams(rlp);
+
+        }
     }
 
     public int PxToDp(Context context, int px) {
@@ -488,6 +633,53 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         double delta_y = (event.getY(0) - event.getY(1));
         double radians = Math.atan2(delta_y, delta_x);
         return (float) Math.toDegrees(radians);
+    }
+    private void limitDrag(Matrix m,ImageView iv,int tag) {
+        float[] values = new float[9];
+        m.getValues(values);
+        float transX = values[Matrix.MTRANS_X];
+        float transY = values[Matrix.MTRANS_Y];
+        float scaleX = values[Matrix.MSCALE_X];
+        float scaleY = values[Matrix.MSCALE_Y];
+
+
+
+        Rect bounds = iv.getDrawable().getBounds();
+        float width = bounds.right - bounds.left;
+        float height = bounds.bottom - bounds.top;
+
+        if((scaleX*width < allColages[tag].getWidth())) {
+            scaleX = (allColages[tag].getWidth() / width);
+            scaleY = (allColages[tag].getWidth() / width);
+            //transY=0.0f;
+        }
+        else if((scaleX*height < allColages[tag].getHeight())){
+            scaleX = (allColages[tag].getHeight() / height);
+            scaleY = (allColages[tag].getHeight() / height);
+        }
+        System.out.println("scale"+scaleX);
+        System.out.println("width"+allColages[tag].getWidth());
+
+
+        if(transX >= 0.0f) {
+            transX = 0.0f;
+        } else if(transX+(width*scaleX) < iv.getWidth()) {
+            transX = -(width*scaleX)+iv.getWidth();
+        }
+
+        if(transY >= 0.0f) {
+            transY = 0.0f;
+        } else if(transY+(height*scaleY) < iv.getHeight()) {
+            transY = -(height*scaleY)+iv.getHeight();
+        }
+
+
+        values[Matrix.MTRANS_X] = transX;
+        values[Matrix.MTRANS_Y] = transY;
+        values[Matrix.MSCALE_X] = scaleX;
+        values[Matrix.MSCALE_Y] = scaleY;
+        m.setValues(values);
+
     }
 
     public void frameAct(View view){
@@ -547,5 +739,6 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         }
 
     }
+
 }
 

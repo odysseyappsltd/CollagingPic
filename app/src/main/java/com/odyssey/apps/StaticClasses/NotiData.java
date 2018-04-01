@@ -19,6 +19,4 @@ public class NotiData {
     public final String TIME_TO_PICK_SHAPE = "shapepicker";
 
 
-
-
 }

@@ -52,7 +52,7 @@
         <activity
             android:name=".starting.FilterActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".aspectActivity"
+        <activity android:name=".skeleton.aspectActivity"
             android:theme="@style/AppTheme.PopUpTheme"></activity>
     </application>
 
@@ -68,3 +68,4 @@
     <!-- sudipto 6 -->
     <!-- monir 4 -->
     <!-- sudipto 7 -->
+    <!-- monir 5 -->

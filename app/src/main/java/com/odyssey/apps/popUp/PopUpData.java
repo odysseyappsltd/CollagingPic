@@ -16,6 +16,19 @@ public class PopUpData {
         return instance;
     }
 
+
+    //round picker
+
+    private int roundValue = 0;
+    public int getRoundValue(){return roundValue; }
+    public void saveRoundValue(int value){this.roundValue = value ;}
+
+    //shade picker
+
+    private int shadeValue = 0;
+    public int getShadeValue(){return shadeValue; }
+    public void saveShadeValue(int value){this.shadeValue = value ;}
+
     //Shape picker
 
     private int shrinkValue = 0;

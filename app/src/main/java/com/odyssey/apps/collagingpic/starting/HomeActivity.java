@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,7 +17,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.odyssey.apps.IAP.IAPData;
 import com.odyssey.apps.StaticClasses.CheckIf;
@@ -73,6 +76,24 @@ public class HomeActivity extends Activity {
         }
     };
 
+    private BroadcastReceiver mRoundValueReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            changeRoundValue();
+            System.out.println("Notified !");
+        }
+    };
+
+    private BroadcastReceiver mShadeValueReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            changeShadeValue();
+            System.out.println("Notified !");
+        }
+    };
+
 
 
 
@@ -85,6 +106,8 @@ public class HomeActivity extends Activity {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mColorReceiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mPatternReceiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mShrinkValueReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRoundValueReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mShadeValueReceiver);
         super.onDestroy();
 
     }
@@ -130,7 +153,36 @@ public class HomeActivity extends Activity {
     private void changeShrinkValue(){
 
          shrinkValue = PopUpData.getSharedInstance().getShrinkValue();
-        System.out.println(shrinkValue);
+        System.out.println("Shrink Value Received :" + shrinkValue);
+
+        for( int i=0; i<MainActivity.selection.size(); i++) {
+            rootLayout.findViewWithTag(i).setPadding(shrinkValue,shrinkValue,shrinkValue,shrinkValue);
+        }
+
+
+    }
+
+    private void changeRoundValue(){
+
+        int roundValue = PopUpData.getSharedInstance().getRoundValue();
+        System.out.println("Round Value Received :" +roundValue);
+
+        // Code here . . .
+
+
+    }
+
+
+
+
+    private void changeShadeValue(){
+
+        int shadeValue = PopUpData.getSharedInstance().getShadeValue();
+        System.out.println("Shade Value Received :" +shadeValue);
+
+        // Code here . . .
+
+
     }
 
 
@@ -153,6 +205,9 @@ public class HomeActivity extends Activity {
     private static final String TAG = SkeletonActivity.class.getName();
     private static final int IMAGE_EDITOR_RESULT = 1;
 
+    RelativeLayout rootLayout;
+//    ImageView mImageView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,6 +218,8 @@ public class HomeActivity extends Activity {
         NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_COLOR,mColorReceiver,this);
         NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_PATTERN,mPatternReceiver,this);
         NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_SHRINK_VALUE,mShrinkValueReceiver,this);
+        NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_ROUND_VALUE,mRoundValueReceiver,this);
+        NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_SHADE_VALUE,mShadeValueReceiver,this);
 
 
 
@@ -183,17 +240,16 @@ public class HomeActivity extends Activity {
             }
         });
 
-//        ImageView mImageView1 = (ImageView) findViewById(R.id.collageView1);
-//        ImageView mImageView2 = (ImageView) findViewById(R.id.collageView2);
-//        ImageView mImageView3 = (ImageView) findViewById(R.id.collageView3);
-//        ImageView mImageView4 = (ImageView) findViewById(R.id.collageView4);
 
-        RelativeLayout rootLayout = (RelativeLayout) findViewById(R.id.RelativeLayout);
+        createImageView();
+
+    }
+
+    private void createImageView(){
+
+        rootLayout = (RelativeLayout) findViewById(R.id.RelativeLayout);
 //        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 //        rootLayout.setLayoutParams(params);
-
-
-
 
         System.out.println("xMaxDp====="+xMaxDp);
         System.out.println("yMaxDp====="+yMaxDp);
@@ -208,11 +264,12 @@ public class HomeActivity extends Activity {
             System.out.println("xRandom====="+xRandom);
             System.out.println("yRandom====="+yRandom);
 
-            ImageView mImageView = new ImageView(this);
+             ImageView mImageView = new ImageView(this);
             mImageView.setImageBitmap( resize(BitmapFactory.decodeFile(MainActivity.selection.get(i)),800,800) );
 
             float scaleX = (float) (mImageView.getScaleX() * 0.5);
             float scaleY = (float) (mImageView.getScaleY() * 0.5);
+            mImageView.setBackgroundColor(Color.WHITE);
             mImageView.setScaleX(scaleX);
             mImageView.setScaleY(scaleY);
             mImageView.setX(xRandom-xRandom*scaleX);
@@ -230,70 +287,7 @@ public class HomeActivity extends Activity {
 
             mImageView.setOnTouchListener(new MultiTouchListener(HomeActivity.this));
 
-
-//
-
-
-
-
-//            final GestureDetector.SimpleOnGestureListener listener = new GestureDetector.SimpleOnGestureListener() {
-//                @Override
-//                public boolean onDoubleTap(MotionEvent e) {
-//                    Toast.makeText(HomeActivity.this, "onDoubleTap", Toast.LENGTH_SHORT).show();
-//                    return true;
-//                }
-//
-//                @Override
-//                public void onLongPress(MotionEvent e) {
-//                    Toast.makeText(HomeActivity.this, "onLongPress", Toast.LENGTH_SHORT).show();
-//                }
-//            };
-//
-//            final GestureDetector detector = new GestureDetector(listener);
-//
-//            detector.setOnDoubleTapListener(listener);
-//            detector.setIsLongpressEnabled(true);
-//
         }
-
-
-
-
-//        ImageView mImageView2 = new ImageView(this);
-//        mImageView2.setImageResource(R.drawable.pic12);
-//        rootLayout.addView(mImageView2);
-//        setContentView(rootLayout);
-//
-//        ImageView mImageView3 = new ImageView(this);
-//        mImageView3.setImageResource(R.drawable.pic3);
-//        rootLayout.addView(mImageView3);
-//        setContentView(rootLayout);
-
-//        RelativeLayout.LayoutParams layoutParams1 =
-//                (RelativeLayout.LayoutParams)mImageView1.getLayoutParams();
-//        layoutParams1.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-//        mImageView1.setLayoutParams(layoutParams1);
-//
-//        RelativeLayout.LayoutParams layoutParams2 =
-//                (RelativeLayout.LayoutParams)mImageView2.getLayoutParams();
-//        layoutParams2.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-//        mImageView2.setLayoutParams(layoutParams2);
-//
-//
-//        RelativeLayout.LayoutParams layoutParams3 =
-//                (RelativeLayout.LayoutParams)mImageView3.getLayoutParams();
-//        layoutParams3.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-//        mImageView3.setLayoutParams(layoutParams3);
-
-
-//        mImageView1.setOnTouchListener(new MultiTouchListener());
-//        mImageView2.setOnTouchListener(new MultiTouchListener());
-//        mImageView3.setOnTouchListener(new MultiTouchListener());
-
-//        findViewById(R.id.collageView1).setOnTouchListener(new MultiTouchListener());
-//        findViewById(R.id.collageView2).setOnTouchListener(new MultiTouchListener());
-//        findViewById(R.id.collageView3).setOnTouchListener(new MultiTouchListener());
-//        findViewById(R.id.collageView4).setOnTouchListener(new MultiTouchListener());
 
     }
 
@@ -332,17 +326,6 @@ public class HomeActivity extends Activity {
 
         Intent style = new Intent(HomeActivity.this,PopUpActivity.class);
         startActivity(style);
-
-
-        for(i=0; i<MainActivity.selection.size(); i++) {
-
-//            float scaleX = (float) (mImageView.getScaleX() * 0.5);
-//            float scaleY = (float) (mImageView.getScaleY() * 0.5);
-//            mImageView.setScaleX(scaleX);
-//            mImageView.setScaleY(scaleY);
-
-        }
-
 
     }
     public void aspectAct(View view){

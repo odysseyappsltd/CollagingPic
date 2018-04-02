@@ -32,6 +32,7 @@ import com.adobe.creativesdk.aviary.AdobeImageIntent;
 import com.odyssey.apps.IAP.IAPData;
 import com.odyssey.apps.Settings.SettingsActivity;
 import com.odyssey.apps.StaticClasses.CheckIf;
+import com.odyssey.apps.StaticClasses.NotiData;
 import com.odyssey.apps.StaticClasses.NotificationCenter;
 import com.odyssey.apps.collagingpic.R;
 import com.odyssey.apps.popUp.PopUpActivity;
@@ -96,6 +97,15 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         }
     };
 
+    private BroadcastReceiver mAspectValueReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            setaspect();
+            System.out.println("Notified !");
+        }
+    };
+
     @Override
     public void onDestroy() {
 
@@ -103,6 +113,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
             mInterstitialAd.show();
         }*/
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mAspectValueReceiver);
         super.onDestroy();
 
     }
@@ -124,6 +135,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
 
         //Notifications
         NotificationCenter.addReceiver("Purchased",mMessageReceiver,this);
+        NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_ASPECT_VALUE,mAspectValueReceiver,this);
 
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -572,7 +584,12 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         Toast.makeText(this, "select an image to swap", Toast.LENGTH_SHORT).show();
     }
     public void setaspect(){
-        float aspectratio=1.0f;
+        //Set aspect is being called against evry button click
+        //float aspectratio=1.0f;
+        float aspectratio = AspectData.getSharedInstance().getAspectValue();
+        System.out.println("Received aspect value : " + aspectratio);
+
+
         RelativeLayout.LayoutParams mainParam = (RelativeLayout.LayoutParams) mainView.getLayoutParams();
         mainParam.width=mVSize;
         mainParam.height=(int)(mVSize*aspectratio);

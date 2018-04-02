@@ -166,7 +166,52 @@ public class PopUpActivity extends Activity {
             }
         });
 
+        SeekBar seekBarRound = (SeekBar) shapePicker.findViewById(R.id.AP_SeekBar_Round);
+        seekBarRound.setProgress(PopUpData.getSharedInstance().getRoundValue());
+        seekBarRound.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
+                if(progress != PopUpData.getSharedInstance().getRoundValue()){
+                    PopUpData.getSharedInstance().saveRoundValue(progress);
+                    NotificationCenter.broadcast(NotiData.getSharedInstance().TIME_TO_PICK_ROUND_VALUE,PopUpActivity.this);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+
+        SeekBar seekBarShade= (SeekBar) shapePicker.findViewById(R.id.AP_SeekBar_Shade);
+        seekBarShade.setProgress(PopUpData.getSharedInstance().getShadeValue());
+        seekBarShade.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                if(progress != PopUpData.getSharedInstance().getShadeValue()){
+                    PopUpData.getSharedInstance().saveShadeValue(progress);
+                    NotificationCenter.broadcast(NotiData.getSharedInstance().TIME_TO_PICK_SHADE_VALUE,PopUpActivity.this);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
 
 

@@ -11,4 +11,5 @@
     <dimen name="pattern_cell">50dp</dimen>
     <dimen name="border">10dp</dimen>
     <dimen name="slider_bar">5dp</dimen>
+    <dimen name="aspect_controller">40dp</dimen>
 </resources>

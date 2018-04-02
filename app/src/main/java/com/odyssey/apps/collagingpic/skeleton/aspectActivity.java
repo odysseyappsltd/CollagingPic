@@ -2,6 +2,7 @@ package com.odyssey.apps.collagingpic.skeleton;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 
 import com.odyssey.apps.StaticClasses.NotiData;
@@ -15,6 +16,14 @@ public class aspectActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aspect);
+
+        // Setting Display Metrics for Activity
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels;
+        int height = displayMetrics.heightPixels;
+        int border = (int) getResources().getDimension(R.dimen.aspect_controller);
+        getWindow().setLayout((int)(width*1.0),(int)(border));
     }
     public void aspect(View view){
         float aspectratio = 1.0f;

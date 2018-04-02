@@ -31,7 +31,7 @@ public class PopUpData {
 
     //Shape picker
 
-    private int shrinkValue = 0;
+    private int shrinkValue = 40;
     public int getShrinkValue(){return shrinkValue; }
     public void saveShrinkValue(int value){this.shrinkValue = value ;}
 

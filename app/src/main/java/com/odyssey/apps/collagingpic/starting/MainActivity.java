@@ -364,6 +364,7 @@ public class MainActivity extends AppCompatActivity {
                                             }
                                             else{
                                                 Intent skeleton= new Intent(MainActivity.this, SkeletonActivity.class);
+                                                skeleton.putExtra("layerId", layout[(Integer) v.getTag()]);
                                                 startActivity(skeleton);
                                             }
 
@@ -555,6 +556,7 @@ public class MainActivity extends AppCompatActivity {
                                                 }
                                                 else{
                                                     Intent skeleton= new Intent(MainActivity.this, SkeletonActivity.class);
+                                                    skeleton.putExtra("layerId", layout[(Integer) v.getTag()]);
                                                     startActivity(skeleton);
                                                 }
 

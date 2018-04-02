@@ -9,12 +9,20 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.PointF;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +30,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -35,7 +44,9 @@ import com.odyssey.apps.StaticClasses.CheckIf;
 import com.odyssey.apps.StaticClasses.NotiData;
 import com.odyssey.apps.StaticClasses.NotificationCenter;
 import com.odyssey.apps.collagingpic.R;
+import com.odyssey.apps.collagingpic.starting.MainActivity;
 import com.odyssey.apps.popUp.PopUpActivity;
+import com.odyssey.apps.popUp.PopUpData;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -81,11 +92,12 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
     int swapFrom=0;
     Boolean isSwap=false;
     ArrayList<RectF> layerSize;
-    int imgSet[] = new int[]{R.drawable.image,R.drawable.image2,
+    /*int imgSet[] = new int[]{R.drawable.image,R.drawable.image2,
             R.drawable.image,R.drawable.image2,
             R.drawable.image,R.drawable.image2,
             R.drawable.image,R.drawable.image2,
-            R.drawable.image,R.drawable.image2};
+            R.drawable.image,R.drawable.image2};*/
+    Bitmap imgSet[] = new Bitmap[50];
 
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
@@ -106,6 +118,120 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         }
     };
 
+    private BroadcastReceiver mColorReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            changeColor();
+            System.out.println("Notified !");
+        }
+    };
+
+    private BroadcastReceiver mPatternReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            changePattern();
+            System.out.println("Notified !");
+        }
+    };
+    private BroadcastReceiver mShrinkValueReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            changeShrinkValue();
+            System.out.println("Notified !");
+        }
+    };
+
+    private BroadcastReceiver mRoundValueReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            changeRoundValue();
+            System.out.println("Notified !");
+        }
+    };
+
+    private BroadcastReceiver mShadeValueReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            changeShadeValue();
+            System.out.println("Notified !");
+        }
+    };
+
+
+
+    private void changeColor(){
+
+
+        // Code here to change color . . .
+
+        int receviedColor = PopUpData.getSharedInstance().getColor() ;
+        System.out.println("Chosen color : " + receviedColor );
+        mainView.setBackgroundColor(receviedColor);
+
+
+
+    }
+
+    private void changePattern(){
+
+
+        // Code here to change color . . .
+
+        int receviedPatternID = PopUpData.getSharedInstance().getPattern() ;
+        System.out.println("Chosen Pattern : " + receviedPatternID );
+        //mainView.setBackgroundColor(Color.TRANSPARENT);
+        mainView.setBackground(ContextCompat.getDrawable(this, receviedPatternID));
+
+
+    }
+
+    private void changeShrinkValue(){
+
+        int shrinkValue = PopUpData.getSharedInstance().getShrinkValue();
+        System.out.println("Shrink Value Received :" + shrinkValue);
+        for(int i=0;i<NO_OF_COLLAGE_FRAMES;i++){
+            Colage colage = allColages[i];
+            colage.setPadding(slider_bar+((int)(shrinkValue/11.0f)-3),slider_bar+((int)(shrinkValue/11.0f)-3),
+                    slider_bar+((int)(shrinkValue/11.0f)-3),slider_bar+((int)(shrinkValue/11.0f)-3));
+        }
+
+        // Code here  . .
+
+
+    }
+
+    private void changeRoundValue(){
+
+        int roundValue = PopUpData.getSharedInstance().getRoundValue();
+        System.out.println("Round Value Received :" +roundValue);
+        /*for(int i=0;i<NO_OF_COLLAGE_FRAMES;i++) {
+            Colage col = allColages[i];
+            ImageView iv = (ImageView) col.getChildAt(0);
+            Drawable dr = iv.getDrawable();
+            Bitmap bm = ((BitmapDrawable)dr).getBitmap();
+            Bitmap roundedBitmap = roundCornerImage(bm,roundValue);
+            iv.setImageBitmap(roundedBitmap);
+        }*/
+
+
+    }
+
+
+    private void changeShadeValue(){
+
+        int shadeValue = PopUpData.getSharedInstance().getShadeValue();
+        System.out.println("Shade Value Received :" +shadeValue);
+
+        // Code here . . .
+
+
+    }
+
     @Override
     public void onDestroy() {
 
@@ -114,6 +240,11 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         }*/
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mAspectValueReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mColorReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mPatternReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mShrinkValueReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRoundValueReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mShadeValueReceiver);
         super.onDestroy();
 
     }
@@ -125,6 +256,27 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         }
     }
 
+    private static Bitmap resize(Bitmap image, int maxWidth, int maxHeight) {
+        if (maxHeight > 0 && maxWidth > 0) {
+            int width = image.getWidth();
+            int height = image.getHeight();
+            float ratioBitmap = (float) width / (float) height;
+            float ratioMax = (float) maxWidth / (float) maxHeight;
+
+            int finalWidth = maxWidth;
+            int finalHeight = maxHeight;
+            if (ratioMax > ratioBitmap) {
+                finalWidth = (int) ((float)maxHeight * ratioBitmap);
+            } else {
+                finalHeight = (int) ((float)maxWidth / ratioBitmap);
+            }
+            image = Bitmap.createScaledBitmap(image, finalWidth, finalHeight, true);
+            return image;
+        } else {
+            return image;
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,10 +284,27 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
 
 
         super.onCreate(savedInstanceState);
+        for(int i=0;i<MainActivity.selection.size();i++) {
+            Bitmap bitmap = BitmapFactory.decodeFile(MainActivity.selection.get(i));
+            imgSet[i] = resize(bitmap, 800, 800);
+        }
+
+        layerid = getIntent().getIntExtra("layerId",1);
+        if(layerid!=0&&MainActivity.selection.size()==1){
+            for(int i=0;i<4;i++){
+                imgSet[i]=imgSet[0];
+            }
+        }
 
         //Notifications
         NotificationCenter.addReceiver("Purchased",mMessageReceiver,this);
         NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_ASPECT_VALUE,mAspectValueReceiver,this);
+        NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_COLOR,mColorReceiver,this);
+        NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_PATTERN,mPatternReceiver,this);
+        NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_SHRINK_VALUE,mShrinkValueReceiver,this);
+        NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_ROUND_VALUE,mRoundValueReceiver,this);
+        NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_SHADE_VALUE,mShadeValueReceiver,this);
+
 
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -151,7 +320,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
 
         border = (int) getResources().getDimension(R.dimen.border);
         slider_bar = (int) getResources().getDimension(R.dimen.slider_bar);
-        layerid=48;
+        //layerid=48;
 
         LayerFrame layer = new LayerFrame(layerid);
         ArrayList<RectF> layerSize = layer.getSize();
@@ -181,8 +350,30 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
                 R.layout.popupview, null);
         fullView.addView(pop);
         pop.setVisibility(View.INVISIBLE);
+        //scaleImageView(allColages[0]);
+        //scaleAllImageView();
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                scaleAllImageView();
+            }
+        }, 1000);
+
+        if(PopUpData.getSharedInstance().getPattern()==R.drawable.p1)
+            changeColor();
+        else
+            changePattern();
+
+        changeRoundValue();
+        changeShadeValue();
+        changeShrinkValue();
     }
-    public Colage addColage(int x,int y, int width,int height, int i){
+
+
+
+    public Colage addColage(int x, int y, int width, int height, int i){
 
 
         Colage colage = new Colage(this);
@@ -196,7 +387,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
 
         ImageView iv = new ImageView(this);
         iv.setTag(Integer.valueOf(i));
-        iv.setImageBitmap(BitmapFactory.decodeResource(getResources(), imgSet[i]));
+        iv.setImageBitmap(imgSet[i]);
         iv.setBackgroundColor(Color.parseColor("#225465"));
         iv.setScaleType(ImageView.ScaleType.MATRIX);
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
@@ -398,6 +589,19 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         Canvas canvas = new Canvas(bmap);
         view.draw(canvas);
     }
+    private void scaleAllImageView(){
+        for(int i=0;i<NO_OF_COLLAGE_FRAMES;i++) {
+            Colage cl = allColages[i];
+            ImageView view = (ImageView) cl.getChildAt(0);
+            int tag = (Integer) view.getTag();
+            limitDrag(matrix[tag], view, tag);
+            view.setImageMatrix(matrix[tag]);
+            Bitmap bmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.RGB_565);
+            Canvas canvas = new Canvas(bmap);
+            view.draw(canvas);
+        }
+    }
+
 
     public boolean onTouch(View v, MotionEvent event) {
 
@@ -600,13 +804,26 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
             colparam.height=(int)(mVSize*aspectratio);
             colparam.topMargin=(int)(colparam.topMargin*aspectratio);*/
 
+            LayerFrame layertemp = new LayerFrame(layerid);
+            ArrayList<RectF> layerSizeTemp = layertemp.getSize();
+
+            //System.out.println("width"+mainParam.width);
+            //System.out.println("top"+layerSizeTemp.get(i).top);
+
             RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(
-                    (int)(mainParam.width*layerSize.get(i).right),(int)(mainParam.height*layerSize.get(i).bottom));
-            rlp.topMargin = (int)(mainParam.height*layerSize.get(i).top);
-            rlp.leftMargin = (int)(mainParam.width*layerSize.get(i).left);
+                    (int)(mainParam.width*layerSizeTemp.get(i).right),(int)(mainParam.height*layerSizeTemp.get(i).bottom));
+            rlp.topMargin = (int)(mainParam.height*layerSizeTemp.get(i).top);
+            rlp.leftMargin = (int)(mainParam.width*layerSizeTemp.get(i).left);
             colage.setLayoutParams(rlp);
 
         }
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                scaleAllImageView();
+            }
+        }, 100);
     }
 
     public int PxToDp(Context context, int px) {
@@ -709,6 +926,9 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         startActivity(style);
     }
     public void aspectAct(View view){
+
+        Intent aspect = new Intent(SkeletonActivity.this,aspectActivity.class);
+        startActivity(aspect);
 
     }
     public void shareAct(View view){

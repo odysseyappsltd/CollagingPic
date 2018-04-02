@@ -10,12 +10,16 @@
 
         <SeekBar
             android:id="@+id/AP_SeekBar_Round"
+            android:progressTint="@android:color/white"
+            android:thumbTint="#f0f0f0"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"/>
 
         <SeekBar
             android:id="@+id/AP_SeekBar_Shade"
+            android:progressTint="@android:color/white"
+            android:thumbTint="#f0f0f0"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />

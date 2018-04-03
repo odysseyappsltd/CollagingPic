@@ -38,6 +38,7 @@ import android.widget.Toast;
 
 
 import com.adobe.creativesdk.aviary.AdobeImageIntent;
+import com.baoyz.actionsheet.ActionSheet;
 import com.odyssey.apps.IAP.IAPData;
 import com.odyssey.apps.Settings.SettingsActivity;
 import com.odyssey.apps.StaticClasses.CheckIf;
@@ -52,7 +53,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 
-public class SkeletonActivity extends AppCompatActivity implements View.OnTouchListener {
+public class SkeletonActivity extends AppCompatActivity implements View.OnTouchListener , ActionSheet.ActionSheetListener{
 
     private static final String TAG = SkeletonActivity.class.getName();
     private static final int IMAGE_EDITOR_RESULT = 1;
@@ -932,7 +933,14 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
 
     }
     public void shareAct(View view){
+        // Set actions at the listener below . . .
+        ActionSheet.createBuilder(this, getSupportFragmentManager())
+                .setCancelButtonTitle(getString(R.string.Cancel))
+                .setOtherButtonTitles(getString(R.string.Share), getString(R.string.SaveToAlbum))
+                .setCancelableOnTouchOutside(true)
+                .setListener(SkeletonActivity.this).show();
 
+        /*
         Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.pp2);
         File f = new File(getExternalCacheDir()+"/collagingpictempimage.png");
         try {
@@ -945,6 +953,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         Intent imageEditorIntent = new AdobeImageIntent.Builder(this).setData(Uri.fromFile(f)).build();
         startActivityForResult(imageEditorIntent, 1);
         finish(); // Comment this out to receive edited image
+        */
 
 
     }
@@ -977,5 +986,19 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
 
     }
 
+    // Listeners for ACtion Methods
+    @Override
+    public void onDismiss(ActionSheet actionSheet, boolean isCancel) {
+
+        // Code if you need  . . .
+
+    }
+
+    @Override
+    public void onOtherButtonClick(ActionSheet actionSheet, int index) {
+
+        // Code here for different indexea . . .
+
+    }
 }
 

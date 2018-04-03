@@ -20,6 +20,7 @@
         app:layout_constraintVertical_bias="0.51"
         >
 
+
         <RelativeLayout
             android:id="@+id/view"
             android:layout_width="300dp"
@@ -27,6 +28,50 @@
             android:layout_centerInParent="true"
             android:background="@android:color/background_light"
             android:padding="5dp"></RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/popupview"
+            android:layout_width="110dp"
+            android:layout_height="130dp"
+            android:background="@drawable/popup_bottom_left">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/button5"
+                    android:layout_width="80dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginTop="10dp"
+                    android:minHeight="35dp"
+                    android:text="Edit" />
+
+
+                <Button
+                    android:id="@+id/button6"
+                    android:layout_width="80dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="14dp"
+                    android:minHeight="35dp"
+                    android:onClick="swap"
+                    android:text="swap" />
+
+                <Button
+                    android:id="@+id/button7"
+                    android:layout_width="80dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="14dp"
+                    android:minHeight="35dp"
+                    android:text="ALbum" />
+
+
+            </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
 
     <FrameLayout

@@ -11,7 +11,7 @@
     <RelativeLayout
         android:id="@+id/frameRelativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="200dp"
         android:background="#4D4D4D"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +28,7 @@
         <Button
             android:id="@+id/button5"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="32dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:background="@android:color/transparent"
@@ -39,7 +39,7 @@
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="136dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/button5"
@@ -58,9 +58,9 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="40dp"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +75,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="200dp"
         android:background="@android:color/black"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -106,36 +106,45 @@
             android:layout_height="20dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
             android:background="@drawable/down_arrow2" />
 
     </RelativeLayout>
-
-
-
 
     <GridView
         android:id="@+id/gridView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="250dp"
         android:numColumns="4"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/AMAdmob"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/listView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="250dp"
         android:background="@android:color/darker_gray"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/AMAdmob"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!--app:layout_constraintHorizontal_bias="0.0"-->
+
+    <FrameLayout
+        android:id="@+id/AMAdmob"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"></FrameLayout>
 
 </android.support.constraint.ConstraintLayout>

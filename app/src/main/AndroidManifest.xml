@@ -54,6 +54,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".skeleton.aspectActivity"
             android:theme="@style/AppTheme.PopUpTheme"></activity>
+        <activity android:name=".skeleton.aspectActivityForFreeStyle"
+            android:theme="@style/AppTheme.PopUpTheme"></activity>
     </application>
 
 </manifest>
@@ -71,3 +73,4 @@
     <!-- monir 5 -->
     <!-- ashraf 1 -->
     <!-- sudipto 8 -->
+    <!-- monir 6 -->

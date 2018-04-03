@@ -7,27 +7,40 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.animation.Transformation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.odyssey.apps.IAP.IAPData;
-import com.odyssey.apps.StaticClasses.CheckIf;
+
 import com.odyssey.apps.StaticClasses.NotiData;
 import com.odyssey.apps.StaticClasses.NotificationCenter;
 import com.adobe.creativesdk.aviary.AdobeImageIntent;
 import com.odyssey.apps.Settings.SettingsActivity;
 import com.odyssey.apps.collagingpic.R;
+import com.odyssey.apps.collagingpic.skeleton.AspectData;
+import com.odyssey.apps.collagingpic.skeleton.Colage;
+import com.odyssey.apps.collagingpic.skeleton.LayerFrame;
+import com.odyssey.apps.collagingpic.skeleton.aspectActivityForFreeStyle;
 import com.odyssey.apps.popUp.PopUpData;
 import com.odyssey.apps.collagingpic.skeleton.SkeletonActivity;
 import com.odyssey.apps.popUp.PopUpActivity;
@@ -37,7 +50,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Random;
+import android.graphics.PorterDuff.Mode;
+
+import it.sephiroth.android.library.picasso.Picasso;
+
 
 public class HomeActivity extends Activity {
 
@@ -93,6 +112,15 @@ public class HomeActivity extends Activity {
             System.out.println("Notified !");
         }
     };
+    private BroadcastReceiver mAspectValueReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            setaspect();
+            System.out.println("Notified !");
+        }
+    };
+
 
 
 
@@ -103,6 +131,7 @@ public class HomeActivity extends Activity {
         /*if(mInterstitialAd.isLoaded() && !CheckIf.isPurchased("admob",EditTextActivity.this)){
             mInterstitialAd.show();
         }*/
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mAspectValueReceiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mColorReceiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mPatternReceiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mShrinkValueReceiver);
@@ -170,6 +199,16 @@ public class HomeActivity extends Activity {
         // Code here . . .
 
 
+        for( int i=0; i<MainActivity.selection.size(); i++) {
+            ImageView img = (ImageView) rootLayout.findViewWithTag(i);
+            img.setImageBitmap(roundCornerImage(bitmapArray.get(i),roundValue));
+
+//            RoundedImageView img2 = new RoundedImageView(rootLayout.findViewWithTag(i).getContext());
+//            img2.setImageBitmap(bitmapArray.get(i));
+
+
+        }
+
     }
 
 
@@ -196,6 +235,7 @@ public class HomeActivity extends Activity {
     public static int getScreenHeight() {
         return Resources.getSystem().getDisplayMetrics().heightPixels;
     }
+
     int xMax = getScreenWidth();
     int yMax = getScreenHeight();
     int xMaxDp;
@@ -205,8 +245,11 @@ public class HomeActivity extends Activity {
     private static final String TAG = SkeletonActivity.class.getName();
     private static final int IMAGE_EDITOR_RESULT = 1;
 
+    ArrayList<Bitmap> bitmapArray = new ArrayList<Bitmap>();
+
     RelativeLayout rootLayout;
-//    ImageView mImageView;
+    float layoutHeight;
+    float layoutWidth;
 
 
     @Override
@@ -216,6 +259,7 @@ public class HomeActivity extends Activity {
 
         //Notifications
         NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_COLOR,mColorReceiver,this);
+        NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_ASPECT_VALUE,mAspectValueReceiver,this);
         NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_PATTERN,mPatternReceiver,this);
         NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_SHRINK_VALUE,mShrinkValueReceiver,this);
         NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_ROUND_VALUE,mRoundValueReceiver,this);
@@ -232,6 +276,13 @@ public class HomeActivity extends Activity {
          xMaxDp = PxToDp(this,xMax);
          yMaxDp = PxToDp(this,yMax);
 
+        rootLayout = (RelativeLayout) findViewById(R.id.RelativeLayout);
+//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//        rootLayout.setLayoutParams(params);
+        layoutHeight = getScreenHeight()-150;
+        layoutWidth = getScreenWidth();
+
+
         findViewById(R.id.collageBgView).setOnTouchListener(new OnTouchListener() {
 
             @Override
@@ -247,9 +298,6 @@ public class HomeActivity extends Activity {
 
     private void createImageView(){
 
-        rootLayout = (RelativeLayout) findViewById(R.id.RelativeLayout);
-//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-//        rootLayout.setLayoutParams(params);
 
         System.out.println("xMaxDp====="+xMaxDp);
         System.out.println("yMaxDp====="+yMaxDp);
@@ -265,7 +313,9 @@ public class HomeActivity extends Activity {
             System.out.println("yRandom====="+yRandom);
 
              ImageView mImageView = new ImageView(this);
-            mImageView.setImageBitmap( resize(BitmapFactory.decodeFile(MainActivity.selection.get(i)),800,800) );
+             Bitmap imgBitmap = resize(BitmapFactory.decodeFile(MainActivity.selection.get(i)),800,800);
+            mImageView.setImageBitmap( imgBitmap );
+            bitmapArray.add(imgBitmap);
 
             float scaleX = (float) (mImageView.getScaleX() * 0.5);
             float scaleY = (float) (mImageView.getScaleY() * 0.5);
@@ -292,6 +342,29 @@ public class HomeActivity extends Activity {
     }
 
 
+    public Bitmap roundCornerImage(Bitmap raw, float round) {
+        int width = raw.getWidth();
+        int height = raw.getHeight();
+        Bitmap result = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(result);
+        canvas.drawARGB(0, 0, 0, 0);
+
+        final Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setColor(Color.parseColor("#000000"));
+
+        final Rect rect = new Rect(0, 0, width, height);
+        final RectF rectF = new RectF(rect);
+
+        canvas.drawRoundRect(rectF, round, round, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+        canvas.drawBitmap(raw, rect, rect, paint);
+
+        return result;
+    }
+
+
     private static Bitmap resize(Bitmap image, int maxWidth, int maxHeight) {
         if (maxHeight > 0 && maxWidth > 0) {
             int width = image.getWidth();
@@ -313,6 +386,33 @@ public class HomeActivity extends Activity {
         }
     }
 
+
+    public void setaspect(){
+        //Set aspect is being called against evry button click
+        //float aspectratio=1.0f;
+
+
+        float aspectratio = AspectData.getSharedInstance().getAspectValue();
+
+        System.out.println("Received aspect value : " + aspectratio);
+
+
+        RelativeLayout.LayoutParams mainParam = (RelativeLayout.LayoutParams) rootLayout.getLayoutParams();
+        if(aspectratio==(float) 0.8) {
+            mainParam.width = (int) (layoutWidth*(float) 0.9);
+            mainParam.height=(int)(layoutHeight*(float) 0.76);
+
+        }
+        else{
+            mainParam.width = (int)layoutWidth;
+            mainParam.height=(int)(layoutHeight*aspectratio);
+        }
+        rootLayout.setLayoutParams(mainParam);
+
+    }
+
+
+
     public int PxToDp(Context context, int px) {
         return (int)(px / context.getResources().getDisplayMetrics().density);
     }
@@ -330,18 +430,23 @@ public class HomeActivity extends Activity {
     }
     public void aspectAct(View view){
 
-        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.pp2);
-        File f = new File(getExternalCacheDir()+"/collagingpictempimage.png");
-        try {
-            FileOutputStream outStream = new FileOutputStream(f);
-            bm.compress(Bitmap.CompressFormat.PNG, 100, outStream);
-            outStream.flush();
-            outStream.close();
-        } catch (Exception e) { throw new RuntimeException(e); }
-        System.out.println(Uri.fromFile(f));
-        Intent imageEditorIntent = new AdobeImageIntent.Builder(this).setData(Uri.fromFile(f)).build();
-        startActivityForResult(imageEditorIntent, 1);
-//        finish(); // Comment this out to receive edited image
+//        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.pp2);
+//        File f = new File(getExternalCacheDir()+"/collagingpictempimage.png");
+//        try {
+//            FileOutputStream outStream = new FileOutputStream(f);
+//            bm.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+//            outStream.flush();
+//            outStream.close();
+//        } catch (Exception e) { throw new RuntimeException(e); }
+//        System.out.println(Uri.fromFile(f));
+//        Intent imageEditorIntent = new AdobeImageIntent.Builder(this).setData(Uri.fromFile(f)).build();
+//        startActivityForResult(imageEditorIntent, 1);
+////        finish(); // Comment this out to receive edited image
+
+        Intent aspect = new Intent(HomeActivity.this,aspectActivityForFreeStyle.class);
+        startActivity(aspect);
+
+
 
     }
 

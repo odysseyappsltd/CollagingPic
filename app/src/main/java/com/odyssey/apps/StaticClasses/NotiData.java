@@ -19,11 +19,8 @@ public class NotiData {
     public final String TIME_TO_PICK_SHRINK_VALUE = "shrinkvaluepicker";
     public final String TIME_TO_PICK_ROUND_VALUE = "roundvaluepicker";
     public final String TIME_TO_PICK_SHADE_VALUE = "shadevaluepicker";
-
-
-
     public final String TIME_TO_PICK_ASPECT_VALUE = "pickaspectvalue";
-
+    public final String SOMETHING_JUST_PURCHASED = "Purchased";
 
 
 

@@ -32,6 +32,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -39,6 +40,16 @@ import android.widget.Toast;
 
 import com.adobe.creativesdk.aviary.AdobeImageIntent;
 import com.baoyz.actionsheet.ActionSheet;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.formats.NativeAdOptions;
+import com.google.android.gms.ads.formats.NativeAppInstallAd;
+import com.google.android.gms.ads.formats.NativeAppInstallAdView;
+import com.google.android.gms.ads.formats.NativeContentAd;
+import com.google.android.gms.ads.formats.NativeContentAdView;
+import com.odyssey.apps.Admobs.Advertisement;
 import com.odyssey.apps.IAP.IAPData;
 import com.odyssey.apps.Settings.SettingsActivity;
 import com.odyssey.apps.StaticClasses.CheckIf;
@@ -252,8 +263,8 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
 
     private void purchasedJustNow(){
         //collectionView.invalidate();
-        if(CheckIf.isPurchased(IAPData.getSharedInstance().PATTERN,this)) {
-            //findViewById(R.id.ETAdmob).setVisibility(View.GONE);
+        if(CheckIf.isPurchased(IAPData.getSharedInstance().ADMOB,this)) {
+            findViewById(R.id.ASAdmob).setVisibility(View.GONE);
         }
     }
 
@@ -298,7 +309,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         }
 
         //Notifications
-        NotificationCenter.addReceiver("Purchased",mMessageReceiver,this);
+        NotificationCenter.addReceiver(NotiData.getSharedInstance().SOMETHING_JUST_PURCHASED,mMessageReceiver,this);
         NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_ASPECT_VALUE,mAspectValueReceiver,this);
         NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_COLOR,mColorReceiver,this);
         NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_PATTERN,mPatternReceiver,this);
@@ -360,7 +371,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
             public void run() {
                 scaleAllImageView();
             }
-        }, 1000);
+        }, 1500);
 
         if(PopUpData.getSharedInstance().getPattern()==R.drawable.p1)
             changeColor();
@@ -370,6 +381,73 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         changeRoundValue();
         changeShadeValue();
         changeShrinkValue();
+
+
+
+
+
+
+        //
+
+        // Admob
+
+        MobileAds.initialize(this, Advertisement.getSharedInstance().getNativeAdvanceAdAppID());
+        final AdLoader adLoader = new AdLoader.Builder(this, Advertisement.getSharedInstance().getNativeAdvanceAdUnitID())
+                .forAppInstallAd(new NativeAppInstallAd.OnAppInstallAdLoadedListener() {
+                    @Override
+                    public void onAppInstallAdLoaded(NativeAppInstallAd appInstallAd) {
+                        // Show the app install ad.
+                        //Toast.makeText(MainActivity.this, "Ad App Install loading", Toast.LENGTH_SHORT).show();;
+                        FrameLayout frameLayout  = (FrameLayout)findViewById(R.id.ASAdmob);
+                        frameLayout.setVisibility(View.VISIBLE);
+                        NativeAppInstallAdView adView = (NativeAppInstallAdView) getLayoutInflater()
+                                .inflate(R.layout.ad_app_install, null);
+                        Advertisement.getSharedInstance().populateAppInstallAdView(appInstallAd, adView);
+                        frameLayout.removeAllViews();
+                        frameLayout.addView(adView);
+                    }
+                })
+                .forContentAd(new NativeContentAd.OnContentAdLoadedListener() {
+                    @Override
+                    public void onContentAdLoaded(NativeContentAd contentAd) {
+
+                        // Show the content ad.
+                        //Toast.makeText(MainActivity.this, "Ad Content loading", Toast.LENGTH_SHORT).show();
+                        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.ASAdmob);
+                        frameLayout.setVisibility(View.VISIBLE);
+                        NativeContentAdView adView = (NativeContentAdView) getLayoutInflater()
+                                .inflate(R.layout.ad_content, null);
+                        Advertisement.getSharedInstance().populateContentAdView(contentAd, adView);
+                        frameLayout.removeAllViews();
+                        frameLayout.addView(adView);
+                    }
+                })
+                .withAdListener(new AdListener() {
+                    @Override
+                    public void onAdLoaded() {
+                        super.onAdLoaded();
+
+
+
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(int errorCode) {
+                        // Handle the failure by logging, altering the UI, and so on.
+                        //Toast.makeText(MainActivity.this, "Failed Ad loading", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .withNativeAdOptions(new NativeAdOptions.Builder()
+                        // Methods in the NativeAdOptions.Builder class can be
+                        // used here to specify individual options settings.
+                        .build())
+                .build();
+
+        //Admob Visibility
+        //findViewById(R.id.AMAdmob).setVisibility(View.GONE);
+        if (!CheckIf.isPurchased(IAPData.getSharedInstance().ADMOB,this)){
+            adLoader.loadAd(new AdRequest.Builder().build());
+        }
     }
 
 

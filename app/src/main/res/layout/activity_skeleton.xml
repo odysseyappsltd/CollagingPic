@@ -13,7 +13,7 @@
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_weight="1"
-        app:layout_constraintBottom_toTopOf="@+id/AMAdmob"
+        app:layout_constraintBottom_toTopOf="@+id/ASAdmob"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -30,7 +30,7 @@
     </RelativeLayout>
 
     <FrameLayout
-        android:id="@+id/AMAdmob"
+        android:id="@+id/ASAdmob"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:visibility="visible"

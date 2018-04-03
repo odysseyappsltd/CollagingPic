@@ -17,7 +17,9 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
@@ -209,14 +211,20 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
 
         int roundValue = PopUpData.getSharedInstance().getRoundValue();
         System.out.println("Round Value Received :" +roundValue);
-        /*for(int i=0;i<NO_OF_COLLAGE_FRAMES;i++) {
+        GradientDrawable gradientDrawable = new GradientDrawable(
+                /*GradientDrawable.Orientation.TOP_BOTTOM,
+                new int[] {0xFF757775,0xFF151515}*/);
+        gradientDrawable.setCornerRadius(roundValue);
+        for(int i=0;i<NO_OF_COLLAGE_FRAMES;i++) {
             Colage col = allColages[i];
             ImageView iv = (ImageView) col.getChildAt(0);
-            Drawable dr = iv.getDrawable();
-            Bitmap bm = ((BitmapDrawable)dr).getBitmap();
-            Bitmap roundedBitmap = roundCornerImage(bm,roundValue);
-            iv.setImageBitmap(roundedBitmap);
-        }*/
+            col.setBackground(gradientDrawable);
+            iv.setBackground(gradientDrawable);
+            //Drawable dr = iv.getDrawable();
+            //Bitmap bm = ((BitmapDrawable)dr).getBitmap();
+            //Bitmap roundedBitmap = roundCornerImage(bm,roundValue);
+            //iv.setImageBitmap(roundedBitmap);
+        }
 
 
     }
@@ -384,16 +392,21 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         rlp.topMargin = y;
         colage.setLayoutParams(rlp);
         colage.setPadding(slider_bar,slider_bar,slider_bar,slider_bar);
+        //colage.setClipChildren(true);
+        //colage.setClipBounds(new Rect(1,1,1,1));
 
         ImageView iv = new ImageView(this);
         iv.setTag(Integer.valueOf(i));
         iv.setImageBitmap(imgSet[i]);
         iv.setBackgroundColor(Color.parseColor("#225465"));
         iv.setScaleType(ImageView.ScaleType.MATRIX);
+        //iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.MATCH_PARENT);
         iv.setLayoutParams(lp);
+        //iv.setAdjustViewBounds(true);
+
 
         colage.addView(iv);
         iv.setOnTouchListener(this);

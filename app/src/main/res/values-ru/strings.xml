@@ -75,4 +75,6 @@
         <string name="RestoreToast">Ваши покупки были восстановлены.</string>
         <string name="SuccessfullySaveForegroundGallery">Успешно сохранена в галерее переднего плана.</string>
     <string name="SuccessfullySavePhotoAlbum">Успешно сохранено в фотоальбоме.</string>
+    <string name="GoSettingsMsg">Нужен доступ к фотографиям и хранилищу\n
+Позвольте ColagingPic Доступ к вашим фотографиям и хранилищу для создания и сохранения отредактированных фотографий. Вы всегда можете изменить свое разрешение, выбрав «Настройки / Приложения / CutPastePhoto / Разрешения».</string>
 </resources>

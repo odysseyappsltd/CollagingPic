@@ -75,4 +75,6 @@
     <string name="RestoreToast">Ihre Einkäufe wurden wiederhergestellt.</string>
     <string name="SuccessfullySaveForegroundGallery">Erfolgreich in Vordergrund Galerie gespeichert.</string>
     <string name="SuccessfullySavePhotoAlbum">Erfolgreich in Fotoalbum gespeichert.</string>
+    <string name="GoSettingsMsg">Benötigen Sie Zugang zu Fotos und Speicherplatz\n
+Lassen Sie ColagingPic Zugriff auf Ihre Fotos und Ihren Speicher, um bearbeitete Fotos zu erstellen und zu speichern. Du kannst deine Erlaubnis immer ändern, indem du zu Einstellungen / Apps / CutPastePhoto / Berechtigungen gehst.</string>
 </resources>

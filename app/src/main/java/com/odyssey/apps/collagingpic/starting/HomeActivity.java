@@ -32,6 +32,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.odyssey.apps.Admobs.AdmobClass;
+import com.odyssey.apps.IAP.IAPData;
+import com.odyssey.apps.StaticClasses.CheckIf;
 import com.odyssey.apps.StaticClasses.NotiData;
 import com.odyssey.apps.StaticClasses.NotificationCenter;
 import com.adobe.creativesdk.aviary.AdobeImageIntent;
@@ -64,6 +70,7 @@ public class HomeActivity extends Activity {
     ImageView imageView;
     ImageView imageView2;
     int shrinkValue;
+    private InterstitialAd mInterstitialAd;
 
 
 
@@ -293,6 +300,24 @@ public class HomeActivity extends Activity {
 
 
         createImageView();
+
+        if (!CheckIf.isPurchased(IAPData.getSharedInstance().ADMOB,this)) {
+            mInterstitialAd = new InterstitialAd(this);
+            mInterstitialAd.setAdUnitId(AdmobClass.INTERSTITIAL_AD_UNIT_ID);
+            AdRequest request = new AdRequest.Builder().build();
+            mInterstitialAd.loadAd(request);
+            mInterstitialAd.setAdListener(new AdListener() {
+                @Override
+                public void onAdLoaded() {
+
+                    if (mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                    }
+
+                }
+            });
+        }
+
 
     }
 

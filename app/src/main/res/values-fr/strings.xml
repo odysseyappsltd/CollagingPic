@@ -75,4 +75,6 @@
     <string name="RestoreToast">Vos achats ont été restaurés.</string>
     <string name="SuccessfullySaveForegroundGallery">Enregistré avec succès dans la galerie de premier plan.</string>
     <string name="SuccessfullySavePhotoAlbum">Enregistré avec succès dans l'album photo.</string>
+    <string name="GoSettingsMsg">Besoin d'accès aux photos et au stockage\n
+Laisser ColagingPic Accéder à vos photos et votre stockage pour créer et enregistrer des photos éditées. Vous pouvez toujours modifier votre autorisation en accédant à Paramètres / Apps / CutPastePhoto / Permissions.</string>
 </resources>

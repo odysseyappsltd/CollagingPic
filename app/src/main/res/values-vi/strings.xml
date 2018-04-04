@@ -75,4 +75,6 @@
         <string name="RestoreToast">Các giao dịch mua của bạn đã được khôi phục.</string>
         <string name="SuccessfullySaveForegroundGallery">Đã lưu thành công vào Thư viện Mới.</string>
     <string name="SuccessfullySavePhotoAlbum">Đã lưu thành công vào Album ảnh.</string>
+    <string name="GoSettingsMsg">Cần truy cập vào Ảnh và Lưu trữ\n
+Hãy ColagingPic Truy cập Ảnh và Lưu trữ của bạn để tạo và lưu ảnh đã chỉnh sửa. Bạn luôn có thể thay đổi quyền của mình bằng cách đi tới Cài đặt / Ứng dụng / CutPastePhoto / Quyền.</string>
 </resources>

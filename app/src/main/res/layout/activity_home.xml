@@ -45,10 +45,12 @@
         </RelativeLayout>
 
     </RelativeLayout>
+
     <FrameLayout
         android:id="@+id/AHAdmob"
         android:layout_width="match_parent"
         android:layout_height="90dp"
+        android:background="#000000"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@id/horizontalScrollView"
         app:layout_constraintEnd_toEndOf="parent"

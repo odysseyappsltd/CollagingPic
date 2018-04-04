@@ -408,7 +408,6 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         //
 
         // Admob
-
         MobileAds.initialize(this, Advertisement.getSharedInstance().getNativeAdvanceAdAppID());
         final AdLoader adLoader = new AdLoader.Builder(this, Advertisement.getSharedInstance().getNativeAdvanceAdUnitID())
                 .forAppInstallAd(new NativeAppInstallAd.OnAppInstallAdLoadedListener() {
@@ -465,7 +464,10 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         //findViewById(R.id.AMAdmob).setVisibility(View.GONE);
         if (!CheckIf.isPurchased(IAPData.getSharedInstance().ADMOB,this)){
             adLoader.loadAd(new AdRequest.Builder().build());
+        } else {
+            findViewById(R.id.ASAdmob).setVisibility(View.GONE);
         }
+
     }
 
 

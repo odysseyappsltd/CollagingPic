@@ -2,6 +2,8 @@ package com.odyssey.apps.collagingpic.starting;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -18,11 +20,13 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
@@ -30,6 +34,21 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.formats.NativeAdOptions;
+import com.google.android.gms.ads.formats.NativeAppInstallAd;
+import com.google.android.gms.ads.formats.NativeAppInstallAdView;
+import com.google.android.gms.ads.formats.NativeContentAd;
+import com.google.android.gms.ads.formats.NativeContentAdView;
+import com.odyssey.apps.Admobs.Advertisement;
+import com.odyssey.apps.IAP.IAPData;
+import com.odyssey.apps.StaticClasses.CheckIf;
+import com.odyssey.apps.StaticClasses.NotiData;
+import com.odyssey.apps.StaticClasses.NotificationCenter;
 import com.odyssey.apps.collagingpic.BuildConfig;
 import com.odyssey.apps.collagingpic.R;
 import com.odyssey.apps.collagingpic.skeleton.SkeletonActivity;
@@ -88,6 +107,40 @@ public class MainActivity extends AppCompatActivity {
     private int[][] layoutArray = {{1000,0,1,3,6,15},{1000,3,4,5,6,7,8},{1000,2,11,15,16},{1000,1,9,10,12,13,14,17,19,20},{1000,18,24,25,31,38,39,43,46},{1000,23,32,33,41,42},
             {1000,37,40},{1000,21,22,26,27,34,35,36,44,45,47,48},{1000,29,30},{1000,50},{1000,51},{1000,52},{1000,49},{1000,53},{1000,54},{1000,28}};
 
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            purchasedJustNow();
+            System.out.println("Notified !");
+        }
+    };
+
+    private void purchasedJustNow(){
+        //collectionView.invalidate();
+        if(CheckIf.isPurchased(IAPData.getSharedInstance().ADMOB,this)) {
+            findViewById(R.id.AMAdmob).setVisibility(View.GONE);
+        }
+    }
+
+
+
+
+    @Override
+    public void onDestroy() {
+
+        /*if(mInterstitialAd.isLoaded() && !CheckIf.isPurchased("admob",EditTextActivity.this)){
+            mInterstitialAd.show();
+        }*/
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+        super.onDestroy();
+
+    }
+
+
+
+
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +149,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Obtain the FirebaseAnalytics instance.
 //        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+
+        //Notifications
+        NotificationCenter.addReceiver(NotiData.getSharedInstance().SOMETHING_JUST_PURCHASED,mMessageReceiver,this);
+
 
 
         final Handler handler = new Handler();
@@ -670,6 +728,71 @@ public class MainActivity extends AppCompatActivity {
             listViewCellNumber = 0;
         }
 
+
+
+
+
+
+        // Admob
+        MobileAds.initialize(this, Advertisement.getSharedInstance().getNativeAdvanceAdAppID());
+        final AdLoader adLoader = new AdLoader.Builder(this, Advertisement.getSharedInstance().getNativeAdvanceAdUnitID())
+                .forAppInstallAd(new NativeAppInstallAd.OnAppInstallAdLoadedListener() {
+                    @Override
+                    public void onAppInstallAdLoaded(NativeAppInstallAd appInstallAd) {
+                        // Show the app install ad.
+                        //Toast.makeText(MainActivity.this, "Ad App Install loading", Toast.LENGTH_SHORT).show();;
+                        FrameLayout frameLayout  = (FrameLayout)findViewById(R.id.AMAdmob);
+                        frameLayout.setVisibility(View.VISIBLE);
+                        NativeAppInstallAdView adView = (NativeAppInstallAdView) getLayoutInflater()
+                                .inflate(R.layout.ad_app_install, null);
+                        Advertisement.getSharedInstance().populateAppInstallAdView(appInstallAd, adView);
+                        frameLayout.removeAllViews();
+                        frameLayout.addView(adView);
+                    }
+                })
+                .forContentAd(new NativeContentAd.OnContentAdLoadedListener() {
+                    @Override
+                    public void onContentAdLoaded(NativeContentAd contentAd) {
+
+                        // Show the content ad.
+                        //Toast.makeText(MainActivity.this, "Ad Content loading", Toast.LENGTH_SHORT).show();
+                        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.AMAdmob);
+                        frameLayout.setVisibility(View.VISIBLE);
+                        NativeContentAdView adView = (NativeContentAdView) getLayoutInflater()
+                                .inflate(R.layout.ad_content, null);
+                        Advertisement.getSharedInstance().populateContentAdView(contentAd, adView);
+                        frameLayout.removeAllViews();
+                        frameLayout.addView(adView);
+                    }
+                })
+                .withAdListener(new AdListener() {
+                    @Override
+                    public void onAdLoaded() {
+                        super.onAdLoaded();
+
+
+
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(int errorCode) {
+                        // Handle the failure by logging, altering the UI, and so on.
+                        //Toast.makeText(MainActivity.this, "Failed Ad loading", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .withNativeAdOptions(new NativeAdOptions.Builder()
+                        // Methods in the NativeAdOptions.Builder class can be
+                        // used here to specify individual options settings.
+                        .build())
+                .build();
+
+        //Admob Visibility
+        //findViewById(R.id.AMAdmob).setVisibility(View.GONE);
+        if (!CheckIf.isPurchased(IAPData.getSharedInstance().ADMOB,this)){
+            adLoader.loadAd(new AdRequest.Builder().build());
+        } else {
+            findViewById(R.id.AMAdmob).setVisibility(View.GONE);
+        }
 
 
 

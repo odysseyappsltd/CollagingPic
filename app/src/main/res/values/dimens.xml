@@ -11,5 +11,7 @@
     <dimen name="pattern_cell">50dp</dimen>
     <dimen name="border">10dp</dimen>
     <dimen name="slider_bar">5dp</dimen>
-    <dimen name="aspect_controller">40dp</dimen>
+    <dimen name="aspect_controller">80dp</dimen>
+    <dimen name="popupwidth">110dp</dimen>
+    <dimen name="popupheight">130dp</dimen>
 </resources>

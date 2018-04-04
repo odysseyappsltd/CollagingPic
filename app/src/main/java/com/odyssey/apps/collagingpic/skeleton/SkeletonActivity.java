@@ -17,7 +17,9 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
@@ -25,6 +27,7 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -50,6 +53,7 @@ import com.google.android.gms.ads.formats.NativeAppInstallAdView;
 import com.google.android.gms.ads.formats.NativeContentAd;
 import com.google.android.gms.ads.formats.NativeContentAdView;
 import com.odyssey.apps.Admobs.Advertisement;
+
 import com.odyssey.apps.IAP.IAPData;
 import com.odyssey.apps.Settings.SettingsActivity;
 import com.odyssey.apps.StaticClasses.CheckIf;
@@ -99,7 +103,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
     private RectF fakeMainView;
     private int layerid;
     private static final float MIN_ZOOM = 1f,MAX_ZOOM = 5f;
-    private int CLICK_ACTION_THRESHOLD = 20;
+    private int CLICK_ACTION_THRESHOLD = 10;
     RelativeLayout pop;
     int swapFrom=0;
     Boolean isSwap=false;
@@ -208,8 +212,8 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         System.out.println("Shrink Value Received :" + shrinkValue);
         for(int i=0;i<NO_OF_COLLAGE_FRAMES;i++){
             Colage colage = allColages[i];
-            colage.setPadding(slider_bar+((int)(shrinkValue/11.0f)-3),slider_bar+((int)(shrinkValue/11.0f)-3),
-                    slider_bar+((int)(shrinkValue/11.0f)-3),slider_bar+((int)(shrinkValue/11.0f)-3));
+            colage.setPadding(slider_bar+((int)(shrinkValue/12.0f)-4),slider_bar+((int)(shrinkValue/12.0f)-4),
+                    slider_bar+((int)(shrinkValue/12.0f)-4),slider_bar+((int)(shrinkValue/12.0f)-4));
         }
 
         // Code here  . .
@@ -221,14 +225,22 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
 
         int roundValue = PopUpData.getSharedInstance().getRoundValue();
         System.out.println("Round Value Received :" +roundValue);
-        /*for(int i=0;i<NO_OF_COLLAGE_FRAMES;i++) {
+
+        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
+                new int[] {0xFFFFFFFF,0xFFFFFFFF});
+        for(int i=0;i<NO_OF_COLLAGE_FRAMES;i++) {
             Colage col = allColages[i];
-            ImageView iv = (ImageView) col.getChildAt(0);
-            Drawable dr = iv.getDrawable();
-            Bitmap bm = ((BitmapDrawable)dr).getBitmap();
-            Bitmap roundedBitmap = roundCornerImage(bm,roundValue);
-            iv.setImageBitmap(roundedBitmap);
-        }*/
+            gd.setCornerRadius(roundValue);
+            //col.setBackground(gd);
+
+            CardView cv = (CardView) col.getChildAt(0);
+            cv.setRadius((float)roundValue);
+            //col.setBackground(gradientDrawable);
+            //Drawable dr = iv.getDrawable();
+            //Bitmap bm = ((BitmapDrawable)dr).getBitmap();
+            //Bitmap roundedBitmap = roundCornerImage(bm,roundValue);
+            //iv.setImageBitmap(roundedBitmap);
+        }
 
 
     }
@@ -238,6 +250,13 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
 
         int shadeValue = PopUpData.getSharedInstance().getShadeValue();
         System.out.println("Shade Value Received :" +shadeValue);
+
+        for(int i=0;i<NO_OF_COLLAGE_FRAMES;i++) {
+            Colage col = allColages[i];
+            CardView cv = (CardView) col.getChildAt(0);
+            cv.setCardElevation(3*shadeValue);
+
+        }
 
         // Code here . . .
 
@@ -358,9 +377,8 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
             oldScale[i]=1.0f;
         }
 
-        pop = (RelativeLayout) LayoutInflater.from(this).inflate(
-                R.layout.popupview, null);
-        fullView.addView(pop);
+        pop = (RelativeLayout)findViewById(R.id.popupview);
+        //fullView.addView(pop);
         pop.setVisibility(View.INVISIBLE);
         //scaleImageView(allColages[0]);
         //scaleAllImageView();
@@ -463,6 +481,19 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         rlp.topMargin = y;
         colage.setLayoutParams(rlp);
         colage.setPadding(slider_bar,slider_bar,slider_bar,slider_bar);
+        //colage.setClipChildren(true);
+        //colage.setClipBounds(new Rect(1,1,1,1));
+
+        CardView cv = new CardView(this);
+        RelativeLayout.LayoutParams cvp = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.MATCH_PARENT);
+        cvp.setMargins(10,10,10,10);
+        cv.setLayoutParams(cvp);
+        cv.setPreventCornerOverlap(false);
+        cv.setMaxCardElevation(10.0f);
+
+
 
         ImageView iv = new ImageView(this);
         iv.setTag(Integer.valueOf(i));
@@ -474,7 +505,9 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
                 RelativeLayout.LayoutParams.MATCH_PARENT);
         iv.setLayoutParams(lp);
 
-        colage.addView(iv);
+        cv.addView(iv);
+
+        colage.addView(cv);
         iv.setOnTouchListener(this);
         return colage;
     }
@@ -660,7 +693,8 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         }
     }
     private void scaleImageView(Colage cl){
-        ImageView view = (ImageView) cl.getChildAt(0);
+        CardView cv = (CardView) cl.getChildAt(0);
+        ImageView view = (ImageView) cv.getChildAt(0);
         int tag = (Integer) view.getTag();
         limitDrag(matrix[tag],view,tag);
         view.setImageMatrix(matrix[tag]);
@@ -671,7 +705,8 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
     private void scaleAllImageView(){
         for(int i=0;i<NO_OF_COLLAGE_FRAMES;i++) {
             Colage cl = allColages[i];
-            ImageView view = (ImageView) cl.getChildAt(0);
+            CardView cv = (CardView) cl.getChildAt(0);
+            ImageView view = (ImageView) cv.getChildAt(0);
             int tag = (Integer) view.getTag();
             limitDrag(matrix[tag], view, tag);
             view.setImageMatrix(matrix[tag]);
@@ -694,7 +729,8 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         else
         {
             RelativeLayout rl = (RelativeLayout)v;
-            view = (ImageView) rl.getChildAt(0);
+            CardView cv = (CardView) rl.getChildAt(0);
+            view = (ImageView) cv.getChildAt(0);
         }
 
         int tag = (Integer) view.getTag();
@@ -723,8 +759,10 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
                     if (isAClick(start.x, event.getX(), start.y, event.getY())) {
 
                         if(isSwap==true){
-                            ImageView s1 = (ImageView) allColages[swapFrom].getChildAt(0);
-                            ImageView s2 = (ImageView) allColages[(Integer) view.getTag()].getChildAt(0);
+                            CardView cv1 = (CardView) allColages[swapFrom].getChildAt(0);
+                            CardView cv2 = (CardView) allColages[(Integer) view.getTag()].getChildAt(0);
+                            ImageView s1 = (ImageView) cv1.getChildAt(0);
+                            ImageView s2 = (ImageView) cv2.getChildAt(0);
                             Drawable temp = s2.getDrawable();
                             s2.setImageDrawable(s1.getDrawable());
                             s1.setImageDrawable(temp);
@@ -741,8 +779,36 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
                         }
                         else {
                             if (pop.getVisibility() == View.INVISIBLE) {
-                                pop.setX(event.getRawX() - 20);
-                                pop.setY(event.getRawY());
+                                if(event.getRawX()<mainView.getLeft()+mVSize/2)
+                                {
+                                    pop.setX(event.getRawX()-40);
+                                    //pop.setBackgroundResource(R.drawable.popup_left);
+                                }
+                                else
+                                {
+                                    pop.setX(event.getRawX() - getResources().getDimension(R.dimen.popupwidth)+40);
+                                    //pop.setBackgroundResource(R.drawable.popup_right);
+                                }
+
+                                if(event.getRawY()<mainView.getTop()+mVSize/2)
+                                {
+                                    pop.setY(event.getRawY());
+                                    //pop.setBackgroundResource(R.drawable.popup_bottom_left);
+                                }
+                                else
+                                {
+                                    pop.setY(event.getRawY()-getResources().getDimension(R.dimen.popupheight));
+                                    //pop.setBackgroundResource(R.drawable.popup_bottom_right);
+                                }
+                                if(event.getRawX()<mainView.getLeft()+mVSize/2&&event.getRawY()<mainView.getTop()+mVSize/2)
+                                    pop.setBackgroundResource(R.drawable.popup_left);
+                                else if(event.getRawX()>mainView.getLeft()+mVSize/2&&event.getRawY()<mainView.getTop()+mVSize/2)
+                                    pop.setBackgroundResource(R.drawable.popup_right);
+                                else if(event.getRawX()<mainView.getLeft()+mVSize/2&&event.getRawY()>mainView.getTop()+mVSize/2)
+                                    pop.setBackgroundResource(R.drawable.popup_bottom_left);
+                                else if(event.getRawX()>mainView.getLeft()+mVSize/2&&event.getRawY()>mainView.getTop()+mVSize/2)
+                                    pop.setBackgroundResource(R.drawable.popup_bottom_right);
+
                                 pop.setVisibility(View.VISIBLE);
                                 swapFrom = (Integer) view.getTag();
                             } else {
@@ -1019,6 +1085,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
                 .setListener(SkeletonActivity.this).show();
 
         /*
+        // Adobe creative sdk calling . .
         Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.pp2);
         File f = new File(getExternalCacheDir()+"/collagingpictempimage.png");
         try {
@@ -1075,6 +1142,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
     @Override
     public void onOtherButtonClick(ActionSheet actionSheet, int index) {
 
+        //Ashraf Vai to code in my absence . .
         // Code here for different indexea . . .
 
     }

@@ -36,11 +36,11 @@ public class SettingModel {
         try {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.CutPastePhoto));
+            intent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.CollagingPhoto));
             String sAux = "\n"+context.getString(R.string.ShareURLMessage)+"\n\n";
             sAux = sAux + url + "\n";
             intent. putExtra(Intent.EXTRA_TEXT, sAux);
-            context.startActivity(Intent.createChooser(intent, "Share"));
+            context.startActivity(Intent.createChooser(intent, context.getString(R.string.Share_Title)));
         }
         catch(Exception e) {
             //e.toString();
@@ -82,7 +82,7 @@ public class SettingModel {
             Log.d("OpenFeedback", e.getMessage());
         }
 
-        intent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.CutPastePhoto));
+        intent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.CollagingPhoto));
         String body = new String("<p>"+context.getString(R.string.TellAFriendMessage)+" <p/> <a> "+url+" </a>");
         intent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(body));
         intent.putExtra(Intent.EXTRA_HTML_TEXT, Html.fromHtml(body));

@@ -1220,7 +1220,12 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
                         boolean changed = extra.getBoolean(AdobeImageIntent.EXTRA_OUT_BITMAP_CHANGED);
                         Log.d(TAG, "Image edited: " + changed);
                         if (changed) {
-                            //
+                            try {
+                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), editedImageUri);
+                                activateImageView.setImageBitmap(bitmap);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                     break;

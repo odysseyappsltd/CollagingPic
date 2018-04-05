@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Collaging Pic</string>
-    <string name="RestoreToast">Your_Alert_Message</string>
+    <string name="RestoreToast">Your in-app billing has been restored</string>
     <string name="BuyPro">Buy</string>
     <string name="Cancel">Cancel</string>
     <string name="PRO_VERSION">Get Pro Features</string>
@@ -18,8 +18,8 @@
     <string name="LinkedIn">LinkedIn</string>
     <string name="TellAFriendMessage">I find this app very helpful. I think you may like it too! Check it out:</string>
     <string name="AppLink">App Link</string>
-    <string name="CutPastePhoto">Cut Paste Photo</string>
-    <string name="ContactUsTitle">Feedback for Cut Paste Photo</string>
+    <string name="CollagingPhoto">Collaging Photo</string>
+    <string name="ContactUsTitle">Feedback for Collaging Photo</string>
     <string name="ContactUsBody">Compose your message here..</string>
     <string name="DeviceOS">Device OS: Android</string>
     <string name="version">Device OS version: </string>
@@ -42,6 +42,10 @@
     <string name="Filter">Filter</string>
     <string name="SuccessfullySavePhotoAlbum">Successfully Saved to Photo Album</string>
     <string name="GoSettingsMsg">Need access to Photos and Storage\n
-Let ColagingPic Access your Photos and Storage to create and save edited photos. You can always change your permission by going to Settings / Apps / CutPastePhoto / Permissions.</string>
+Let ColagingPic Access your Photos and Storage to create and save edited photos. You can always change your permission by going to Settings / Apps / Collaging Photo  / Permissions.</string>
+
+
+    <!-- newly added -->
+    <string name="Share_Title">Share</string>
 
 </resources>

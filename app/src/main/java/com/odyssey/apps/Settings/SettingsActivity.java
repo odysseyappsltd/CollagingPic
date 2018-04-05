@@ -66,16 +66,16 @@ public class SettingsActivity extends AppCompatActivity {
                         finish();
                         break;
                     case 3 :
-                        SettingModel.getSharedInstance().tellAFriend(SettingsActivity.this,"https://play.google.com/store/apps/details?id=com.odyssey.apps.cutpastephoto");
+                        SettingModel.getSharedInstance().tellAFriend(SettingsActivity.this,"https://play.google.com/store/apps/details?id=com.odyssey.apps.collagingpic");
                         break;
                     case 4 :
                         SettingModel.getSharedInstance().contactUS(SettingsActivity.this);
                         break;
                     case 5 :
-                        SettingModel.getSharedInstance().shareURL(SettingsActivity.this,"https://play.google.com/store/apps/details?id=com.odyssey.apps.cutpastephoto");
+                        SettingModel.getSharedInstance().shareURL(SettingsActivity.this,"https://play.google.com/store/apps/details?id=com.odyssey.apps.collagingpic");
                         break;
                     case 6 :
-                        SettingModel.getSharedInstance().pushURL(SettingsActivity.this,"https://play.google.com/store/apps/details?id=com.odyssey.apps.cutpastephoto");
+                        SettingModel.getSharedInstance().pushURL(SettingsActivity.this,"https://play.google.com/store/apps/details?id=com.odyssey.apps.collagingpic");
                         break;
 
                     case 7 : //Header

@@ -20,6 +20,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -206,11 +207,12 @@ public class HomeActivity extends Activity {
 
     private void changeShrinkValue(){
 
-         shrinkValue = PopUpData.getSharedInstance().getShrinkValue();
+        shrinkValue = PopUpData.getSharedInstance().getShrinkValue();
         System.out.println("Shrink Value Received :" + shrinkValue);
 
         for( int i=0; i<MainActivity.selection.size(); i++) {
-            rootLayout.findViewWithTag(i).setPadding(shrinkValue,shrinkValue,shrinkValue,shrinkValue);
+            CardView cv = (CardView) rootLayout.findViewWithTag(i);
+            cv.setContentPadding(shrinkValue,shrinkValue,shrinkValue,shrinkValue);
         }
 
 
@@ -225,11 +227,10 @@ public class HomeActivity extends Activity {
 
 
         for( int i=0; i<MainActivity.selection.size(); i++) {
-            ImageView img = (ImageView) rootLayout.findViewWithTag(i);
-            img.setImageBitmap(roundCornerImage(bitmapArray.get(i),roundValue));
-
-//            RoundedImageView img2 = new RoundedImageView(rootLayout.findViewWithTag(i).getContext());
-//            img2.setImageBitmap(bitmapArray.get(i));
+//            ImageView img = (ImageView) rootLayout.findViewWithTag(i);
+//            img.setImageBitmap(roundCornerImage(bitmapArray.get(i),roundValue));
+            CardView cv = (CardView) rootLayout.findViewWithTag(i);
+            cv.setRadius((float)roundValue);
 
 
         }
@@ -239,14 +240,16 @@ public class HomeActivity extends Activity {
 
 
 
-    private void changeShadeValue(){
+    private void changeShadeValue() {
 
         int shadeValue = PopUpData.getSharedInstance().getShadeValue();
-        System.out.println("Shade Value Received :" +shadeValue);
+        System.out.println("Shade Value Received :" + shadeValue);
 
         // Code here . . .
-
-
+        for (int i = 0; i < MainActivity.selection.size(); i++) {
+            CardView cv = (CardView) rootLayout.findViewWithTag(i);
+            cv.setCardElevation(shadeValue);
+        }
     }
 
     private void purchasedJustNow(){
@@ -282,6 +285,13 @@ public class HomeActivity extends Activity {
     RelativeLayout rootLayout;
     float layoutHeight;
     float layoutWidth;
+
+    float scaleX;
+    float scaleY;
+    ArrayList<Float> SCALEX = new ArrayList<Float>();
+    ArrayList<Float> SCALEY = new ArrayList<Float>();
+    ArrayList<Float> xPosition = new ArrayList<Float>();
+    ArrayList<Float> yPosition = new ArrayList<Float>();
 
 
     @Override
@@ -326,7 +336,12 @@ public class HomeActivity extends Activity {
 
 
         createImageView();
-
+        changePattern();
+        changeColor();
+        changeShrinkValue();
+        changeShadeValue();
+        changeRoundValue();
+        setaspect();
 
 
 
@@ -432,30 +447,49 @@ public class HomeActivity extends Activity {
             System.out.println("xRandom====="+xRandom);
             System.out.println("yRandom====="+yRandom);
 
-             ImageView mImageView = new ImageView(this);
-             Bitmap imgBitmap = resize(BitmapFactory.decodeFile(MainActivity.selection.get(i)),800,800);
+
+            CardView cv = new CardView(this);
+            RelativeLayout.LayoutParams cvp = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+            cvp.setMargins(10,10,10,10);
+            cv.setLayoutParams(cvp);
+            cv.setPreventCornerOverlap(false);
+//            cv.setMaxCardElevation(10.0f);
+            cv.setTag(Integer.valueOf(i));
+
+            scaleX = (float) (cv.getScaleX() * 0.5);
+            scaleY = (float) (cv.getScaleY() * 0.5);
+            SCALEX.add(scaleX);
+            SCALEY.add(scaleY);
+            xPosition.add(xRandom-xRandom*scaleX);
+            yPosition.add(yRandom-yRandom*scaleY);
+
+            cv.setScaleX(scaleX);
+            cv.setScaleY(scaleY);
+            cv.setX(xRandom-xRandom*scaleX);
+            cv.setY(yRandom-yRandom*scaleY);
+            cv.setRotation(rotation);
+
+            rootLayout.addView(cv);
+
+
+            ImageView mImageView = new ImageView(this);
+            Bitmap imgBitmap = resize(BitmapFactory.decodeFile(MainActivity.selection.get(i)),800,800);
             mImageView.setImageBitmap( imgBitmap );
             bitmapArray.add(imgBitmap);
 
-            float scaleX = (float) (mImageView.getScaleX() * 0.5);
-            float scaleY = (float) (mImageView.getScaleY() * 0.5);
+            mImageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+
             mImageView.setBackgroundColor(Color.WHITE);
-            mImageView.setScaleX(scaleX);
-            mImageView.setScaleY(scaleY);
-            mImageView.setX(xRandom-xRandom*scaleX);
-            mImageView.setY(yRandom-yRandom*scaleY);
-            mImageView.setRotation(rotation);
+            mImageView.setScaleType(ImageView.ScaleType.FIT_XY);
+
 
             mImageView.setTag(Integer.valueOf(i));
-            rootLayout.addView(mImageView);
-//            setContentView(rootLayout);
+//            rootLayout.addView(mImageView);
+            cv.addView(mImageView);
 
-//            RelativeLayout.LayoutParams layoutParams =
-//                    (RelativeLayout.LayoutParams) mImageView.getLayoutParams();
-//            layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-//            mImageView.setLayoutParams(layoutParams);
-
-            mImageView.setOnTouchListener(new MultiTouchListener(HomeActivity.this));
+            cv.setOnTouchListener(new MultiTouchListener(HomeActivity.this));
 
         }
 
@@ -518,15 +552,54 @@ public class HomeActivity extends Activity {
 
 
         RelativeLayout.LayoutParams mainParam = (RelativeLayout.LayoutParams) rootLayout.getLayoutParams();
-        if(aspectratio==(float) 0.8) {
-            mainParam.width = (int) (layoutWidth*(float) 0.9);
-            mainParam.height=(int)(layoutHeight*(float) 0.76);
 
+//        for( int i=0; i<MainActivity.selection.size(); i++) {
+        if (aspectratio == (float) 0.8) {
+            mainParam.width = (int) (layoutWidth * (float) 0.9);
+            mainParam.height = (int) (layoutHeight * (float) 0.76);
+
+            for (int i = 0; i < MainActivity.selection.size(); i++) {
+                rootLayout.findViewWithTag(i).setScaleX(SCALEX.get(i) * (float) 0.8);
+                rootLayout.findViewWithTag(i).setScaleY(SCALEY.get(i) * (float) 0.76);
+//                    rootLayout.findViewWithTag(i).setX(xPosition.get(i)*(float) 0.9);
+//                    rootLayout.findViewWithTag(i).setY(yPosition.get(i)*(float) 0.76);
+            }
+
+        } else {
+            mainParam.width = (int) layoutWidth;
+            mainParam.height = (int) (layoutHeight * aspectratio);
+
+            if (aspectratio == (float) 0.5) {
+
+                for (int i = 0; i < MainActivity.selection.size(); i++) {
+//                        float a = SCALEX.get(i) / SCALEY.get(i);
+
+//                        if (a >= 1) {
+                    rootLayout.findViewWithTag(i).setScaleX(SCALEX.get(i) * (float) 0.5);
+                    rootLayout.findViewWithTag(i).setScaleY(SCALEY.get(i) * (float) 0.6);
+//                            rootLayout.findViewWithTag(i).setX(xPosition.get(i)*(float) 0.7);
+//                            rootLayout.findViewWithTag(i).setY(yPosition.get(i)*(float) 0.7);
+//                        } else {
+//                            rootLayout.findViewWithTag(i).setScaleX(SCALEY.get(i) * (float) 0.5);
+//                            rootLayout.findViewWithTag(i).setX(xPosition.get(i)*(float) 0.7);
+//                            rootLayout.findViewWithTag(i).setY(yPosition.get(i)*(float) 0.7);
+
+//                        }
+
+                }
+
+            } else {
+
+                for (int i = 0; i < MainActivity.selection.size(); i++) {
+                    rootLayout.findViewWithTag(i).setScaleX(SCALEX.get(i) * aspectratio);
+                    rootLayout.findViewWithTag(i).setScaleY(SCALEY.get(i) * aspectratio);
+//                        rootLayout.findViewWithTag(i).setX(xPosition.get(i)*aspectratio);
+//                        rootLayout.findViewWithTag(i).setY(yPosition.get(i)*aspectratio);
+                }
+
+            }
         }
-        else{
-            mainParam.width = (int)layoutWidth;
-            mainParam.height=(int)(layoutHeight*aspectratio);
-        }
+//        }
         rootLayout.setLayoutParams(mainParam);
 
     }

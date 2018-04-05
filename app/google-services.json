@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "560783928201",
+    "firebase_url": "https://collaging-photo.firebaseio.com",
+    "project_id": "collaging-photo",
+    "storage_bucket": "collaging-photo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:560783928201:android:493d203f57c1baf4",
+        "android_client_info": {
+          "package_name": "com.odyssey.apps.collagingpic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "560783928201-3dvhak4ki8l2u4ogc7lkm791lfhiisrq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGehkTbTsMw8e6qbdzjje7RzScP49ePig"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

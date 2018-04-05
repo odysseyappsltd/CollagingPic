@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.odyssey.apps.StaticClasses.CheckIf;
+import com.odyssey.apps.StaticClasses.NotiData;
 import com.odyssey.apps.StaticClasses.NotificationCenter;
 import com.odyssey.apps.StaticClasses.UserDefault;
 import com.odyssey.apps.collagingpic.R;
@@ -68,7 +69,7 @@ public class IAPActivity extends AppCompatActivity implements BillingProcessor.I
         iapTable = (ListView) findViewById(R.id.IAPlistView);
         final IAPAdapter adapter = new IAPAdapter(IAPActivity.this,bp);
         iapTable.setAdapter(adapter);
-        System.out.println("CRASHED!!!!");
+        //System.out.println("CRASHED!!!!");
 
 
 
@@ -135,7 +136,7 @@ public class IAPActivity extends AppCompatActivity implements BillingProcessor.I
             }
         }
 
-        NotificationCenter.broadcast("Purchased",this);
+        NotificationCenter.broadcast(NotiData.getSharedInstance().SOMETHING_JUST_PURCHASED,this);
 
 
     }
@@ -170,7 +171,7 @@ public class IAPActivity extends AppCompatActivity implements BillingProcessor.I
 
         if(didRestored) {
             Toast.makeText(this, getString(R.string.RestoreToast), Toast.LENGTH_SHORT).show();
-            NotificationCenter.broadcast("Purchased", this);
+            NotificationCenter.broadcast(NotiData.getSharedInstance().SOMETHING_JUST_PURCHASED, this);
         }
     }
 

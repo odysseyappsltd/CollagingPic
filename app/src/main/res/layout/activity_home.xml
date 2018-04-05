@@ -132,7 +132,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/settings"
+                android:background="@drawable/tab_bar_settings_normal2x"
 
                 android:onClick="settingAct" />
 

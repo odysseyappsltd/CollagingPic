@@ -75,4 +75,6 @@
         <string name="RestoreToast">あなたの購入は復元されました。</string>
         <string name="SuccessfullySaveForegroundGallery">フォアグラウンドギャラリーに保存されました。</string>
     <string name="SuccessfullySavePhotoAlbum">フォトアルバムに保存されました。</string>
+    <string name="GoSettingsMsg">写真とストレージへのアクセスが必要\n
+ColagingPic写真とストレージにアクセスして、編集した写真を作成して保存します。 あなたは、常に設定/アプリ/ CutPastePhoto /権限に行くことによって、あなたの許可を変更することができます。</string>
 </resources>

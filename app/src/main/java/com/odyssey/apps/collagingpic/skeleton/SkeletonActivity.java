@@ -1,9 +1,14 @@
 package com.odyssey.apps.collagingpic.skeleton;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -18,9 +23,15 @@ import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
+import android.provider.MediaStore;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
@@ -46,12 +57,14 @@ import com.baoyz.actionsheet.ActionSheet;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.formats.NativeAdOptions;
 import com.google.android.gms.ads.formats.NativeAppInstallAd;
 import com.google.android.gms.ads.formats.NativeAppInstallAdView;
 import com.google.android.gms.ads.formats.NativeContentAd;
 import com.google.android.gms.ads.formats.NativeContentAdView;
+import com.odyssey.apps.Admobs.AdmobClass;
 import com.odyssey.apps.Admobs.Advertisement;
 
 import com.odyssey.apps.IAP.IAPData;
@@ -60,15 +73,21 @@ import com.odyssey.apps.StaticClasses.CheckIf;
 import com.odyssey.apps.StaticClasses.NotiData;
 import com.odyssey.apps.StaticClasses.NotificationCenter;
 import com.odyssey.apps.collagingpic.R;
+import com.odyssey.apps.collagingpic.starting.FilterActivity;
+import com.odyssey.apps.collagingpic.starting.HomeActivity;
 import com.odyssey.apps.collagingpic.starting.MainActivity;
 import com.odyssey.apps.popUp.PopUpActivity;
 import com.odyssey.apps.popUp.PopUpData;
+import com.odyssey.apps.util.Custom;
+import com.odyssey.apps.util.FileUtil;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
-public class SkeletonActivity extends AppCompatActivity implements View.OnTouchListener , ActionSheet.ActionSheetListener{
+public class SkeletonActivity extends AppCompatActivity implements View.OnTouchListener{
 
     private static final String TAG = SkeletonActivity.class.getName();
     private static final int IMAGE_EDITOR_RESULT = 1;
@@ -79,6 +98,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
     int border;
     int slider_bar;
     int NO_OF_COLLAGE_FRAMES;
+
 
     private Matrix[] matrix = new Matrix[50];
     private Matrix[] savedMatrix = new Matrix[50];
@@ -106,7 +126,9 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
     private int CLICK_ACTION_THRESHOLD = 10;
     RelativeLayout pop;
     int swapFrom=0;
+    private InterstitialAd mInterstitialAd;
     Boolean isSwap=false;
+    ImageView activateImageView;
     ArrayList<RectF> layerSize;
     /*int imgSet[] = new int[]{R.drawable.image,R.drawable.image2,
             R.drawable.image,R.drawable.image2,
@@ -254,7 +276,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         for(int i=0;i<NO_OF_COLLAGE_FRAMES;i++) {
             Colage col = allColages[i];
             CardView cv = (CardView) col.getChildAt(0);
-            cv.setCardElevation(3*shadeValue);
+            cv.setCardElevation(shadeValue);
 
         }
 
@@ -317,6 +339,13 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         super.onCreate(savedInstanceState);
         for(int i=0;i<MainActivity.selection.size();i++) {
             Bitmap bitmap = BitmapFactory.decodeFile(MainActivity.selection.get(i));
+            int rotateImage = getCameraPhotoOrientation(this, Uri.parse(MainActivity.selection.get(i)), MainActivity.selection.get(i));
+            System.out.println("asdf"+rotateImage);
+            Matrix matrix = new Matrix();
+            matrix.postRotate(rotateImage);
+            bitmap = Bitmap.createBitmap(bitmap , 0, 0,
+                    bitmap.getWidth(), bitmap.getHeight(),
+                    matrix, true);
             imgSet[i] = resize(bitmap, 800, 800);
         }
 
@@ -468,6 +497,23 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
             findViewById(R.id.ASAdmob).setVisibility(View.GONE);
         }
 
+        if (!CheckIf.isPurchased(IAPData.getSharedInstance().ADMOB,this)) {
+            mInterstitialAd = new InterstitialAd(this);
+            mInterstitialAd.setAdUnitId(AdmobClass.INTERSTITIAL_AD_UNIT_ID);
+            AdRequest request = new AdRequest.Builder().build();
+            mInterstitialAd.loadAd(request);
+            mInterstitialAd.setAdListener(new AdListener() {
+                @Override
+                public void onAdLoaded() {
+
+                    if (mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                    }
+
+                }
+            });
+        }
+
     }
 
 
@@ -493,7 +539,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         cvp.setMargins(10,10,10,10);
         cv.setLayoutParams(cvp);
         cv.setPreventCornerOverlap(false);
-        cv.setMaxCardElevation(10.0f);
+        //cv.setMaxCardElevation(10.0f);
 
 
 
@@ -712,9 +758,11 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
             int tag = (Integer) view.getTag();
             limitDrag(matrix[tag], view, tag);
             view.setImageMatrix(matrix[tag]);
-            Bitmap bmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.RGB_565);
-            Canvas canvas = new Canvas(bmap);
-            view.draw(canvas);
+            if(view.getWidth()>0&&view.getHeight()>0) {
+                Bitmap bmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.RGB_565);
+                Canvas canvas = new Canvas(bmap);
+                view.draw(canvas);
+            }
         }
     }
 
@@ -816,6 +864,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
                             } else {
                                 pop.setVisibility(View.INVISIBLE);
                             }
+                            activateImageView=view;
                         }
 
                     }
@@ -933,6 +982,29 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         isSwap=true;
         pop.setVisibility(View.INVISIBLE);
         Toast.makeText(this, "select an image to swap", Toast.LENGTH_SHORT).show();
+    }
+    public void album(View view){
+        pop.setVisibility(View.INVISIBLE);
+        finish();
+    }
+    public void edit(View view){
+
+        // Adobe creative sdk calling . .
+
+
+        Bitmap bm = ((BitmapDrawable)activateImageView.getDrawable()).getBitmap();
+        File f = new File(getExternalCacheDir()+"/collagingpictempimage.png");
+        try {
+            FileOutputStream outStream = new FileOutputStream(f);
+            bm.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+            outStream.flush();
+            outStream.close();
+        } catch (Exception e) { throw new RuntimeException(e); }
+        System.out.println(Uri.fromFile(f));
+        Intent imageEditorIntent = new AdobeImageIntent.Builder(this).setData(Uri.fromFile(f)).build();
+        startActivityForResult(imageEditorIntent, 1);
+        pop.setVisibility(View.INVISIBLE);
+
     }
     public void setaspect(){
         //Set aspect is being called against evry button click
@@ -1080,11 +1152,35 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
     }
     public void shareAct(View view){
         // Set actions at the listener below . . .
-        ActionSheet.createBuilder(this, getSupportFragmentManager())
-                .setCancelButtonTitle(getString(R.string.Cancel))
-                .setOtherButtonTitles(getString(R.string.Share), getString(R.string.SaveToAlbum))
-                .setCancelableOnTouchOutside(true)
-                .setListener(SkeletonActivity.this).show();
+        mainView.setDrawingCacheEnabled(true);
+        Bitmap result = mainView.getDrawingCache();
+
+        ByteArrayOutputStream bs = new ByteArrayOutputStream();
+        result.compress(Bitmap.CompressFormat.PNG, 100, bs);
+        byte[] byteArray = bs.toByteArray();
+        Intent send = new Intent(SkeletonActivity.this, FilterActivity.class);
+        send.putExtra("collageBitmap",byteArray);
+        startActivity(send);
+        mainView.setDrawingCacheEnabled(false);
+
+
+        /*if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERM_RQST_CODE);
+        }
+        else {
+
+
+            ActionSheet.createBuilder(this, getSupportFragmentManager())
+                    .setCancelButtonTitle(getString(R.string.Cancel))
+                    .setOtherButtonTitles(getString(R.string.Share), getString(R.string.SaveToAlbum))
+                    .setCancelableOnTouchOutside(true)
+                    .setListener(SkeletonActivity.this).show();
+        }*/
+
 
         /*
         // Adobe creative sdk calling . .
@@ -1132,21 +1228,35 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         }
 
     }
+    public int getCameraPhotoOrientation(Context context, Uri imageUri, String imagePath){
+        int rotate = 0;
+        try {
+            context.getContentResolver().notifyChange(imageUri, null);
+            File imageFile = new File(imagePath);
 
-    // Listeners for ACtion Methods
-    @Override
-    public void onDismiss(ActionSheet actionSheet, boolean isCancel) {
+            ExifInterface exif = new ExifInterface(imageFile.getAbsolutePath());
+            int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
 
-        // Code if you need  . . .
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    rotate = 270;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    rotate = 180;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    rotate = 90;
+                    break;
+            }
 
+            Log.i("RotateImage", "Exif orientation: " + orientation);
+            Log.i("RotateImage", "Rotate value: " + rotate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rotate;
     }
 
-    @Override
-    public void onOtherButtonClick(ActionSheet actionSheet, int index) {
 
-        //Ashraf Vai to code in my absence . .
-        // Code here for different indexea . . .
-
-    }
 }
 

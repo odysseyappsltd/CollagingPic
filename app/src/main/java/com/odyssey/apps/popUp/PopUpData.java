@@ -1,5 +1,7 @@
 package com.odyssey.apps.popUp;
 
+import android.graphics.Color;
+
 import com.odyssey.apps.collagingpic.R;
 
 /**
@@ -31,12 +33,12 @@ public class PopUpData {
 
     //Shape picker
 
-    private int shrinkValue = 40;
+    private int shrinkValue = 0;
     public int getShrinkValue(){return shrinkValue; }
     public void saveShrinkValue(int value){this.shrinkValue = value ;}
 
     // ColorPicker
-    private int color = 0xFF394572;
+    private int color = Color.WHITE;
     public int getColor(){
         return  color ;
     }

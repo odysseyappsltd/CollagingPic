@@ -49,6 +49,7 @@
                     android:layout_marginLeft="14dp"
                     android:layout_marginTop="10dp"
                     android:minHeight="35dp"
+                    android:onClick="edit"
                     android:text="Edit" />
 
 
@@ -67,6 +68,7 @@
                     android:layout_height="35dp"
                     android:layout_marginLeft="14dp"
                     android:minHeight="35dp"
+                    android:onClick="album"
                     android:text="ALbum" />
 
 

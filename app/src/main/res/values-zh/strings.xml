@@ -75,4 +75,6 @@
     <string name="RestoreToast">您的购买已恢复。</string>
     <string name="SuccessfullySaveForegroundGallery">成功保存到前台画廊。</string>
     <string name="SuccessfullySavePhotoAlbum">成功保存到相册。</string>
+    <string name="GoSettingsMsg">需要访问照片和存储\n
+让ColagingPic访问您的照片和存储以创建并保存编辑后的照片。 您可以随时通过设置/应用/ CutPastePhoto /权限更改权限。</string>
 </resources>

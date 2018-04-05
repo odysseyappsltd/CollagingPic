@@ -32,7 +32,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
+import com.google.android.gms.ads.InterstitialAd;
+import com.odyssey.apps.Admobs.AdmobClass;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
@@ -77,6 +78,7 @@ public class HomeActivity extends Activity {
     ImageView imageView;
     ImageView imageView2;
     int shrinkValue;
+    private InterstitialAd mInterstitialAd;
 
 
 
@@ -289,7 +291,6 @@ public class HomeActivity extends Activity {
 
         //Notifications
         NotificationCenter.addReceiver(NotiData.getSharedInstance().SOMETHING_JUST_PURCHASED,mMessageReceiver,this);
-
         NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_COLOR,mColorReceiver,this);
         NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_ASPECT_VALUE,mAspectValueReceiver,this);
         NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_PATTERN,mPatternReceiver,this);
@@ -392,6 +393,24 @@ public class HomeActivity extends Activity {
             System.out.println("Admob tried to be loaded !");
         } else {
             findViewById(R.id.AHAdmob).setVisibility(View.GONE);
+        }
+
+
+        if (!CheckIf.isPurchased(IAPData.getSharedInstance().ADMOB,this)) {
+            mInterstitialAd = new InterstitialAd(this);
+            mInterstitialAd.setAdUnitId(AdmobClass.INTERSTITIAL_AD_UNIT_ID);
+            AdRequest request = new AdRequest.Builder().build();
+            mInterstitialAd.loadAd(request);
+            mInterstitialAd.setAdListener(new AdListener() {
+                @Override
+                public void onAdLoaded() {
+
+                    if (mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                    }
+
+                }
+            });
         }
 
 

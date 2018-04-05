@@ -36,4 +36,12 @@
     <string name="PatternsSubitle">Unlock 200+ Background Patterns</string>
     <string name="AdvertisementsSubitle">Remove Annoying Advertisements</string>
     <string name="Store">Store</string>
+    <string name="ShareImage">ShareImage</string>
+    <string name="OK">OK</string>
+    <string name="Done">Done</string>
+    <string name="Filter">Filter</string>
+    <string name="SuccessfullySavePhotoAlbum">Successfully Saved to Photo Album</string>
+    <string name="GoSettingsMsg">Need access to Photos and Storage\n
+Let ColagingPic Access your Photos and Storage to create and save edited photos. You can always change your permission by going to Settings / Apps / CutPastePhoto / Permissions.</string>
+
 </resources>

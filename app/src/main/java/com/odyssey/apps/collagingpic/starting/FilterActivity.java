@@ -1,26 +1,48 @@
 package com.odyssey.apps.collagingpic.starting;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.baoyz.actionsheet.ActionSheet;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.mukesh.image_processing.ImageProcessor;
+import com.odyssey.apps.Admobs.AdmobClass;
+import com.odyssey.apps.IAP.IAPData;
+import com.odyssey.apps.StaticClasses.CheckIf;
 import com.odyssey.apps.collagingpic.R;
+
+import com.odyssey.apps.util.Custom;
+import com.odyssey.apps.util.FileUtil;
 
 import net.alhazmy13.imagefilter.ImageFilter;
 
-public class FilterActivity extends AppCompatActivity {
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class FilterActivity extends AppCompatActivity implements ActionSheet.ActionSheetListener {
 
     public ImageView imageView;
     public ImageView imageView2;
@@ -43,6 +65,7 @@ public class FilterActivity extends AppCompatActivity {
     public Button doneButton;
     public Button cancelButton;
     private InterstitialAd mInterstitialAd;
+    public static final int PERM_RQST_CODE = 110;
 
     Bitmap bitmap;
 //    Bitmap resized;
@@ -146,17 +169,24 @@ public class FilterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Bitmap imageviewImageBitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-                /*ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                imageviewImageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byte[] byteArray = stream.toByteArray();*/
+                //Bitmap imageviewImageBitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
 
-//                DataPassingSingelton.getInstance().setImage(imageviewImageBitmap);
+                if (ActivityCompat.checkSelfPermission(FilterActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(FilterActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(FilterActivity.this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERM_RQST_CODE);
+                }
+                else {
 
-                Intent erase = new Intent(FilterActivity.this,MainActivity.class);
-                setResult(Activity.RESULT_OK,
-                        erase);
-                finish();
+
+                    ActionSheet.createBuilder(FilterActivity.this, getSupportFragmentManager())
+                            .setCancelButtonTitle(getString(R.string.Cancel))
+                            .setOtherButtonTitles(getString(R.string.Share), getString(R.string.SaveToAlbum))
+                            .setCancelableOnTouchOutside(true)
+                            .setListener(FilterActivity.this).show();
+                }
 
             }
         });
@@ -170,20 +200,145 @@ public class FilterActivity extends AppCompatActivity {
         });
 
 
-//        mInterstitialAd = new InterstitialAd(this);
-//        AdRequest request = new AdRequest.Builder().build();
-//        mInterstitialAd.loadAd(request);
-//        mInterstitialAd.setAdListener(new AdListener() {
-//            @Override
-//            public void onAdLoaded() {
-//
-//                if (mInterstitialAd.isLoaded()) {
-//                    mInterstitialAd.show();
-//                }
-//
-//            }
-//        });
+        if (!CheckIf.isPurchased(IAPData.getSharedInstance().ADMOB,this)) {
+            mInterstitialAd = new InterstitialAd(this);
+            mInterstitialAd.setAdUnitId(AdmobClass.INTERSTITIAL_AD_UNIT_ID);
+            AdRequest request = new AdRequest.Builder().build();
+            mInterstitialAd.loadAd(request);
+            mInterstitialAd.setAdListener(new AdListener() {
+                @Override
+                public void onAdLoaded() {
 
+                    if (mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                    }
+
+                }
+            });
+        }
+
+
+    }
+    // Listeners for ACtion Methods
+    @Override
+    public void onDismiss(ActionSheet actionSheet, boolean isCancel) {
+
+        // Code if you need  . . .
+
+    }
+
+    @Override
+    public void onOtherButtonClick(ActionSheet actionSheet, int index) {
+
+        //Ashraf Vai to code in my absence . .
+        // Code here for different indexea . . .
+
+        if(index==0)
+            share();
+        else if(index==1)
+            saveImage();
+
+    }
+
+    public void saveImage(){
+        File file = FileUtil.getNewFile(FilterActivity.this, "Sticker");
+        Bitmap icon = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+        System.out.println(icon);
+
+
+        //Bitmap icon =Bitmap.createBitmap(result,bgImage.getLeft(), bgImage.getTop(), bgImage.getWidth(), bgImage.getHeight());
+        try {
+
+            StickerUtils.saveImageToGallery(file, icon);
+            StickerUtils.notifySystemGallery(this, file);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setCancelable(true);
+            builder.setMessage(getString(R.string.SuccessfullySavePhotoAlbum));
+            builder.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //if user pressed "yes", then he is allowed to exit from application
+                    dialog.cancel();
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        } catch (IllegalArgumentException | IllegalStateException ignored) {
+            //
+        }
+
+        /*if (file != null) {
+            stickerView.save(file);
+            //Toast.makeText(MainActivity.this, "saved in " + file.getAbsolutePath(),Toast.LENGTH_SHORT).show();
+        } else {
+            //Toast.makeText(MainActivity.this, "the file is null", Toast.LENGTH_SHORT).show();
+        }*/
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case PERM_RQST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //Toast.makeText(MainActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
+                    // do your work here
+                } else if (Build.VERSION.SDK_INT >= 23 && !shouldShowRequestPermissionRationale(permissions[0])) {
+                    //Toast.makeText(MainActivity.this, "Go to Settings and Grant the permission to use this feature.", Toast.LENGTH_SHORT).show();
+                    // User selected the Never Ask Again Option
+                    goSettingsPage();
+                } else {
+
+                    //Toast.makeText(MainActivity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+    }
+    public void share(){
+
+        Bitmap icon = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("image/jpeg");
+        String filename = Custom.makeFileNameFrom(".jpg");
+        System.out.println(filename);
+        saveTempFile(icon, filename);
+        share.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///sdcard/"+filename));
+        startActivity(Intent.createChooser(share, getString(R.string.ShareImage)));
+
+    }
+    public void saveTempFile(Bitmap icon, String fileName){
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        icon.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        File f = new File(Environment.getExternalStorageDirectory() + File.separator + fileName);
+        try {
+            f.createNewFile();
+            FileOutputStream fo = new FileOutputStream(f);
+            fo.write(bytes.toByteArray());
+            fo.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void goSettingsPage(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setMessage(getString(R.string.GoSettingsMsg));
+        builder.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //if user pressed "yes", then he is allowed to exit from application
+                dialog.cancel();
+                Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                Uri uri = Uri.fromParts("package", getPackageName(), null);
+                intent.setData(uri);
+                startActivity(intent);
+
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
 
     }
 

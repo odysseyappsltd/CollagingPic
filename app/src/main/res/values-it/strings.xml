@@ -76,4 +76,6 @@
     <string name="RestoreToast">I tuoi acquisti sono stati ripristinati.</string>
     <string name="SuccessfullySaveForegroundGallery">Salvato con successo in galleria di primo piano.</string>
     <string name="SuccessfullySavePhotoAlbum">Salvato con successo su Album fotografico.</string>
+    <string name="GoSettingsMsg">Hai bisogno di accedere a Foto e archiviazione\n
+Lascia che ColagingPic acceda alle tue Foto e ai tuoi archivi per creare e salvare foto modificate. Puoi sempre cambiare il tuo permesso andando su Impostazioni / Applicazioni / CutPastePhoto / Autorizzazioni.</string>
 </resources>

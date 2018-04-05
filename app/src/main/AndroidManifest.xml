@@ -59,6 +59,8 @@
             android:theme="@style/Theme.AppCompat.Translucent"></activity>
         <activity android:name=".skeleton.aspectActivityForFreeStyle"
             android:theme="@style/Theme.AppCompat.Translucent"></activity>
+        <activity android:name=".skeleton.HelpActivity"
+            android:theme="@style/AppTheme.PopUpTheme"></activity>
     </application>
 
 </manifest>

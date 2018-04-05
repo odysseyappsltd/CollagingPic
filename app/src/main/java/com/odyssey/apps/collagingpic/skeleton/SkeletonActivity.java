@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -36,6 +37,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -136,6 +138,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
             R.drawable.image,R.drawable.image2,
             R.drawable.image,R.drawable.image2};*/
     Bitmap imgSet[] = new Bitmap[50];
+
 
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
@@ -437,6 +440,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         //
 
         // Admob
+
         MobileAds.initialize(this, Advertisement.getSharedInstance().getNativeAdvanceAdAppID());
         final AdLoader adLoader = new AdLoader.Builder(this, Advertisement.getSharedInstance().getNativeAdvanceAdUnitID())
                 .forAppInstallAd(new NativeAppInstallAd.OnAppInstallAdLoadedListener() {
@@ -514,6 +518,15 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
             });
         }
 
+
+        SharedPreferences preferences = this.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        Boolean isFirstTime = preferences.getBoolean("firstTime",true);
+        if(isFirstTime) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("firstTime", false);
+            editor.commit();
+            helpScreen();
+        }
     }
 
 
@@ -1149,6 +1162,11 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         Intent aspect = new Intent(SkeletonActivity.this,aspectActivity.class);
         startActivity(aspect);
 
+
+    }
+    public void helpScreen(){
+        Intent help = new Intent(SkeletonActivity.this,HelpActivity.class);
+        startActivity(help);
     }
     public void shareAct(View view){
         // Set actions at the listener below . . .

@@ -98,7 +98,7 @@ public class HomeActivity1 extends Activity {
 //            layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
 //            mImageView.setLayoutParams(layoutParams);
 
-            mImageView.setOnTouchListener(new MultiTouchListener(HomeActivity1.this));
+            //mImageView.setOnTouchListener(new MultiTouchListener(HomeActivity1.this));
 
 
 //

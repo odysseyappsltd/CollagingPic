@@ -45,33 +45,18 @@
         <activity android:name=".starting.HomeActivity" />
         <activity
             android:name="com.odyssey.apps.popUp.PopUpActivity"
-            android:theme="@style/AppTheme.PopUpTheme"></activity>
+            android:theme="@style/AppTheme.PopUpTheme" />
         <activity android:name="com.odyssey.apps.IAP.IAPActivity" />
         <activity android:name=".skeleton.SkeletonActivity" />
         <activity android:name="com.odyssey.apps.Settings.SettingsActivity" />
         <activity
             android:name=".starting.FilterActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".skeleton.aspectActivity"
+        <activity
+            android:name=".skeleton.aspectActivity"
+            android:theme="@style/AppTheme.PopUpTheme" />
+        <activity android:name=".skeleton.HelpActivity"
             android:theme="@style/AppTheme.PopUpTheme"></activity>
     </application>
 
-</manifest>
-    <!-- monir 1 -->
-    <!-- sudipto 1 -->
-    <!-- sudipto 2 -->
-    <!-- sudipto 3 -->
-    <!-- monir 2 -->
-    <!-- sudipto 4 -->
-    <!-- sudipto 5 -->
-    <!-- monir 3 -->
-    <!-- sudipto 6 -->
-    <!-- monir 4 -->
-    <!-- sudipto 7 -->
-    <!-- monir 5 -->
-    <!-- ashraf 1 -->
-    <!-- sudipto 8 -->
-    <!-- monir 6 -->
-    <!-- sudipto 9 -->
-    <!-- sudipto 10 -->
-    <!-- sudipto 11 Merged -->
+</manifest> <!-- monir 1 --><!-- sudipto 1 --><!-- sudipto 2 --><!-- sudipto 3 --><!-- monir 2 --><!-- sudipto 4 --><!-- sudipto 5 --><!-- monir 3 --><!-- sudipto 6 --><!-- monir 4 --><!-- sudipto 7 --><!-- monir 5 --><!-- ashraf 1 --><!-- sudipto 8 --><!-- monir 6 --><!-- sudipto 9 --><!-- sudipto 10 --><!-- sudipto 11 Merged --><!-- ashraf2 final -->

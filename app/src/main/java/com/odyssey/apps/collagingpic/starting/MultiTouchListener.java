@@ -1,9 +1,12 @@
 package com.odyssey.apps.collagingpic.starting;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.PointF;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +14,14 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.adobe.creativesdk.aviary.AdobeImageIntent;
+import com.odyssey.apps.collagingpic.R;
+
+import java.io.File;
+import java.io.FileOutputStream;
 
 
 public class MultiTouchListener implements OnTouchListener {
@@ -26,12 +36,21 @@ public class MultiTouchListener implements OnTouchListener {
     private float mPrevX;
     private float mPrevY;
     private ScaleGestureDetector mScaleGestureDetector;
+    private int CLICK_ACTION_THRESHOLD = 10;
+    private PointF start = new PointF();
+    private ImageView activateImageView;
+    private static int tag=0;
 
     Context context;
+    Activity mainAct;
 
-    public MultiTouchListener(Context context) {
+    public MultiTouchListener(Context context,Activity mainAct) {
         mScaleGestureDetector = new ScaleGestureDetector(new ScaleGestureListener());
         this.context = context;
+        this.mainAct=mainAct;
+    }
+    public static int getTag(){
+        return tag;
     }
 
     private static float adjustAngle(float degrees) {
@@ -92,11 +111,31 @@ public class MultiTouchListener implements OnTouchListener {
         public boolean onDoubleTap(MotionEvent e) {
 //            Log.d("TEST", "onDoubleTap");
 
-            Toast.makeText(context, "onDoubleTap", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, "onDoubleTap", Toast.LENGTH_SHORT).show();
+            edit(activateImageView);
 
             return super.onDoubleTap(e);
         }
     });
+    public void edit(ImageView activateImageView){
+
+        // Adobe creative sdk calling . .
+        tag = (Integer) activateImageView.getTag();
+
+
+        Bitmap bm = ((BitmapDrawable)activateImageView.getDrawable()).getBitmap();
+        File f = new File(context.getExternalCacheDir()+"/collagingpictempimage.png");
+        try {
+            FileOutputStream outStream = new FileOutputStream(f);
+            bm.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+            outStream.flush();
+            outStream.close();
+        } catch (Exception e) { throw new RuntimeException(e); }
+        System.out.println(Uri.fromFile(f));
+        Intent imageEditorIntent = new AdobeImageIntent.Builder(context).setData(Uri.fromFile(f)).build();
+        mainAct.startActivityForResult(imageEditorIntent,1);
+
+    }
 
     @Override
     public boolean onTouch(View view, MotionEvent event) {
@@ -112,6 +151,7 @@ public class MultiTouchListener implements OnTouchListener {
         int action = event.getAction();
         switch (action & event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN: {
+                start.set(event.getX(), event.getY());
                 mPrevX = event.getX();
                 mPrevY = event.getY();
 
@@ -142,6 +182,10 @@ public class MultiTouchListener implements OnTouchListener {
                 break;
 
             case MotionEvent.ACTION_UP:
+                if (isAClick(start.x, event.getX(), start.y, event.getY())) {
+                    if(view instanceof ImageView)
+                        activateImageView = (ImageView) view;
+                }
                 mActivePointerId = INVALID_POINTER_ID;
                 break;
 
@@ -163,6 +207,12 @@ public class MultiTouchListener implements OnTouchListener {
         }
 
         return true;
+    }
+
+    private boolean isAClick(float startX, float endX, float startY, float endY) {
+        float differenceX = Math.abs(startX - endX);
+        float differenceY = Math.abs(startY - endY);
+        return !(differenceX > CLICK_ACTION_THRESHOLD/* =5 */ || differenceY > CLICK_ACTION_THRESHOLD);
     }
 
     private class ScaleGestureListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {

@@ -9,6 +9,7 @@ import android.graphics.PointF;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -38,7 +39,7 @@ public class MultiTouchListener implements OnTouchListener {
     private ScaleGestureDetector mScaleGestureDetector;
     private int CLICK_ACTION_THRESHOLD = 10;
     private PointF start = new PointF();
-    private ImageView activateImageView;
+    private CardView activateImageView;
     private static int tag=0;
 
     Context context;
@@ -48,6 +49,7 @@ public class MultiTouchListener implements OnTouchListener {
         mScaleGestureDetector = new ScaleGestureDetector(new ScaleGestureListener());
         this.context = context;
         this.mainAct=mainAct;
+        activateImageView = new CardView(context);
     }
     public static int getTag(){
         return tag;
@@ -117,13 +119,14 @@ public class MultiTouchListener implements OnTouchListener {
             return super.onDoubleTap(e);
         }
     });
-    public void edit(ImageView activateImageView){
+    public void edit(CardView activateImageView){
 
         // Adobe creative sdk calling . .
         tag = (Integer) activateImageView.getTag();
+        ImageView iv = (ImageView) activateImageView.getChildAt(0);
 
 
-        Bitmap bm = ((BitmapDrawable)activateImageView.getDrawable()).getBitmap();
+        Bitmap bm = ((BitmapDrawable)iv.getDrawable()).getBitmap();
         File f = new File(context.getExternalCacheDir()+"/collagingpictempimage.png");
         try {
             FileOutputStream outStream = new FileOutputStream(f);
@@ -139,6 +142,8 @@ public class MultiTouchListener implements OnTouchListener {
 
     @Override
     public boolean onTouch(View view, MotionEvent event) {
+        if(view instanceof CardView)
+            System.out.println("caard");
         mScaleGestureDetector.onTouchEvent(view, event);
         view.bringToFront();
         gestureDetector.onTouchEvent(event);
@@ -183,8 +188,8 @@ public class MultiTouchListener implements OnTouchListener {
 
             case MotionEvent.ACTION_UP:
                 if (isAClick(start.x, event.getX(), start.y, event.getY())) {
-                    if(view instanceof ImageView)
-                        activateImageView = (ImageView) view;
+                    if(view instanceof CardView)
+                        activateImageView = (CardView) view;
                 }
                 mActivePointerId = INVALID_POINTER_ID;
                 break;

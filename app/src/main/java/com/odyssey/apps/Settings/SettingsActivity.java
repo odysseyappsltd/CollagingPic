@@ -1,6 +1,7 @@
 package com.odyssey.apps.Settings;
 
 import android.app.Activity;
+import android.app.Notification;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.odyssey.apps.IAP.IAPActivity;
+import com.odyssey.apps.StaticClasses.NotiData;
+import com.odyssey.apps.StaticClasses.NotificationCenter;
 import com.odyssey.apps.collagingpic.skeleton.SkeletonActivity;
 import com.odyssey.apps.collagingpic.R;
 
@@ -58,11 +61,7 @@ public class SettingsActivity extends AppCompatActivity {
                         startActivity(store);
                         break;
                     case 2 :
-                        Intent help = new Intent(SettingsActivity.this,SkeletonActivity.class);
-                        //erase.putExtra("BitmapImage2", byteArray);
-                        //bool = true;
-                        setResult(Activity.RESULT_OK,
-                                help);
+                        NotificationCenter.broadcast(NotiData.getSharedInstance().TIME_TO_RUN_HELP_SCREEN,SettingsActivity.this);
                         finish();
                         break;
                     case 3 :

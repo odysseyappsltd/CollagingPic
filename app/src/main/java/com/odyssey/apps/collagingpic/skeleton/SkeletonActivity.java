@@ -203,6 +203,15 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         }
     };
 
+    private BroadcastReceiver mHelpRunCommandReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            helpScreen();
+            System.out.println("Notified !");
+        }
+    };
+
 
 
     private void changeColor(){
@@ -301,6 +310,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mShrinkValueReceiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mRoundValueReceiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mShadeValueReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mHelpRunCommandReceiver);
         super.onDestroy();
 
     }
@@ -367,6 +377,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_SHRINK_VALUE,mShrinkValueReceiver,this);
         NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_ROUND_VALUE,mRoundValueReceiver,this);
         NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_SHADE_VALUE,mShadeValueReceiver,this);
+        NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_RUN_HELP_SCREEN,mHelpRunCommandReceiver,this);
 
 
 
@@ -1165,6 +1176,16 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
 
     }
     public void helpScreen(){
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                helpScreenafter1s();
+            }
+        }, 1000);
+
+    }
+    public void helpScreenafter1s(){
         Intent help = new Intent(SkeletonActivity.this,HelpActivity.class);
         startActivity(help);
     }

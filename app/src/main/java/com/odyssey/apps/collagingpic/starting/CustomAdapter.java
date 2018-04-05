@@ -19,7 +19,7 @@ public class CustomAdapter extends BaseAdapter {
     LayoutInflater inflater;
 
     int[] Images  = new int[]{R.drawable.collage, R.drawable.slideshow};
-    String[] Names  = new String[]{"Photo Collage","Photo Vault"};
+    String[] Names  = new String[]{"Photo Collage","Cut Paste Photo"};
 
     public CustomAdapter(Context context){
         this.context = context;

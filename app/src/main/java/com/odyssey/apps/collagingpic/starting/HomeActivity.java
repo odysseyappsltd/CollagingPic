@@ -699,7 +699,8 @@ public class HomeActivity extends AppCompatActivity {
                             try {
                                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), editedImageUri);
                                 int t = MultiTouchListener.getTag();
-                                ImageView iv = (ImageView) rootLayout.findViewWithTag(t);
+                                CardView cv = (CardView) rootLayout.findViewWithTag(t);
+                                ImageView iv = (ImageView) cv.getChildAt(0);
                                 iv.setImageBitmap(bitmap);
                             } catch (IOException e) {
                                 e.printStackTrace();

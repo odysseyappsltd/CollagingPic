@@ -27,7 +27,7 @@ public class SettingModel {
     }
 
 
-    void pushURL(Context context , String url){
+    public void pushURL(Context context , String url){
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         context.startActivity(browserIntent);
     }

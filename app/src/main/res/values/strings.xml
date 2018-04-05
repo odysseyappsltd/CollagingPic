@@ -1,15 +1,15 @@
 <resources>
-    <string name="app_name">Collaging Pic</string>
+    <string name="app_name">Collaging Photo</string>
     <string name="RestoreToast">Your in-app billing has been restored</string>
     <string name="BuyPro">Buy</string>
     <string name="Cancel">Cancel</string>
     <string name="PRO_VERSION">Get Pro Features</string>
     <string name="HelpSettings">HELP &amp; SETTINGS</string>
     <string name="Help">Help</string>
-    <string name="TellAFriend">Tell a Friend</string>
-    <string name="ContactUs">Contact us</string>
-    <string name="ShareApp">Share App</string>
-    <string name="RateUs">Rate us</string>
+    <string name="TellAFriend">Tell A Friend</string>
+    <string name="ContactUs">Contact Us</string>
+    <string name="ShareApp">Share This App</string>
+    <string name="RateUs">Give Us A Review</string>
     <string name="Font">Font</string>
     <string name="FollowUs">FOLLOW US</string>
     <string name="Facebook">Facebook</string>
@@ -41,10 +41,7 @@
     <string name="Done">Done</string>
     <string name="Filter">Filter</string>
     <string name="SuccessfullySavePhotoAlbum">Successfully Saved to Photo Album</string>
-    <string name="GoSettingsMsg">Need access to Photos and Storage\n
-Let ColagingPic Access your Photos and Storage to create and save edited photos. You can always change your permission by going to Settings / Apps / Collaging Photo  / Permissions.</string>
-
-
+    <string name="GoSettingsMsg">Need access to Photos and Storage\n Let ColagingPic Access your Photos and Storage to create and save edited photos. You can always change your permission by going to Settings / Apps / Collaging Photo / Permissions.</string>
     <!-- newly added -->
     <string name="Share_Title">Share</string>
 

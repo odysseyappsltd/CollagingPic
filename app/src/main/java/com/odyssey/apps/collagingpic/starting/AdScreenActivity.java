@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.odyssey.apps.Settings.SettingModel;
+import com.odyssey.apps.Settings.SettingsActivity;
 import com.odyssey.apps.collagingpic.R;
 
 /**
@@ -74,6 +76,7 @@ public class AdScreenActivity extends AppCompatActivity {
                 if (position == 1){
 
                     System.out.println("Photo vault");
+                    SettingModel.getSharedInstance().pushURL(AdScreenActivity.this,"https://play.google.com/store/apps/details?id=com.odyssey.apps.cutpastephoto");
 
                 }
 

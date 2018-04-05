@@ -21,6 +21,7 @@ public class NotiData {
     public final String TIME_TO_PICK_SHADE_VALUE = "shadevaluepicker";
     public final String TIME_TO_PICK_ASPECT_VALUE = "pickaspectvalue";
     public final String SOMETHING_JUST_PURCHASED = "Purchased";
+    public final String TIME_TO_RUN_HELP_SCREEN = "helpscreen";
 
 
 

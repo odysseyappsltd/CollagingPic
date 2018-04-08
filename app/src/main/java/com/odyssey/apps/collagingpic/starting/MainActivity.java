@@ -48,7 +48,7 @@ import com.google.android.gms.ads.formats.NativeAppInstallAd;
 import com.google.android.gms.ads.formats.NativeAppInstallAdView;
 import com.google.android.gms.ads.formats.NativeContentAd;
 import com.google.android.gms.ads.formats.NativeContentAdView;
-import com.google.firebase.analytics.FirebaseAnalytics;
+
 import com.odyssey.apps.Admobs.Advertisement;
 import com.odyssey.apps.IAP.IAPData;
 import com.odyssey.apps.StaticClasses.CheckIf;
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     // Fire base Analytics
-    private FirebaseAnalytics mFirebaseAnalytics;
+    //private FirebaseAnalytics mFirebaseAnalytics;
 
 
     public static ArrayList<Model_images> al_images = new ArrayList<Model_images>();
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Obtain the FirebaseAnalytics instance.
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        //mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
 
         //Notifications

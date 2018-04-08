@@ -275,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
                 gv_folder.setAdapter(gridViewAdapter);
 
                 if (i==0) {
-                    galleryButton.setText("Camera Roll");
+                    galleryButton.setText(getString(R.string.CameraRoll));
                 }
                 else{
                     galleryButton.setText(al_images.get(i-1).getStr_folder());
@@ -961,7 +961,7 @@ public class MainActivity extends AppCompatActivity {
 //        obj_adapter = new ListViewAdapter(getApplicationContext(),al_images);
 //        lv_folder.setAdapter(obj_adapter);
         if(al_images.size() != 0) {
-            galleryButton.setText("Camera Roll");
+            galleryButton.setText(getString(R.string.CameraRoll));
         }
         return al_images;
     }

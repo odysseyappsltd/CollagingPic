@@ -32,7 +32,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:background="@android:color/transparent"
-            android:text="CHOOSE  LAYOUT"
+            android:text="@string/ChooseLayout"
             android:textColor="@android:color/white"
             android:textSize="17sp" />
 
@@ -97,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/background_dark"
-            android:text="Camera"
+            android:text="@string/Camera"
             android:textColor="@android:color/white" />
 
         <Button

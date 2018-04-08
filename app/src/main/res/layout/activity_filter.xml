@@ -357,7 +357,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:background="#808080"
-        android:text="@string/Done"
+        android:text="@string/Share"
         android:textColor="#ffff"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView10"
         app:layout_constraintEnd_toEndOf="parent" />

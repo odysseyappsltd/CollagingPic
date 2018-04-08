@@ -1005,7 +1005,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
     public void swap(View view){
         isSwap=true;
         pop.setVisibility(View.INVISIBLE);
-        Toast.makeText(this, "select an image to swap", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.selectanimagetoswap), Toast.LENGTH_SHORT).show();
     }
     public void album(View view){
         pop.setVisibility(View.INVISIBLE);

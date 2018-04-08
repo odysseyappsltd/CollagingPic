@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="COLOR" />
+                android:text="@string/COLOR" />
 
             <RadioButton
                 android:id="@+id/patternButton"
@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="PATTERN" />
+                android:text="@string/PATTERN" />
 
             <RadioButton
                 android:id="@+id/shapeButton"
@@ -64,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="SHAPE" />
+                android:text="@string/SHAPE" />
 
 
         </info.hoang8f.android.segmented.SegmentedGroup>

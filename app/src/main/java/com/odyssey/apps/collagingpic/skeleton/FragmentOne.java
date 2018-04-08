@@ -66,33 +66,33 @@ public class FragmentOne extends Fragment {
         TextView textView2 = (TextView) v.findViewById(R.id.textView17);
         if(mNum==0)
         {
-            textView.setText("How to add photo");
+            textView.setText(getString(R.string.Howtoaddphoto));
 
-            textView2.setText("Tap on the grey area to add a photo to the frame.");
+            textView2.setText(getString(R.string.Taponthegreyareatoaddaphotototheframe));
         }
         else if(mNum==1)
         {
-            textView.setText("Adjusting Frame size");
+            textView.setText(getString(R.string.AdjustingFramesize));
 
-            textView2.setText("Drag the borders to adjust frame size.");
+            textView2.setText(getString(R.string.Dragtheborderstoadjustframesize));
         }
         else if(mNum==2)
         {
-            textView.setText("Move to new area");
+            textView.setText(getString(R.string.Movetonewarea));
 
-            textView2.setText("Hold a photo until it pops to move it in new area.");
+            textView2.setText(getString(R.string.Holdaphotountilitpopstomoveitinnewarea));
         }
         else if(mNum==3)
         {
-            textView.setText("Move and zoom");
+            textView.setText(getString(R.string.Moveandzoom));
 
-            textView2.setText("Pan to move a photo around and pinch to zoom in and out.");
+            textView2.setText(getString(R.string.Pantomoveaphotoaroundandpinchtozoominandout));
         }
         else if(mNum==4)
         {
-            textView.setText("Editing");
+            textView.setText(getString(R.string.Editing));
 
-            textView2.setText("Double tap on a picture to open editing.");
+            textView2.setText(getString(R.string.Doubletaponapicturetoopenediting));
         }
         changeImage();
         return v;

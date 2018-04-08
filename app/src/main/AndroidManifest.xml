@@ -31,7 +31,8 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".starting.SplashScreen">
+        <activity android:name=".starting.SplashScreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,24 +44,34 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".starting.AdScreenActivity"
-            tools:ignore="DuplicateActivity" />
-        <activity android:name=".starting.PhotosActivity" />
-        <activity android:name=".starting.HomeActivity" />
+            tools:ignore="DuplicateActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".starting.PhotosActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".starting.HomeActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.odyssey.apps.popUp.PopUpActivity"
-            android:theme="@style/AppTheme.PopUpTheme"></activity>
-        <activity android:name="com.odyssey.apps.IAP.IAPActivity" />
-        <activity android:name=".skeleton.SkeletonActivity" />
-        <activity android:name="com.odyssey.apps.Settings.SettingsActivity" />
+            android:theme="@style/AppTheme.PopUpTheme"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name="com.odyssey.apps.IAP.IAPActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".skeleton.SkeletonActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.odyssey.apps.Settings.SettingsActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".starting.FilterActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".skeleton.aspectActivity"
-            android:theme="@style/Theme.AppCompat.Translucent"></activity>
+            android:theme="@style/Theme.AppCompat.Translucent"
+            android:screenOrientation="portrait"></activity>
         <activity android:name=".skeleton.aspectActivityForFreeStyle"
-            android:theme="@style/Theme.AppCompat.Translucent"></activity>
+            android:theme="@style/Theme.AppCompat.Translucent"
+            android:screenOrientation="portrait"></activity>
         <activity android:name=".skeleton.HelpActivity"
-            android:theme="@style/AppTheme.PopUpTheme"></activity>
+            android:theme="@style/AppTheme.PopUpTheme"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

@@ -53,7 +53,7 @@ public class IAPActivity extends AppCompatActivity implements BillingProcessor.I
 
 
         // Billing Process
-        bp = new BillingProcessor(
+        bp = BillingProcessor.newBillingProcessor(
                 this,
                 "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwUjiweljYhsZOo+d9vooSPOkFVAyiNw15eC7p8JzER1AiBHhn7f3O1dD+EfUR063r75c28c96ivWu21BUuV+0fLLh0Ukvnki9uiXQkkq/cD2hLY0vSmuXbggjxrM4G9AFlXuz7V/5s0P+kRQBWgaVn4FFNntTFnILM1PZ2M7XfPqqigjOVKSmKzB7PRhkn5oikvn+s/jnKIUqmd+l6CvoWCE9wU8z9SYvIFZDz9L7xRPdM26lu/N+pxkBKZ3D89NKJc5NIXtGJXE43FznKICV+BWGnc0h2o+6DKP0l0z9WZJ5dkfh0ehYwoNEzzv5kNYb2mpqUoTONykG/Wmmytt2wIDAQAB",
                 this
@@ -96,7 +96,7 @@ public class IAPActivity extends AppCompatActivity implements BillingProcessor.I
 
         //Pro Button Setup . .
         Button proButton = (Button) findViewById(R.id.IAPBuyButton);
-        String titleString = proButton.getText().toString() + ": $2.99";
+        String titleString = proButton.getText().toString() + ": $3.99";
         proButton.setText("   "+titleString+"   ");
         proButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

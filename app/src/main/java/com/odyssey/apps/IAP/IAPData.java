@@ -70,11 +70,11 @@ public class IAPData {
     }
 
     //Professional Product IDs
-    public String PRO = "android.test.purchased";
+    public String PRO = "collaging.pro";
 
     //General Product IDs
-    public String PATTERN = "android.test.purchased";
-    public String ADMOB = "android.test.purchased";
+    public String PATTERN = "collaging.pattern";
+    public String ADMOB = "collaging.admob";
 
     private String[] generalProductIDs = new String[]{
 
@@ -97,8 +97,8 @@ public class IAPData {
 
     // Demo Price List
     private String[] demoPriceList = new String[]{
-            "$1.99",
-            "$1.99"
+            "$2.99",
+            "$2.99"
     };
     public int getDemoPriceListSize(){
         return demoPriceList.length ;

@@ -6,15 +6,29 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="9">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5" />
         <SeekBar
             android:id="@+id/AP_SeekBar_Round"
             android:progressTint="@android:color/white"
             android:thumbTint="#f0f0f0"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="2"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center"
+            android:text="Corner"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
 
         <SeekBar
             android:id="@+id/AP_SeekBar_Shade"
@@ -22,6 +36,20 @@
             android:thumbTint="#f0f0f0"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center"
+            android:text="Shadow"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5" />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

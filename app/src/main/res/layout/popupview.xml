@@ -23,7 +23,7 @@
                 android:layout_marginLeft="14dp"
                 android:layout_marginTop="10dp"
                 android:minHeight="35dp"
-                android:text="Edit" />
+                android:text="@string/Edit" />
 
 
             <Button
@@ -33,7 +33,7 @@
                 android:layout_marginLeft="14dp"
                 android:minHeight="35dp"
                 android:onClick="swap"
-                android:text="swap" />
+                android:text="@string/Swap" />
 
             <Button
                 android:id="@+id/button7"
@@ -41,7 +41,7 @@
                 android:layout_height="35dp"
                 android:layout_marginLeft="14dp"
                 android:minHeight="35dp"
-                android:text="ALbum" />
+                android:text="@string/Album" />
 
 
         </LinearLayout>

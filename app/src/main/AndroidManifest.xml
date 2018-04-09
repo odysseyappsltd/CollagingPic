@@ -11,9 +11,18 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
+
+
+
+
+
+
     <uses-feature android:name="android.hardware.camera" />
 
     <application
+
+        android:largeHeap="true"
+
         android:name=".skeleton.MainApplication"
         android:allowBackup="true"
         android:icon="@drawable/collaging"
@@ -61,6 +70,30 @@
             android:theme="@style/Theme.AppCompat.Translucent"></activity>
         <activity android:name=".skeleton.HelpActivity"
             android:theme="@style/AppTheme.PopUpTheme"></activity>
+
+
+
+        <activity
+            android:name="com.dsphotoeditor.sdk.activity.DsPhotoEditorActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.NoActionBar" />
+
+        <activity
+            android:name="com.dsphotoeditor.sdk.activity.DsPhotoEditorStickerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.NoActionBar" />
+
+        <activity
+            android:name="com.dsphotoeditor.sdk.activity.DsPhotoEditorTextActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name="com.dsphotoeditor.sdk.activity.DsPhotoEditorCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.NoActionBar" />
+
     </application>
 
 </manifest>

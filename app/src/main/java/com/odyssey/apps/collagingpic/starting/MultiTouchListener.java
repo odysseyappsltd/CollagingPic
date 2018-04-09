@@ -18,7 +18,10 @@ import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.adobe.creativesdk.aviary.AdobeImageIntent;
+
+import com.dsphotoeditor.sdk.activity.DsPhotoEditorActivity;
+import com.dsphotoeditor.sdk.utils.DsPhotoEditorConstants;
+import com.odyssey.apps.collagingpic.DSPhotoLab;
 import com.odyssey.apps.collagingpic.R;
 
 import java.io.File;
@@ -27,6 +30,7 @@ import java.io.FileOutputStream;
 
 public class MultiTouchListener implements OnTouchListener {
 
+    private static final int IMAGE_EDITOR_RESULT = 1;
     private static final int INVALID_POINTER_ID = -1;
     public boolean isRotateEnabled = true;
     public boolean isTranslateEnabled = true;
@@ -135,8 +139,12 @@ public class MultiTouchListener implements OnTouchListener {
             outStream.close();
         } catch (Exception e) { throw new RuntimeException(e); }
         System.out.println(Uri.fromFile(f));
-        Intent imageEditorIntent = new AdobeImageIntent.Builder(context).setData(Uri.fromFile(f)).build();
-        mainAct.startActivityForResult(imageEditorIntent,1);
+        /* adobe Intent imageEditorIntent = new AdobeImageIntent.Builder(context).setData(Uri.fromFile(f)).build();
+        mainAct.startActivityForResult(imageEditorIntent,1); */
+        Intent dsPhotoEditorIntent = new Intent(mainAct,DsPhotoEditorActivity.class);
+        dsPhotoEditorIntent.setData(Uri.fromFile(f));
+        dsPhotoEditorIntent.putExtra(DsPhotoEditorConstants.DS_PHOTO_EDITOR_API_KEY, DSPhotoLab.API_KEY);
+        mainAct.startActivityForResult(dsPhotoEditorIntent,IMAGE_EDITOR_RESULT);
 
     }
 
@@ -245,8 +253,8 @@ public class MultiTouchListener implements OnTouchListener {
             info.pivotY = mPivotY;
             info.minimumScale = minimumScale;
             info.maximumScale = maximumScale;
-
             move(view, info);
+
             return false;
         }
     }
@@ -261,6 +269,7 @@ public class MultiTouchListener implements OnTouchListener {
         public float pivotY;
         public float minimumScale;
         public float maximumScale;
+
     }
 
 

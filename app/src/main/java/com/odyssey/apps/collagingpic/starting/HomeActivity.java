@@ -36,6 +36,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+
 import com.google.android.gms.ads.InterstitialAd;
 import com.odyssey.apps.Admobs.AdmobClass;
 import com.google.android.gms.ads.AdListener;
@@ -52,7 +53,7 @@ import com.odyssey.apps.IAP.IAPData;
 import com.odyssey.apps.StaticClasses.CheckIf;
 import com.odyssey.apps.StaticClasses.NotiData;
 import com.odyssey.apps.StaticClasses.NotificationCenter;
-import com.adobe.creativesdk.aviary.AdobeImageIntent;
+
 import com.odyssey.apps.Settings.SettingsActivity;
 import com.odyssey.apps.collagingpic.R;
 import com.odyssey.apps.collagingpic.skeleton.AspectData;
@@ -74,7 +75,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import android.graphics.PorterDuff.Mode;
 
-import it.sephiroth.android.library.picasso.Picasso;
+
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -686,7 +687,7 @@ public class HomeActivity extends AppCompatActivity {
 
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case IMAGE_EDITOR_RESULT:
+                case IMAGE_EDITOR_RESULT: /* adobe
                     Uri editedImageUri = data.getParcelableExtra(AdobeImageIntent.EXTRA_OUTPUT_URI);
                     Log.d(TAG, "editedImageUri: " + editedImageUri.toString());
                     Bundle extra = data.getExtras();
@@ -707,6 +708,18 @@ public class HomeActivity extends AppCompatActivity {
                             }
                         }
                     }
+                    break;*/
+                    Uri editedImageUri = data.getData();
+                    try{
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), editedImageUri);
+                        int t = MultiTouchListener.getTag();
+                        CardView cv = (CardView) rootLayout.findViewWithTag(t);
+                        ImageView iv = (ImageView) cv.getChildAt(0);
+                        iv.setImageBitmap(bitmap);
+                    }catch (IOException ioe){
+                        ioe.printStackTrace();
+                    }
+
                     break;
             }
         }

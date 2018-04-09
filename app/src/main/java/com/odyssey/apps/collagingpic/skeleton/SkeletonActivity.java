@@ -54,8 +54,10 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
-import com.adobe.creativesdk.aviary.AdobeImageIntent;
+
 import com.baoyz.actionsheet.ActionSheet;
+import com.dsphotoeditor.sdk.activity.DsPhotoEditorActivity;
+import com.dsphotoeditor.sdk.utils.DsPhotoEditorConstants;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
@@ -74,6 +76,7 @@ import com.odyssey.apps.Settings.SettingsActivity;
 import com.odyssey.apps.StaticClasses.CheckIf;
 import com.odyssey.apps.StaticClasses.NotiData;
 import com.odyssey.apps.StaticClasses.NotificationCenter;
+import com.odyssey.apps.collagingpic.DSPhotoLab;
 import com.odyssey.apps.collagingpic.R;
 import com.odyssey.apps.collagingpic.starting.FilterActivity;
 import com.odyssey.apps.collagingpic.starting.HomeActivity;
@@ -1025,8 +1028,15 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
             outStream.close();
         } catch (Exception e) { throw new RuntimeException(e); }
         System.out.println(Uri.fromFile(f));
-        Intent imageEditorIntent = new AdobeImageIntent.Builder(this).setData(Uri.fromFile(f)).build();
-        startActivityForResult(imageEditorIntent, 1);
+
+        //Intent imageEditorIntent = new AdobeImageIntent.Builder(this).setData(Uri.fromFile(f)).build();
+        //startActivityForResult(imageEditorIntent, );
+
+        Intent dsPhotoEditorIntent = new Intent(this,DsPhotoEditorActivity.class);
+        dsPhotoEditorIntent.setData(Uri.fromFile(f));
+        dsPhotoEditorIntent.putExtra(DsPhotoEditorConstants.DS_PHOTO_EDITOR_API_KEY, DSPhotoLab.API_KEY);
+        startActivityForResult(dsPhotoEditorIntent,IMAGE_EDITOR_RESULT);
+
         pop.setVisibility(View.INVISIBLE);
 
     }
@@ -1190,7 +1200,25 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         startActivity(help);
     }
     public void shareAct(View view){
-        // Set actions at the listener below . . .
+
+        // If the input image uri for DS Photo Editor is "inputImageUri", launch the editor UI
+
+        // using the following code
+        /*
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.pp2);
+        File f = new File(getExternalCacheDir()+"/collagingpictempimage.png");
+        try {
+            FileOutputStream outStream = new FileOutputStream(f);
+            bm.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+            outStream.flush();
+            outStream.close();
+        } catch (Exception e) { throw new RuntimeException(e); }
+        Intent dsPhotoEditorIntent = new Intent(this,DsPhotoEditorActivity.class);
+        dsPhotoEditorIntent.setData(Uri.fromFile(f));
+        dsPhotoEditorIntent.putExtra(DsPhotoEditorConstants.DS_PHOTO_EDITOR_API_KEY, DSPhotoLab.API_KEY);
+        startActivityForResult(dsPhotoEditorIntent,IMAGE_EDITOR_RESULT); */
+
+       // Set actions at the listener below . . .
         mainView.setDrawingCacheEnabled(true);
         Bitmap result = mainView.getDrawingCache();
 
@@ -1201,6 +1229,8 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         send.putExtra("collageBitmap",byteArray);
         startActivity(send);
         mainView.setDrawingCacheEnabled(false);
+
+
 
 
         /*if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -1251,7 +1281,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
 
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case IMAGE_EDITOR_RESULT:
+                case IMAGE_EDITOR_RESULT: /*adobe
                     Uri editedImageUri = data.getParcelableExtra(AdobeImageIntent.EXTRA_OUTPUT_URI);
                     Log.d(TAG, "editedImageUri: " + editedImageUri.toString());
                     Bundle extra = data.getExtras();
@@ -1267,6 +1297,15 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
                             }
                         }
                     }
+                    break;*/
+                    Uri editedImageUri = data.getData();
+                    try{
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), editedImageUri);
+                        activateImageView.setImageBitmap(bitmap);
+                    }catch (IOException ioe){
+                        ioe.printStackTrace();
+                    }
+
                     break;
             }
         }

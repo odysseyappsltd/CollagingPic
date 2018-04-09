@@ -8,8 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.anjlab.android.iab.v3.BillingProcessor;
 import com.odyssey.apps.collagingpic.R;
-import com.odyssey.apps.iab.BillingProcessor;
+
 
 
 /**

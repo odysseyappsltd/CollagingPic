@@ -33,10 +33,39 @@ allprojects {
         }
 
         google()
+
+        // DS
+
+        flatDir {
+
+            dirs 'libs'
+
+        }
+        //--------------
     }
+
+
+
 }
+
+
+
+
 
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+/*
+ sourceSets {
+        licenseSrc {
+            java {
+                srcDir 'src'
+                exclude 'com/odyssey/apps/iab/Security.java'
+                exclude 'com/android/vending/billing/IInAppBillingService.aidl'
+            }
+        }
+    }
+
+*/
 

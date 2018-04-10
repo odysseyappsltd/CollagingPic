@@ -85,4 +85,10 @@
     <!--Main View-->
     <string name="Camera">相机</string>
     <string name="ChooseLayout">选择布局</string>
+
+    <string name="Corner">角</string>
+    <string name="Shadow">阴影</string>
+
+
+
 </resources>

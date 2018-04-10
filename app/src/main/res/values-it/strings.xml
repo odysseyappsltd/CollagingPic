@@ -86,4 +86,8 @@
     <string name="ChooseLayout">WÄHLEN SIE LAYOUT</string>
 
 
+    <string name="Corner">Angolo</string>
+    <string name="Shadow">Ombra</string>
+
+
 </resources>

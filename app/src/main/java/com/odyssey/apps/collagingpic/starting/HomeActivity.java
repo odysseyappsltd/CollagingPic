@@ -151,6 +151,21 @@ public class HomeActivity extends AppCompatActivity {
         }
     };
 
+    private BroadcastReceiver mButtonEnableReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            setButtonEnabled();
+            System.out.println("Notified !");
+        }
+    };
+
+
+    void setButtonEnabled(){
+        findViewById(R.id.AHAspectButton).setEnabled(true);
+        findViewById(R.id.AHStylEButton).setEnabled(true);
+    }
+
 
 
 
@@ -168,6 +183,7 @@ public class HomeActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mShrinkValueReceiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mRoundValueReceiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mShadeValueReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mButtonEnableReceiver);
         super.onDestroy();
 
     }
@@ -314,6 +330,7 @@ public class HomeActivity extends AppCompatActivity {
         NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_SHRINK_VALUE,mShrinkValueReceiver,this);
         NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_ROUND_VALUE,mRoundValueReceiver,this);
         NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_SHADE_VALUE,mShadeValueReceiver,this);
+        NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_ENABLE_BUTTON,mButtonEnableReceiver,this);
 
 
 
@@ -508,9 +525,10 @@ public class HomeActivity extends AppCompatActivity {
 
             cv.setOnTouchListener(new MultiTouchListener(HomeActivity.this,HomeActivity.this));
 
-            SingletonArrayList.getInstance().getHeightListArray().clear();
-            SingletonArrayList.getInstance().getWidthtListArray().clear();
         }
+
+        SingletonArrayList.getInstance().getHeightListArray().clear();
+        SingletonArrayList.getInstance().getWidthtListArray().clear();
 
     }
 
@@ -696,6 +714,7 @@ public class HomeActivity extends AppCompatActivity {
 
         Intent style = new Intent(HomeActivity.this,PopUpActivity.class);
         startActivity(style);
+        findViewById(R.id.AHStylEButton).setEnabled(false);
 
     }
     public void aspectAct(View view){
@@ -722,6 +741,9 @@ public class HomeActivity extends AppCompatActivity {
 
         Intent aspect = new Intent(HomeActivity.this,aspectActivityForFreeStyle.class);
         startActivity(aspect);
+
+        findViewById(R.id.AHAspectButton).setEnabled(false);
+
 
 
 

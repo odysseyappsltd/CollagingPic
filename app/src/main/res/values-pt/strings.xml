@@ -84,4 +84,7 @@
     <!--Main View-->
     <string name="Camera">CÂMERA</string>
     <string name="ChooseLayout">ESCOLHER LAYOUT</string>
+
+    <string name="Corner">Canto</string>
+    <string name="Shadow">Sombra</string>
 </resources>

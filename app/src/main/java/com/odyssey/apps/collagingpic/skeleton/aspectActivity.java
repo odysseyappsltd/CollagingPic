@@ -13,6 +13,12 @@ import com.odyssey.apps.popUp.PopUpActivity;
 public class aspectActivity extends AppCompatActivity {
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        NotificationCenter.broadcast(NotiData.getSharedInstance().TIME_TO_ENABLE_BUTTON,aspectActivity.this);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aspect);

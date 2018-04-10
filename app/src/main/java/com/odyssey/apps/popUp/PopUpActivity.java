@@ -31,8 +31,17 @@ import com.odyssey.apps.collagingpic.R;
 public class PopUpActivity extends Activity {
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        NotificationCenter.broadcast(NotiData.getSharedInstance().TIME_TO_ENABLE_BUTTON,PopUpActivity.this);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
 
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

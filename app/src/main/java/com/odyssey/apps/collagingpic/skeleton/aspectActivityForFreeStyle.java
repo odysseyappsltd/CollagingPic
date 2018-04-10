@@ -8,8 +8,15 @@ import android.view.View;
 import com.odyssey.apps.StaticClasses.NotiData;
 import com.odyssey.apps.StaticClasses.NotificationCenter;
 import com.odyssey.apps.collagingpic.R;
+import com.odyssey.apps.popUp.PopUpActivity;
 
 public class aspectActivityForFreeStyle extends AppCompatActivity {
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        NotificationCenter.broadcast(NotiData.getSharedInstance().TIME_TO_ENABLE_BUTTON,aspectActivityForFreeStyle.this);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

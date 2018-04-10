@@ -34,7 +34,7 @@
             android:padding="5dp"
             app:background="@drawable/gradient_background"
             app:layout_constraintTop_toBottomOf="@+id/top"
-            app:lockPointerInBounds="false"
+            app:lockPointerInBounds="true"
             app:pointerDrawable="@drawable/slider2"
             app:radius="@dimen/radius"
             android:layout_weight="1.5"/>

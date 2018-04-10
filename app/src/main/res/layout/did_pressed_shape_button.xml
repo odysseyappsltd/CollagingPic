@@ -26,7 +26,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center_vertical|center"
-            android:text="Corner"
+            android:text="@string/Corner"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
 
@@ -43,7 +43,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center_vertical|center"
-            android:text="Shadow"
+            android:text="@string/Shadow"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
         <TextView

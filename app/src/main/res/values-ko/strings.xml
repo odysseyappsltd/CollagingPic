@@ -86,4 +86,8 @@
     <string name="Camera">카메라</string>
     <string name="ChooseLayout">레이아웃 선택</string>
 
+
+    <string name="Corner">구석</string>
+    <string name="Shadow">그림자</string>
+
 </resources>

@@ -135,6 +135,7 @@
 
             <!--android:onClick="testReplace"-->
             <Button
+                android:id="@+id/ASStyleButton"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
@@ -148,11 +149,12 @@
 
             <!--android:onClick="testRemove"-->
             <Button
+                android:id="@+id/ASAspectButton"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/tab_bar_aspect_normal2x"
 
+                android:background="@drawable/tab_bar_aspect_normal2x"
                 android:onClick="aspectAct" />
 
             <View

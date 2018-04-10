@@ -398,7 +398,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                                     RelativeLayout rl = new RelativeLayout(MainActivity.this);
-                                    rl.setBackgroundColor(Color.RED);
+                                    //rl.setBackgroundColor(Color.RED);
                                     rl.setLayoutParams(parms);
 
                                     imageLinearLayout.addView(rl);
@@ -452,7 +452,7 @@ public class MainActivity extends AppCompatActivity {
                                         if (selection.size() == 1) {
                                             if (j == 0) {
                                                 Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-                                                        R.drawable.s5);
+                                                        R.drawable.freestyle_collage);
                                                 resizedBitmap = resize(bitmap, 300, 300);
                                             } else {
 //                                                Bitmap bitmap = BitmapFactory.decodeFile(selection.get(0));
@@ -462,7 +462,7 @@ public class MainActivity extends AppCompatActivity {
                                         } else {
                                             if (j == 0) {
                                                 Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-                                                        R.drawable.s5);
+                                                        R.drawable.freestyle_collage);
                                                 resizedBitmap = resize(bitmap, 300, 300);
                                             } else {
 //                                                Bitmap bitmap = BitmapFactory.decodeFile(selection.get(indx));
@@ -479,7 +479,7 @@ public class MainActivity extends AppCompatActivity {
                                         parms2.leftMargin = Math.round(x2);
                                         parms2.topMargin = Math.round(y2);
                                         ImageView iv = new ImageView(MainActivity.this);
-                                        iv.setBackgroundColor(Color.GREEN);
+                                        //iv.setBackgroundColor(Color.GREEN);
                                         iv.setImageBitmap(resizedBitmap);
                                         iv.setLayoutParams(parms2);
                                         iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -591,7 +591,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                                         RelativeLayout rl = new RelativeLayout(MainActivity.this);
-                                        rl.setBackgroundColor(Color.RED);
+                                        //rl.setBackgroundColor(Color.RED);
                                         rl.setLayoutParams(parms);
 
                                         imageLinearLayout.addView(rl);
@@ -644,7 +644,7 @@ public class MainActivity extends AppCompatActivity {
                                             if (selection.size() == 1) {
                                                 if (j == 0) {
                                                     Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-                                                            R.drawable.s5);
+                                                            R.drawable.freestyle_collage);
                                                     resizedBitmap = resize(bitmap, 300, 300);
                                                 } else {
 //                                                    Bitmap bitmap = BitmapFactory.decodeFile(selection.get(0));
@@ -654,7 +654,7 @@ public class MainActivity extends AppCompatActivity {
                                             } else {
                                                 if (j == 0) {
                                                     Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-                                                            R.drawable.s5);
+                                                            R.drawable.freestyle_collage);
                                                     resizedBitmap = resize(bitmap, 300, 300);
                                                 } else {
 //                                                    Bitmap bitmap = BitmapFactory.decodeFile(selection.get(indx));
@@ -672,7 +672,7 @@ public class MainActivity extends AppCompatActivity {
                                             parms2.leftMargin = Math.round(x2);
                                             parms2.topMargin = Math.round(y2);
                                             ImageView iv = new ImageView(MainActivity.this);
-                                            iv.setBackgroundColor(Color.GREEN);
+                                            //iv.setBackgroundColor(Color.GREEN);
                                             iv.setImageBitmap(resizedBitmap);
                                             iv.setLayoutParams(parms2);
                                             iv.setScaleType(ImageView.ScaleType.CENTER_CROP);

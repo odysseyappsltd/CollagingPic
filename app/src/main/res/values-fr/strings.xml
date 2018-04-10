@@ -87,4 +87,7 @@
     <string name="Camera">CAMÉRA</string>
     <string name="ChooseLayout">CHOISIR LA DISPOSITION</string>
 
+    <string name="Corner">Coin</string>
+    <string name="Shadow">Ombre</string>
+
 </resources>

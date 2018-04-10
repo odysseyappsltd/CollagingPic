@@ -11,6 +11,7 @@ import android.support.v4.content.LocalBroadcastManager;
  */
 
 public class NotificationCenter {
+
     public static void broadcast(String forEvent , Context onContext){
         Intent intent = new Intent(forEvent);
         LocalBroadcastManager.getInstance(onContext).sendBroadcast(intent);

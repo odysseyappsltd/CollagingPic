@@ -85,4 +85,9 @@
     <!--Main View-->
     <string name="Camera">CÁMARA</string>
     <string name="ChooseLayout">ELIJA LA DISPOSICIÓN</string>
+
+
+    <string name="Corner">Esquina</string>
+    <string name="Shadow">Sombra</string>
+
 </resources>

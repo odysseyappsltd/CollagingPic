@@ -85,4 +85,9 @@
     <!--Main View-->
     <string name="Camera">MÁY ẢNH</string>
     <string name="ChooseLayout">CHỌN LAYOUT</string>
+
+    <string name="Corner">Góc</string>
+    <string name="Shadow">Bóng</string>
+
+
 </resources>

@@ -84,6 +84,9 @@
     <string name="Camera">CAMERA</string>
     <string name="ChooseLayout">CHOOSE LAYOUT</string>
 
+    <!--Seek Bar -->
+    <string name="Corner">Corner</string>
+    <string name="Shadow">Shadow</string>
 
 
 </resources>

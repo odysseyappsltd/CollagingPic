@@ -86,4 +86,8 @@
     <!--Main View-->
     <string name="Camera">КАМЕРЫ</string>
     <string name="ChooseLayout">ВЫБЕРИТЕ ПЛАН</string>
+
+    <string name="Corner">Угол</string>
+    <string name="Shadow">Тень</string>
+
 </resources>

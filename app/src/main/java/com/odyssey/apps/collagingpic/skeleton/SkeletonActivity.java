@@ -48,6 +48,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -215,6 +216,21 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         }
     };
 
+    private BroadcastReceiver mButtonEnableReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            setButtonEnabled();
+            System.out.println("Notified !");
+        }
+    };
+
+
+    void setButtonEnabled(){
+        findViewById(R.id.ASAspectButton).setEnabled(true);
+        findViewById(R.id.ASStyleButton).setEnabled(true);
+    }
+
 
 
     private void changeColor(){
@@ -268,7 +284,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         for(int i=0;i<NO_OF_COLLAGE_FRAMES;i++) {
             Colage col = allColages[i];
             gd.setCornerRadius(roundValue);
-            col.setBackground(gd);
+            //col.setBackground(gd);
 
             CardView cv = (CardView) col.getChildAt(0);
             cv.setRadius((float)roundValue);
@@ -314,6 +330,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mRoundValueReceiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mShadeValueReceiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mHelpRunCommandReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mButtonEnableReceiver);
         super.onDestroy();
 
     }
@@ -381,6 +398,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_ROUND_VALUE,mRoundValueReceiver,this);
         NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_PICK_SHADE_VALUE,mShadeValueReceiver,this);
         NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_RUN_HELP_SCREEN,mHelpRunCommandReceiver,this);
+        NotificationCenter.addReceiver(NotiData.getSharedInstance().TIME_TO_ENABLE_BUTTON,mButtonEnableReceiver,this);
 
 
 
@@ -563,7 +581,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         RelativeLayout.LayoutParams cvp = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.MATCH_PARENT);
-        cvp.setMargins(10,10,10,10);
+        //cvp.setMargins(10,10,10,10);
         cv.setLayoutParams(cvp);
         cv.setPreventCornerOverlap(false);
         //cv.setMaxCardElevation(10.0f);
@@ -1179,13 +1197,23 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
 
         Intent style = new Intent(SkeletonActivity.this,PopUpActivity.class);
         startActivity(style);
+
+        findViewById(R.id.ASStyleButton).setEnabled(false);
+
     }
+
+
+
+
+
     public void aspectAct(View view){
 
         if(pop.getVisibility()==View.VISIBLE)
             pop.setVisibility(View.INVISIBLE);
         Intent aspect = new Intent(SkeletonActivity.this,aspectActivity.class);
         startActivity(aspect);
+        findViewById(R.id.ASAspectButton).setEnabled(false);
+
 
 
     }

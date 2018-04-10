@@ -85,4 +85,9 @@
     <!--Main View-->
     <string name="Camera">カメラ</string>
     <string name="ChooseLayout">レイアウトを選択</string>
+
+
+    <string name="Corner">コーナー</string>
+    <string name="Shadow">影</string>
+
 </resources>

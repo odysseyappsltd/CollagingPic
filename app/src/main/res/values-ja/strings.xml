@@ -1,4 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="app_name">フォトコラージュ</string>
+    <string name="RestoreToast">アプリ内課金が復元されました</string>
+    <string name="BuyPro">購入</string>
+    <string name="Cancel">取消</string>
+    <string name="PRO_VERSION">Proの機能を取得</string>
+    <string name="HelpSettings">ヘルプ&amp;サポート</string>
+    <string name="Help">助けて</string>
+    <string name="TellAFriend">友達に伝える</string>
+    <string name="ContactUs">お問い合わせ</string>
+    <string name="ShareApp">共有アプリ</string>
+    <string name="RateUs">レビューを与える</string>
+    <string name="Font">フォント</string>
+    <string name="FollowUs">お問い合わせ</string>
+    <string name="Facebook">Facebook</string>
+    <string name="Twitter">Twitter</string>
+    <string name="Instagram">Instagram</string>
+    <string name="LinkedIn">LinkedIn</string>
+    <string name="TellAFriendMessage">私はこのアプリは非常に便利だと思う。 私はあなたもそれが好きかもしれないと思う！ 見てみな：</string>
+    <string name="AppLink">アプリリンク</string>
+    <string name="CollagingPhoto">フォトコラージュ</string>
+    <string name="ContactUsTitle">Feedback for Collaging Photo</string>
+    <string name="ContactUsBody">ここにあなたのメッセージを書く..</string>
+    <string name="DeviceOS">Device OS: Android</string>
+    <string name="version">Device OS version: </string>
+    <string name="AppVersion">App Version: </string>
+    <string name="DeviceBrand">Device Brand: </string>
+    <string name="DeviceModel">Device Model: </string>
+    <string name="DeviceManufacturer">Device Manufacturer:</string>
+    <string name="Share">シェア</string>
+    <string name="SaveToAlbum">ギャラリーに保存</string>
+    <string name="ShareURLMessage">このアプリケーションをお勧めします</string>
+    <string name="CompanyName">Odyssey Apps Ltd.</string>
+    <string name="PatternsTitle">背景</string>
+    <string name="AdvertisementsTitle">広告</string>
+    <string name="PatternsSubitle">200以上の背景パターンのロックを解除</string>
+    <string name="AdvertisementsSubitle">迷惑な広告を削除する</string>
+    <string name="Store">格納</string>
+    <string name="ShareImage">イメージを共有</string>
+    <string name="OK">はい</string>
+    <string name="Done">完了</string>
+    <string name="Filter">フィルタ</string>
+    <string name="SuccessfullySavePhotoAlbum">フォトアルバムに保存されました。</string>
+    <string name="GoSettingsMsg">写真とストレージへのアクセスが必要\n フォトコラージュに写真とストレージにアクセスして、編集した写真を作成して保存させます。 あなたは設定/アプリケーション/ フォトコラージュ /許可に行くことによっていつでもあなたの許可を変更することができます。</string>
+
+
+    <!-- newly added -->
+    <string name="Share_Title">シェア</string>
+
+    <!-- Help -->
+    <string name="Howtoaddphoto">How to add photo</string>
+    <string name="Taponthegreyareatoaddaphotototheframe">Tap on the grey area to add a photo to the frame.</string>
+    <string name="AdjustingFramesize">Adjusting Frame size</string>
+    <string name="Dragtheborderstoadjustframesize">Drag the borders to adjust frame size.</string>
+    <string name="Movetonewarea">Move to new area</string>
+    <string name="Holdaphotountilitpopstomoveitinnewarea">Hold a photo until it pops to move it in new area.</string>
+    <string name="Moveandzoom">Move and zoom</string>
+    <string name="Pantomoveaphotoaroundandpinchtozoominandout">Pan to move a photo around and pinch to zoom in and out.</string>
+    <string name="Editing">Editing</string>
+    <string name="Doubletaponapicturetoopenediting">Double tap on a picture to open editing.</string>
+
+    <!-- Skeleton Activity -->
+    <string name="selectanimagetoswap">スワップする別のイメージを選択する</string>
+
+    <!--Monir vai Starting-->
+    <string name="PhotoCollage">Photo Collage</string>
+    <string name="CutPastePhoto">Cut Paste Photo</string>
+    <string name="CameraRoll">カメラロール</string>
+
+    <!--Style-->
+    <string name="COLOR">色</string>
+    <string name="PATTERN">パターン</string>
+    <string name="SHAPE">形状</string>
+
+    <!--Seetings-->
+    <string name="Settings">設定</string>
+
+    <!--popupView-->
+    <string name="Edit">編集</string>
+    <string name="Swap">スワップ</string>
+    <string name="Album">変化する</string>
+
+    <!--Main View-->
+    <string name="Camera">カメラ</string>
+    <string name="ChooseLayout">レイアウトを選択</string>
 </resources>

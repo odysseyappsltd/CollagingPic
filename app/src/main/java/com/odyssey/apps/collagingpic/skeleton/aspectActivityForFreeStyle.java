@@ -26,10 +26,10 @@ public class aspectActivityForFreeStyle extends AppCompatActivity {
     public void aspect(View view){
         float aspectratio = 1.0f;
         if(view.getTag().equals("1")){
-            aspectratio = 4.0f/5.0f;
+            aspectratio = 3.0f/2.0f;
         }
         else if(view.getTag().equals("2")){
-            aspectratio = 1.0f/2.0f;
+            aspectratio = 4.0f/3.0f;
         }
         else if(view.getTag().equals("3")){
             aspectratio = 2.0f/3.0f;

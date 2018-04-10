@@ -26,7 +26,7 @@ public class Data {
 
             0,
             R.drawable.cart,
-            R.drawable.settinghelp,
+            //R.drawable.settinghelp,
             R.drawable.settingfriends,
             R.drawable.settingsupport,
             R.drawable.settingshare,
@@ -69,7 +69,7 @@ public class Data {
 
             R.string.HelpSettings, //Header
             R.string.Store,
-            R.string.Help,
+            //R.string.Help,
             R.string.TellAFriend,
             R.string.ContactUs,
             R.string.ShareApp,

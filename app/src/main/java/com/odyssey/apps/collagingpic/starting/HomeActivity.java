@@ -288,7 +288,7 @@ public class HomeActivity extends AppCompatActivity {
     ArrayList<Bitmap> bitmapArray = new ArrayList<Bitmap>();
 
     RelativeLayout rootLayout;
-    float layoutHeight;
+//    float layoutHeight;
     float layoutWidth;
 
     float scaleX;
@@ -297,6 +297,8 @@ public class HomeActivity extends AppCompatActivity {
     ArrayList<Float> SCALEY = new ArrayList<Float>();
     ArrayList<Float> xPosition = new ArrayList<Float>();
     ArrayList<Float> yPosition = new ArrayList<Float>();
+
+    boolean aspectRatioBool = false;
 
 
     @Override
@@ -324,11 +326,19 @@ public class HomeActivity extends AppCompatActivity {
          xMaxDp = PxToDp(this,xMax);
          yMaxDp = PxToDp(this,yMax);
 
+        layoutWidth = getScreenWidth()-50;
+
         rootLayout = (RelativeLayout) findViewById(R.id.RelativeLayout);
+
+        RelativeLayout.LayoutParams mainParam = (RelativeLayout.LayoutParams) rootLayout.getLayoutParams();
+        mainParam.width=(int) layoutWidth;
+        mainParam.height=(int) layoutWidth;
+        rootLayout.setLayoutParams(mainParam);
+
 //        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 //        rootLayout.setLayoutParams(params);
-        layoutHeight = getScreenHeight()-150;
-        layoutWidth = getScreenWidth();
+//        layoutHeight = getScreenHeight()-150;
+
 
 
         findViewById(R.id.collageBgView).setOnTouchListener(new OnTouchListener() {
@@ -341,12 +351,12 @@ public class HomeActivity extends AppCompatActivity {
 
 
         createImageView();
-        changePattern();
-        changeColor();
-        changeShrinkValue();
-        changeShadeValue();
-        changeRoundValue();
-        setaspect();
+//        changePattern();
+//        changeColor();
+//        changeShrinkValue();
+//        changeShadeValue();
+//        changeRoundValue();
+//        setaspect();
 
 
 
@@ -498,6 +508,8 @@ public class HomeActivity extends AppCompatActivity {
 
             cv.setOnTouchListener(new MultiTouchListener(HomeActivity.this,HomeActivity.this));
 
+            SingletonArrayList.getInstance().getHeightListArray().clear();
+            SingletonArrayList.getInstance().getWidthtListArray().clear();
         }
 
     }
@@ -560,53 +572,111 @@ public class HomeActivity extends AppCompatActivity {
 
         RelativeLayout.LayoutParams mainParam = (RelativeLayout.LayoutParams) rootLayout.getLayoutParams();
 
-//        for( int i=0; i<MainActivity.selection.size(); i++) {
-        if (aspectratio == (float) 0.8) {
-            mainParam.width = (int) (layoutWidth * (float) 0.9);
-            mainParam.height = (int) (layoutHeight * (float) 0.76);
+        if (aspectratio == (float) (1.0)) {
+            mainParam.width = (int) (layoutWidth);
+            mainParam.height = (int) (layoutWidth);
+
+            if(aspectRatioBool == true) {
+                for (int i = 0; i < MainActivity.selection.size(); i++) {
+
+
+                    rootLayout.findViewWithTag(i).setLayoutParams(new RelativeLayout.LayoutParams( SingletonArrayList.getInstance().getWidthtListArray().get(i)*1 , SingletonArrayList.getInstance().getHeightListArray().get(i)*1));
+
+
+//                    float c = (float) SingletonArrayList.getInstance().getWidthtListArray().get(i)/(float)SingletonArrayList.getInstance().getHeightListArray().get(i);
+//                    System.out.println("c====="+c);
+//                    System.out.println("findViewWithTag(i).getWidth()====="+rootLayout.findViewWithTag(i).getWidth());
+//                    System.out.println("rootLayout.findViewWithTag(i).getHeight()===="+rootLayout.findViewWithTag(i).getHeight());
+//                    System.out.println("rootLayout.findViewWithTag(i).getHeight()===="+SingletonArrayList.getInstance().getWidthtListArray().get(i));
+//                    System.out.println("rootLayout.findViewWithTag(i).getHeight()===="+SingletonArrayList.getInstance().getHeightListArray().get(i));
+//                    if(c>1) {
+//                        rootLayout.findViewWithTag(i).setLayoutParams(new RelativeLayout.LayoutParams((int)(SingletonArrayList.getInstance().getWidthtListArray().get(i)  2.5), (int) (SingletonArrayList.getInstance().getHeightListArray().get(i)  1.0)));
+//                    }
+//                    else if(c<1){
+//                        rootLayout.findViewWithTag(i).setLayoutParams(new RelativeLayout.LayoutParams((int)(SingletonArrayList.getInstance().getWidthtListArray().get(i)  1.0), (int) (SingletonArrayList.getInstance().getHeightListArray().get(i)  2.0)));
+//                    }
+//                    else{
+//                        rootLayout.findViewWithTag(i).setLayoutParams(new RelativeLayout.LayoutParams((int)(SingletonArrayList.getInstance().getWidthtListArray().get(i)  1.0), (int) (SingletonArrayList.getInstance().getHeightListArray().get(i)  1.0)));
+//                    }
+//                    aspectRatioBool = false;
+                }
+            }
+        }
+
+
+        else if(aspectratio == (float) (0.75)) {
+
+            aspectRatioBool = true;
+
+            mainParam.width = (int) (layoutWidth);
+            mainParam.height = (int) (layoutWidth*aspectratio);
 
             for (int i = 0; i < MainActivity.selection.size(); i++) {
-                rootLayout.findViewWithTag(i).setScaleX(SCALEX.get(i) * (float) 0.8);
-                rootLayout.findViewWithTag(i).setScaleY(SCALEY.get(i) * (float) 0.76);
-//                    rootLayout.findViewWithTag(i).setX(xPosition.get(i)*(float) 0.9);
-//                    rootLayout.findViewWithTag(i).setY(yPosition.get(i)*(float) 0.76);
+                float a = (float) rootLayout.findViewWithTag(i).getWidth()/(float) rootLayout.findViewWithTag(i).getHeight();
+                System.out.println("a====="+a);
+                System.out.println("findViewWithTag(i).getWidth()====="+rootLayout.findViewWithTag(i).getWidth());
+                System.out.println("rootLayout.findViewWithTag(i).getHeight()===="+rootLayout.findViewWithTag(i).getHeight());
+                if (a<=1.0) {
+                    rootLayout.findViewWithTag(i).setLayoutParams(new RelativeLayout.LayoutParams((int)((float) SingletonArrayList.getInstance().getWidthtListArray().get(i) * aspectratio), (int)((float) SingletonArrayList.getInstance().getHeightListArray().get(i) * aspectratio)));
+                }
+                else{
+                    rootLayout.findViewWithTag(i).setLayoutParams(new RelativeLayout.LayoutParams( (int)((float) SingletonArrayList.getInstance().getWidthtListArray().get(i) * aspectratio), (int)((float) SingletonArrayList.getInstance().getHeightListArray().get(i) * aspectratio)));
+                }
+            }
+        }
+
+
+
+        else if(aspectratio == (float) (0.6666667)) {
+
+            aspectRatioBool = true;
+
+            mainParam.width = (int) (layoutWidth);
+            mainParam.height = (int) (layoutWidth*aspectratio);
+
+            for (int i = 0; i < MainActivity.selection.size(); i++) {
+                float a = (float) rootLayout.findViewWithTag(i).getWidth()/(float) rootLayout.findViewWithTag(i).getHeight();
+                System.out.println("a====="+a);
+                System.out.println("findViewWithTag(i).getWidth()====="+rootLayout.findViewWithTag(i).getWidth());
+                System.out.println("rootLayout.findViewWithTag(i).getHeight()===="+rootLayout.findViewWithTag(i).getHeight());
+                if (a<=1.0) {
+                    rootLayout.findViewWithTag(i).setLayoutParams(new RelativeLayout.LayoutParams((int)((float) SingletonArrayList.getInstance().getWidthtListArray().get(i) * aspectratio), (int)((float) SingletonArrayList.getInstance().getHeightListArray().get(i) * aspectratio)));
+                }
+                else{
+                    rootLayout.findViewWithTag(i).setLayoutParams(new RelativeLayout.LayoutParams( (int)((float) SingletonArrayList.getInstance().getWidthtListArray().get(i) * aspectratio), (int)((float) SingletonArrayList.getInstance().getHeightListArray().get(i) * aspectratio)));
+                }
             }
 
-        } else {
-            mainParam.width = (int) layoutWidth;
-            mainParam.height = (int) (layoutHeight * aspectratio);
+        }
 
-            if (aspectratio == (float) 0.5) {
 
-                for (int i = 0; i < MainActivity.selection.size(); i++) {
-//                        float a = SCALEX.get(i) / SCALEY.get(i);
+        else if (aspectratio == (float) (1.3333334)) {
 
-//                        if (a >= 1) {
-                    rootLayout.findViewWithTag(i).setScaleX(SCALEX.get(i) * (float) 0.5);
-                    rootLayout.findViewWithTag(i).setScaleY(SCALEY.get(i) * (float) 0.6);
-//                            rootLayout.findViewWithTag(i).setX(xPosition.get(i)*(float) 0.7);
-//                            rootLayout.findViewWithTag(i).setY(yPosition.get(i)*(float) 0.7);
-//                        } else {
-//                            rootLayout.findViewWithTag(i).setScaleX(SCALEY.get(i) * (float) 0.5);
-//                            rootLayout.findViewWithTag(i).setX(xPosition.get(i)*(float) 0.7);
-//                            rootLayout.findViewWithTag(i).setY(yPosition.get(i)*(float) 0.7);
+            aspectRatioBool = true;
 
-//                        }
+            mainParam.width = (int) (layoutWidth);
+            mainParam.height = (int) (layoutWidth*aspectratio);
 
-                }
+            for (int i = 0; i < MainActivity.selection.size(); i++) {
+//                    rootLayout.findViewWithTag(i).setX(xPosition.get(i)*(float) 0.9);
+//                    rootLayout.findViewWithTag(i).setY(yPosition.get(i)*aspectratio);
+                rootLayout.findViewWithTag(i).setLayoutParams(new RelativeLayout.LayoutParams( SingletonArrayList.getInstance().getWidthtListArray().get(i)*1 , SingletonArrayList.getInstance().getHeightListArray().get(i)*(int)aspectratio));
 
-            } else {
+            }
 
-                for (int i = 0; i < MainActivity.selection.size(); i++) {
-                    rootLayout.findViewWithTag(i).setScaleX(SCALEX.get(i) * aspectratio);
-                    rootLayout.findViewWithTag(i).setScaleY(SCALEY.get(i) * aspectratio);
-//                        rootLayout.findViewWithTag(i).setX(xPosition.get(i)*aspectratio);
-//                        rootLayout.findViewWithTag(i).setY(yPosition.get(i)*aspectratio);
-                }
+        }
+        else if(aspectratio == (float) (1.5)) {
+
+            aspectRatioBool = true;
+
+            mainParam.width = (int) (layoutWidth);
+            mainParam.height = (int) (layoutWidth*aspectratio);
+
+            for (int i = 0; i < MainActivity.selection.size(); i++) {
+                rootLayout.findViewWithTag(i).setLayoutParams(new RelativeLayout.LayoutParams( SingletonArrayList.getInstance().getWidthtListArray().get(i)*1 , SingletonArrayList.getInstance().getHeightListArray().get(i)*(int)aspectratio));
 
             }
         }
-//        }
         rootLayout.setLayoutParams(mainParam);
 
     }
@@ -642,6 +712,13 @@ public class HomeActivity extends AppCompatActivity {
 //        Intent imageEditorIntent = new AdobeImageIntent.Builder(this).setData(Uri.fromFile(f)).build();
 //        startActivityForResult(imageEditorIntent, 1);
 ////        finish(); // Comment this out to receive edited image
+
+        if(SingletonArrayList.getInstance().getHeightListArray().size() == 0) {
+            for (int i = 0; i < MainActivity.selection.size(); i++) {
+                SingletonArrayList.getInstance().getHeightListArray().add(rootLayout.findViewWithTag(i).getHeight());
+                SingletonArrayList.getInstance().getWidthtListArray().add(rootLayout.findViewWithTag(i).getWidth());
+            }
+        }
 
         Intent aspect = new Intent(HomeActivity.this,aspectActivityForFreeStyle.class);
         startActivity(aspect);

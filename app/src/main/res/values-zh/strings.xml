@@ -1,4 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="app_name">照片拼贴</string>
+    <string name="RestoreToast">您的应用内结算已恢复</string>
+    <string name="BuyPro">购买</string>
+    <string name="Cancel">取消</string>
+    <string name="PRO_VERSION">获取专业功能</string>
+    <string name="HelpSettings">帮助&amp;支持</string>
+    <string name="Help">帮帮我</string>
+    <string name="TellAFriend">告诉一个朋友</string>
+    <string name="ContactUs">联系我们</string>
+    <string name="ShareApp">分享应用</string>
+    <string name="RateUs">给一个评论</string>
+    <string name="Font">字体</string>
+    <string name="FollowUs">联系我们</string>
+    <string name="Facebook">Facebook</string>
+    <string name="Twitter">Twitter</string>
+    <string name="Instagram">Instagram</string>
+    <string name="LinkedIn">LinkedIn</string>
+    <string name="TellAFriendMessage">我觉得这个应用程序非常有用。 我想你也可能喜欢它！ 一探究竟：</string>
+    <string name="AppLink">应用链接</string>
+    <string name="CollagingPhoto">照片拼贴</string>
+    <string name="ContactUsTitle">Feedback for Collaging Photo</string>
+    <string name="ContactUsBody">在这里撰写您的信息..</string>
+    <string name="DeviceOS">Device OS: Android</string>
+    <string name="version">Device OS version: </string>
+    <string name="AppVersion">App Version: </string>
+    <string name="DeviceBrand">Device Brand: </string>
+    <string name="DeviceModel">Device Model: </string>
+    <string name="DeviceManufacturer">Device Manufacturer:</string>
+    <string name="Share">分享</string>
+    <string name="SaveToAlbum">保存到图库</string>
+    <string name="ShareURLMessage">让我推荐你这个应用程序</string>
+    <string name="CompanyName">Odyssey Apps Ltd.</string>
+    <string name="PatternsTitle">背景</string>
+    <string name="AdvertisementsTitle">广告</string>
+    <string name="PatternsSubitle">解锁200多种背景图案</string>
+    <string name="AdvertisementsSubitle">删除恼人的广告</string>
+    <string name="Store">商店</string>
+    <string name="ShareImage">分享图像</string>
+    <string name="OK">好</string>
+    <string name="Done">完成</string>
+    <string name="Filter">过滤</string>
+    <string name="SuccessfullySavePhotoAlbum">成功保存到相册。</string>
+    <string name="GoSettingsMsg">需要访问照片和存储\n 让照片拼贴访问您的照片和存储以创建并保存编辑后的照片。 您可以随时通过设置/应用/ 照片拼贴 /权限更改权限。</string>
+
+
+    <!-- newly added -->
+    <string name="Share_Title">分享</string>
+
+    <!-- Help -->
+    <string name="Howtoaddphoto">How to add photo</string>
+    <string name="Taponthegreyareatoaddaphotototheframe">Tap on the grey area to add a photo to the frame.</string>
+    <string name="AdjustingFramesize">Adjusting Frame size</string>
+    <string name="Dragtheborderstoadjustframesize">Drag the borders to adjust frame size.</string>
+    <string name="Movetonewarea">Move to new area</string>
+    <string name="Holdaphotountilitpopstomoveitinnewarea">Hold a photo until it pops to move it in new area.</string>
+    <string name="Moveandzoom">Move and zoom</string>
+    <string name="Pantomoveaphotoaroundandpinchtozoominandout">Pan to move a photo around and pinch to zoom in and out.</string>
+    <string name="Editing">Editing</string>
+    <string name="Doubletaponapicturetoopenediting">Double tap on a picture to open editing.</string>
+
+    <!-- Skeleton Activity -->
+    <string name="selectanimagetoswap">选择另一个图像进行交换</string>
+
+    <!--Monir vai Starting-->
+    <string name="PhotoCollage">Photo Collage</string>
+    <string name="CutPastePhoto">Cut Paste Photo</string>
+    <string name="CameraRoll">相机胶卷</string>
+
+    <!--Style-->
+    <string name="COLOR">颜色</string>
+    <string name="PATTERN">模式</string>
+    <string name="SHAPE">形状</string>
+
+    <!--Seetings-->
+    <string name="Settings">设置</string>
+
+    <!--popupView-->
+    <string name="Edit">编辑</string>
+    <string name="Swap">交换</string>
+    <string name="Album">更改</string>
+
+    <!--Main View-->
+    <string name="Camera">相机</string>
+    <string name="ChooseLayout">选择布局</string>
 </resources>

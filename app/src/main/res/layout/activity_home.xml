@@ -12,12 +12,12 @@
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_weight="1"
+        android:background="#000000"
         app:layout_constraintBottom_toTopOf="@+id/AHAdmob"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.51"
-        >
+        app:layout_constraintVertical_bias="0.51">
 
         <RelativeLayout
             android:id="@+id/RelativeLayout"
@@ -36,7 +36,7 @@
                 android:id="@+id/collageBgView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#FFD4B081"
+                android:background="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

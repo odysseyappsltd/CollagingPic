@@ -2,5 +2,89 @@
 <resources>
 
 
+    <string name="app_name">Collage Photos</string>
+    <string name="RestoreToast">Votre facturation via l'application a été restaurée</string>
+    <string name="BuyPro">Acheter</string>
+    <string name="Cancel">Annuler</string>
+    <string name="PRO_VERSION">Obtenir des fonctionnalités Pro</string>
+    <string name="HelpSettings">Aide &amp; Support</string>
+    <string name="Help">Aidez-moi</string>
+    <string name="TellAFriend">Dire à un ami</string>
+    <string name="ContactUs">Contactez nous</string>
+    <string name="ShareApp">Partager l'application</string>
+    <string name="RateUs">Donnez votre avis</string>
+    <string name="Font">Polices</string>
+    <string name="FollowUs">Contactez nous</string>
+    <string name="Facebook">Facebook</string>
+    <string name="Twitter">Twitter</string>
+    <string name="Instagram">Instagram</string>
+    <string name="LinkedIn">LinkedIn</string>
+    <string name="TellAFriendMessage">Je trouve cette application très utile. Je pense que vous pouvez l'aimer aussi! Vérifiez-le:</string>
+    <string name="AppLink">Lien d'application</string>
+    <string name="CollagingPhoto">Collage Photos</string>
+    <string name="ContactUsTitle">Feedback for Collaging Photo</string>
+    <string name="ContactUsBody">Composez votre message ici ..</string>
+    <string name="DeviceOS">Device OS: Android</string>
+    <string name="version">Device OS version: </string>
+    <string name="AppVersion">App Version: </string>
+    <string name="DeviceBrand">Device Brand: </string>
+    <string name="DeviceModel">Device Model: </string>
+    <string name="DeviceManufacturer">Device Manufacturer:</string>
+    <string name="Share">Partager</string>
+    <string name="SaveToAlbum">Enregistrer Galerie de photos</string>
+    <string name="ShareURLMessage">Laissez-moi vous recommander cette application</string>
+    <string name="CompanyName">Odyssey Apps Ltd.</string>
+    <string name="PatternsTitle">Background</string>
+    <string name="AdvertisementsTitle">Annonces</string>
+    <string name="PatternsSubitle">Débloquez 200+ motifs de fond</string>
+    <string name="AdvertisementsSubitle">Supprimer les publicités ennuyeuses</string>
+    <string name="Store">Magasin</string>
+    <string name="ShareImage">Partager l'image</string>
+    <string name="OK">OK</string>
+    <string name="Done">Terminé</string>
+    <string name="Filter">Filtre</string>
+    <string name="SuccessfullySavePhotoAlbum">Enregistré avec succès dans l'album photo.</string>
+    <string name="GoSettingsMsg">Besoin d'accéder aux photos et au stockage\n Permettre le Collage Photos Accédez à vos photos et à votre stockage pour créer et sauvegarder des photos retouchées. Vous pouvez toujours modifier votre autorisation en accédant à Paramètres / Applications / Collage Photos / Autorisations.</string>
+
+
+    <!-- newly added -->
+    <string name="Share_Title">Partager</string>
+
+    <!-- Help -->
+    <string name="Howtoaddphoto">How to add photo</string>
+    <string name="Taponthegreyareatoaddaphotototheframe">Tap on the grey area to add a photo to the frame.</string>
+    <string name="AdjustingFramesize">Adjusting Frame size</string>
+    <string name="Dragtheborderstoadjustframesize">Drag the borders to adjust frame size.</string>
+    <string name="Movetonewarea">Move to new area</string>
+    <string name="Holdaphotountilitpopstomoveitinnewarea">Hold a photo until it pops to move it in new area.</string>
+    <string name="Moveandzoom">Move and zoom</string>
+    <string name="Pantomoveaphotoaroundandpinchtozoominandout">Pan to move a photo around and pinch to zoom in and out.</string>
+    <string name="Editing">Editing</string>
+    <string name="Doubletaponapicturetoopenediting">Double tap on a picture to open editing.</string>
+
+    <!-- Skeleton Activity -->
+    <string name="selectanimagetoswap">Sélectionnez une autre image à échanger</string>
+
+    <!--Monir vai Starting-->
+    <string name="PhotoCollage">Photo Collage</string>
+    <string name="CutPastePhoto">Cut Paste Photo</string>
+    <string name="CameraRoll">Camera Roll</string>
+
+    <!--Style-->
+    <string name="COLOR">Couleur</string>
+    <string name="PATTERN">MODÈLE</string>
+    <string name="SHAPE">FORME</string>
+
+    <!--Seetings-->
+    <string name="Settings">Paramètres</string>
+
+    <!--popupView-->
+    <string name="Edit">MODIFIER</string>
+    <string name="Swap">ÉCHANGER</string>
+    <string name="Album">CHANGEMENT</string>
+
+    <!--Main View-->
+    <string name="Camera">CAMÉRA</string>
+    <string name="ChooseLayout">CHOISIR LA DISPOSITION</string>
 
 </resources>

@@ -61,6 +61,7 @@ public class FilterActivity extends AppCompatActivity implements ActionSheet.Act
     public ImageView imageView15;
     public ImageView imageView16;
     public ImageView imageView17;
+    public ImageView imageView18;
 
     public Button doneButton;
     public Button cancelButton;
@@ -94,6 +95,7 @@ public class FilterActivity extends AppCompatActivity implements ActionSheet.Act
         imageView15 = (ImageView) findViewById(R.id.imageView15);
         imageView16 = (ImageView) findViewById(R.id.imageView16);
         imageView17 = (ImageView) findViewById(R.id.imageView17);
+        imageView18 = (ImageView) findViewById(R.id.imageView18);
         doneButton = (Button)  findViewById(R.id.buttonDone);
         cancelButton = (Button) findViewById(R.id.buttonCancel);
 
@@ -162,6 +164,7 @@ public class FilterActivity extends AppCompatActivity implements ActionSheet.Act
         imageView15.setImageBitmap(alhazmy_RELIEF);
         imageView16.setImageBitmap(alhazmy_LIGHT);
         imageView17.setImageBitmap(alhazmy_SOFT_GLOW);
+        imageView18.setImageBitmap(resized);
 
 
 
@@ -340,6 +343,10 @@ public class FilterActivity extends AppCompatActivity implements ActionSheet.Act
         AlertDialog alert = builder.create();
         alert.show();
 
+    }
+
+    public void noFilter(View view){
+        imageView.setImageBitmap(bitmap);
     }
 
     public void alhazmy_INVERT(View view){

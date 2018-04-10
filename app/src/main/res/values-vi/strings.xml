@@ -1,4 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="app_name">Ảnh cắt dán</string>
+    <string name="RestoreToast">Thanh toán trong ứng dụng của bạn đã được khôi phục</string>
+    <string name="BuyPro">Mua</string>
+    <string name="Cancel">Hủy</string>
+    <string name="PRO_VERSION">Nhận tính năng Pro</string>
+    <string name="HelpSettings">Trợ giúp &amp; Hỗ trợ</string>
+    <string name="Help">Cứu giúp</string>
+    <string name="TellAFriend">Nói với một người bạn</string>
+    <string name="ContactUs">Liên hệ chúng tôi</string>
+    <string name="ShareApp">Chia sẻ ứng dụng</string>
+    <string name="RateUs">Ôn tập</string>
+    <string name="Font">Phông chữ</string>
+    <string name="FollowUs">Liên hệ chúng tôi</string>
+    <string name="Facebook">Facebook</string>
+    <string name="Twitter">Twitter</string>
+    <string name="Instagram">Instagram</string>
+    <string name="LinkedIn">LinkedIn</string>
+    <string name="TellAFriendMessage">Tôi thấy ứng dụng này rất hữu ích. Tôi nghĩ bạn cũng thích nó! Kiểm tra nó ra:</string>
+    <string name="AppLink">Liên kết ứng dụng</string>
+    <string name="CollagingPhoto">Ảnh cắt dán</string>
+    <string name="ContactUsTitle">Feedback for Collaging Photo</string>
+    <string name="ContactUsBody">Soạn thư của bạn ở đây ..</string>
+    <string name="DeviceOS">Device OS: Android</string>
+    <string name="version">Device OS version: </string>
+    <string name="AppVersion">App Version: </string>
+    <string name="DeviceBrand">Device Brand: </string>
+    <string name="DeviceModel">Device Model: </string>
+    <string name="DeviceManufacturer">Device Manufacturer:</string>
+    <string name="Share">Chia sẻ</string>
+    <string name="SaveToAlbum">Lưu vào Thư viện Ảnh</string>
+    <string name="ShareURLMessage">Hãy để tôi đề nghị bạn ứng dụng này</string>
+    <string name="CompanyName">Odyssey Apps Ltd.</string>
+    <string name="PatternsTitle">Mẫu nền</string>
+    <string name="AdvertisementsTitle">Quảng cáo</string>
+    <string name="PatternsSubitle">Mở khóa 200 mẫu nền</string>
+    <string name="AdvertisementsSubitle">Hủy bỏ các Quảng cáo gây phiền nhiễu</string>
+    <string name="Store">Cửa hàng</string>
+    <string name="ShareImage">Chia sẻ hình ảnh</string>
+    <string name="OK">OK</string>
+    <string name="Done">Làm xong</string>
+    <string name="Filter">Bộ lọc</string>
+    <string name="SuccessfullySavePhotoAlbum">Đã lưu thành công vào Album ảnh.</string>
+    <string name="GoSettingsMsg">Cần truy cập vào Ảnh và Lưu trữ\n Cho phép cắt dán ảnh Truy cập ảnh và bộ nhớ để tạo và lưu ảnh đã chỉnh sửa. Bạn luôn có thể thay đổi quyền của mình bằng cách đi tới Cài đặt / Ứng dụng / Cắt dán ảnh / Quyền hạn.</string>
+
+
+    <!-- newly added -->
+    <string name="Share_Title">Chia sẻ</string>
+
+    <!-- Help -->
+    <string name="Howtoaddphoto">How to add photo</string>
+    <string name="Taponthegreyareatoaddaphotototheframe">Tap on the grey area to add a photo to the frame.</string>
+    <string name="AdjustingFramesize">Adjusting Frame size</string>
+    <string name="Dragtheborderstoadjustframesize">Drag the borders to adjust frame size.</string>
+    <string name="Movetonewarea">Move to new area</string>
+    <string name="Holdaphotountilitpopstomoveitinnewarea">Hold a photo until it pops to move it in new area.</string>
+    <string name="Moveandzoom">Move and zoom</string>
+    <string name="Pantomoveaphotoaroundandpinchtozoominandout">Pan to move a photo around and pinch to zoom in and out.</string>
+    <string name="Editing">Editing</string>
+    <string name="Doubletaponapicturetoopenediting">Double tap on a picture to open editing.</string>
+
+    <!-- Skeleton Activity -->
+    <string name="selectanimagetoswap">Chọn một hình ảnh khác để trao đổi</string>
+
+    <!--Monir vai Starting-->
+    <string name="PhotoCollage">Photo Collage</string>
+    <string name="CutPastePhoto">Cut Paste Photo</string>
+    <string name="CameraRoll">Triển lãm ảnh</string>
+
+    <!--Style-->
+    <string name="COLOR">Màu</string>
+    <string name="PATTERN">MẪU</string>
+    <string name="SHAPE">SHAPE</string>
+
+    <!--Seetings-->
+    <string name="Settings">Cài đặt</string>
+
+    <!--popupView-->
+    <string name="Edit">CHỈNH SỬA</string>
+    <string name="Swap">SWAP</string>
+    <string name="Album">THAY ĐỔI</string>
+
+    <!--Main View-->
+    <string name="Camera">MÁY ẢNH</string>
+    <string name="ChooseLayout">CHỌN LAYOUT</string>
 </resources>

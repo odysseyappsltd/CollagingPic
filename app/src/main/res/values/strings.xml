@@ -42,45 +42,48 @@
     <string name="Filter">Filter</string>
     <string name="SuccessfullySavePhotoAlbum">Successfully Saved to Photo Album</string>
     <string name="GoSettingsMsg">Need access to Photos and Storage\n Let ColagingPic Access your Photos and Storage to create and save edited photos. You can always change your permission by going to Settings / Apps / Collaging Photo / Permissions.</string>
+
+
     <!-- newly added -->
     <string name="Share_Title">Share</string>
 
     <!-- Help -->
-    <string name="Howtoaddphoto">"How to add photo"</string>
-    <string name="Taponthegreyareatoaddaphotototheframe">"Tap on the grey area to add a photo to the frame."</string>
-    <string name="AdjustingFramesize">"Adjusting Frame size"</string>
-    <string name="Dragtheborderstoadjustframesize">"Drag the borders to adjust frame size."</string>
-    <string name="Movetonewarea">"Move to new area"</string>
-    <string name="Holdaphotountilitpopstomoveitinnewarea">"Hold a photo until it pops to move it in new area."</string>
-    <string name="Moveandzoom">"Move and zoom"</string>
-    <string name="Pantomoveaphotoaroundandpinchtozoominandout">"Pan to move a photo around and pinch to zoom in and out."</string>
-    <string name="Editing">"Editing"</string>
-    <string name="Doubletaponapicturetoopenediting">"Double tap on a picture to open editing."</string>
+    <string name="Howtoaddphoto">How to add photo</string>
+    <string name="Taponthegreyareatoaddaphotototheframe">Tap on the grey area to add a photo to the frame.</string>
+    <string name="AdjustingFramesize">Adjusting Frame size</string>
+    <string name="Dragtheborderstoadjustframesize">Drag the borders to adjust frame size.</string>
+    <string name="Movetonewarea">Move to new area</string>
+    <string name="Holdaphotountilitpopstomoveitinnewarea">Hold a photo until it pops to move it in new area.</string>
+    <string name="Moveandzoom">Move and zoom</string>
+    <string name="Pantomoveaphotoaroundandpinchtozoominandout">Pan to move a photo around and pinch to zoom in and out.</string>
+    <string name="Editing">Editing</string>
+    <string name="Doubletaponapicturetoopenediting">Double tap on a picture to open editing.</string>
 
     <!-- Skeleton Activity -->
-    <string name="selectanimagetoswap">"select an image to swap"</string>
+    <string name="selectanimagetoswap">Select another image to swap</string>
 
     <!--Monir vai Starting-->
-    <string name="PhotoCollage">"Photo Collage"</string>
-    <string name="CutPastePhoto">"Cut Paste Photo"</string>
-    <string name="CameraRoll">"Camera Roll"</string>
+    <string name="PhotoCollage">Photo Collage</string>
+    <string name="CutPastePhoto">Cut Paste Photo</string>
+    <string name="CameraRoll">Camera Roll</string>
 
     <!--Style-->
-    <string name="COLOR">"COLOR"</string>
-    <string name="PATTERN">"PATTERN"</string>
-    <string name="SHAPE">"SHAPE"</string>
+    <string name="COLOR">COLOR</string>
+    <string name="PATTERN">PATTERN</string>
+    <string name="SHAPE">SHAPE</string>
 
     <!--Seetings-->
-    <string name="Settings">"Settings"</string>
+    <string name="Settings">Settings</string>
 
     <!--popupView-->
-    <string name="Edit">"EDIT"</string>
-    <string name="Swap">"SWAP"</string>
-    <string name="Album">"ALBUM"</string>
+    <string name="Edit">EDIT</string>
+    <string name="Swap">SWAP</string>
+    <string name="Album">CHANGE</string>
 
     <!--Main View-->
-    <string name="Camera">"CAMERA"</string>
-    <string name="ChooseLayout">"CHOOSE LAYOUT"</string>
+    <string name="Camera">CAMERA</string>
+    <string name="ChooseLayout">CHOOSE LAYOUT</string>
+
 
 
 </resources>

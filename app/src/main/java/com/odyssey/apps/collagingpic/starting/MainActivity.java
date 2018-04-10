@@ -49,6 +49,8 @@ import com.google.android.gms.ads.formats.NativeAppInstallAdView;
 import com.google.android.gms.ads.formats.NativeContentAd;
 import com.google.android.gms.ads.formats.NativeContentAdView;
 
+
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.odyssey.apps.Admobs.Advertisement;
 import com.odyssey.apps.IAP.IAPData;
 import com.odyssey.apps.StaticClasses.CheckIf;
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     // Fire base Analytics
-    //private FirebaseAnalytics mFirebaseAnalytics;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
 
     public static ArrayList<Model_images> al_images = new ArrayList<Model_images>();
@@ -110,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
     int[] layout;
     Bitmap myBitmap;
 
-//    private FirebaseAnalytics mFirebaseAnalytics;
+    //private FirebaseAnalytics mFirebaseAnalytics;
 
     private int[] frameNumberArray = {6,7,5,10,9,6,3,12,3,2,2,2,2,2,2,2};
     private int[][] layoutArray = {{1000,0,1,3,6,15},{1000,3,4,5,6,7,8},{1000,2,11,15,16},{1000,1,9,10,12,13,14,17,19,20},{1000,18,24,25,31,38,39,43,46},{1000,23,32,33,41,42},
@@ -157,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Obtain the FirebaseAnalytics instance.
-        //mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
 
         //Notifications
@@ -165,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        final Handler handler = new Handler();
+        /*final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -173,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i2);
                 overridePendingTransition( R.anim.go_up, R.anim.go_down );
             }
-        }, 1000);
+        }, 1000);*/
 
 
 

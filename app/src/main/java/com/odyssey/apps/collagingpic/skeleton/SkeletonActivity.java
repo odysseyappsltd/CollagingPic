@@ -268,7 +268,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         for(int i=0;i<NO_OF_COLLAGE_FRAMES;i++) {
             Colage col = allColages[i];
             gd.setCornerRadius(roundValue);
-            //col.setBackground(gd);
+            col.setBackground(gd);
 
             CardView cv = (CardView) col.getChildAt(0);
             cv.setRadius((float)roundValue);
@@ -1174,12 +1174,16 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         finish();
     }
     public void styleAct(View view){
+        if(pop.getVisibility()==View.VISIBLE)
+            pop.setVisibility(View.INVISIBLE);
 
         Intent style = new Intent(SkeletonActivity.this,PopUpActivity.class);
         startActivity(style);
     }
     public void aspectAct(View view){
 
+        if(pop.getVisibility()==View.VISIBLE)
+            pop.setVisibility(View.INVISIBLE);
         Intent aspect = new Intent(SkeletonActivity.this,aspectActivity.class);
         startActivity(aspect);
 
@@ -1196,10 +1200,12 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
 
     }
     public void helpScreenafter1s(){
-        Intent help = new Intent(SkeletonActivity.this,HelpActivity.class);
-        startActivity(help);
+        /*Intent help = new Intent(SkeletonActivity.this,HelpActivity.class);
+        startActivity(help);*/
     }
     public void shareAct(View view){
+        if(pop.getVisibility()==View.VISIBLE)
+            pop.setVisibility(View.INVISIBLE);
 
         // If the input image uri for DS Photo Editor is "inputImageUri", launch the editor UI
 
@@ -1270,6 +1276,8 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
 
     }
     public void settingAct(View view){
+        if(pop.getVisibility()==View.VISIBLE)
+            pop.setVisibility(View.INVISIBLE);
         Intent setting = new Intent(SkeletonActivity.this,SettingsActivity.class);
         startActivity(setting);
 

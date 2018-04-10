@@ -1,5 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="app_name">사진 콜라주</string>
+    <string name="RestoreToast">인앱 결제가 복원되었습니다.</string>
+    <string name="BuyPro">사다</string>
+    <string name="Cancel">취소</string>
+    <string name="PRO_VERSION">프로 기능 얻기</string>
+    <string name="HelpSettings">도움말 &amp; 지원</string>
+    <string name="Help">도움</string>
+    <string name="TellAFriend">친구에게 알리기</string>
+    <string name="ContactUs">문의하기</string>
+    <string name="ShareApp">앱 공유</string>
+    <string name="RateUs">리뷰 줘</string>
+    <string name="Font">글꼴</string>
+    <string name="FollowUs">문의하기</string>
+    <string name="Facebook">Facebook</string>
+    <string name="Twitter">Twitter</string>
+    <string name="Instagram">Instagram</string>
+    <string name="LinkedIn">LinkedIn</string>
+    <string name="TellAFriendMessage">나는이 응용 프로그램이 매우 유용하다고 생각한다. 나는 네가 그걸 좋아할 것 같아! 확인 해봐:</string>
+    <string name="AppLink">앱 링크</string>
+    <string name="CollagingPhoto">사진 콜라주</string>
+    <string name="ContactUsTitle">Feedback for Collaging Photo</string>
+    <string name="ContactUsBody">여기에 메시지를 작성하십시오.</string>
+    <string name="DeviceOS">Device OS: Android</string>
+    <string name="version">Device OS version: </string>
+    <string name="AppVersion">App Version: </string>
+    <string name="DeviceBrand">Device Brand: </string>
+    <string name="DeviceModel">Device Model: </string>
+    <string name="DeviceManufacturer">Device Manufacturer:</string>
+    <string name="Share">공유</string>
+    <string name="SaveToAlbum">갤러리에 저장</string>
+    <string name="ShareURLMessage">이 응용 프로그램을 추천 해 드리겠습니다.</string>
+    <string name="CompanyName">Odyssey Apps Ltd.</string>
+    <string name="PatternsTitle">배경</string>
+    <string name="AdvertisementsTitle">광고</string>
+    <string name="PatternsSubitle">200 배경 패턴 잠금을 해제</string>
+    <string name="AdvertisementsSubitle">귀찮은 광고를 제거하십시오</string>
+    <string name="Store">저장</string>
+    <string name="ShareImage">이미지 공유</string>
+    <string name="OK">괜찮아</string>
+    <string name="Done">끝난</string>
+    <string name="Filter">필터</string>
+    <string name="SuccessfullySavePhotoAlbum">사진 앨범에 성공적으로 저장되었습니다.</string>
+    <string name="GoSettingsMsg">사진 및 저장 장치에 대한 액세스 필요\n 사진 콜라주 사진 및 저장 장치에 액세스하여 편집 된 사진을 만들고 저장하십시오. 설정 / 앱 / 사진 콜라주 / 권한으로 이동하여 언제든지 사용 권한을 변경할 수 있습니다.</string>
+
+
+    <!-- newly added -->
+    <string name="Share_Title">공유</string>
+
+    <!-- Help -->
+    <string name="Howtoaddphoto">How to add photo</string>
+    <string name="Taponthegreyareatoaddaphotototheframe">Tap on the grey area to add a photo to the frame.</string>
+    <string name="AdjustingFramesize">Adjusting Frame size</string>
+    <string name="Dragtheborderstoadjustframesize">Drag the borders to adjust frame size.</string>
+    <string name="Movetonewarea">Move to new area</string>
+    <string name="Holdaphotountilitpopstomoveitinnewarea">Hold a photo until it pops to move it in new area.</string>
+    <string name="Moveandzoom">Move and zoom</string>
+    <string name="Pantomoveaphotoaroundandpinchtozoominandout">Pan to move a photo around and pinch to zoom in and out.</string>
+    <string name="Editing">Editing</string>
+    <string name="Doubletaponapicturetoopenediting">Double tap on a picture to open editing.</string>
+
+    <!-- Skeleton Activity -->
+    <string name="selectanimagetoswap">스왑 할 다른 이미지 선택</string>
+
+    <!--Monir vai Starting-->
+    <string name="PhotoCollage">Photo Collage</string>
+    <string name="CutPastePhoto">Cut Paste Photo</string>
+    <string name="CameraRoll">카메라 롤</string>
+
+    <!--Style-->
+    <string name="COLOR">색깔</string>
+    <string name="PATTERN">무늬</string>
+    <string name="SHAPE">모양</string>
+
+    <!--Seetings-->
+    <string name="Settings">설정</string>
+
+    <!--popupView-->
+    <string name="Edit">편집하다</string>
+    <string name="Swap">교환</string>
+    <string name="Album">변화</string>
+
+    <!--Main View-->
+    <string name="Camera">카메라</string>
+    <string name="ChooseLayout">레이아웃 선택</string>
 
 </resources>

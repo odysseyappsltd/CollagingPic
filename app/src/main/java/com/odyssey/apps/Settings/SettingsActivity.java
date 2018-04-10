@@ -60,44 +60,44 @@ public class SettingsActivity extends AppCompatActivity {
                         Intent store = new Intent(SettingsActivity.this,IAPActivity.class);
                         startActivity(store);
                         break;
-                    case 2 :
+                    /*case 2 :
                         NotificationCenter.broadcast(NotiData.getSharedInstance().TIME_TO_RUN_HELP_SCREEN,SettingsActivity.this);
                         finish();
-                        break;
-                    case 3 :
+                        break;*/
+                    case 2 :
                         SettingModel.getSharedInstance().tellAFriend(SettingsActivity.this,"https://play.google.com/store/apps/details?id=com.odyssey.apps.collagingpic");
                         break;
-                    case 4 :
+                    case 3 :
                         SettingModel.getSharedInstance().contactUS(SettingsActivity.this);
                         break;
-                    case 5 :
+                    case 4 :
                         SettingModel.getSharedInstance().shareURL(SettingsActivity.this,"https://play.google.com/store/apps/details?id=com.odyssey.apps.collagingpic");
                         break;
-                    case 6 :
+                    case 5 :
                         SettingModel.getSharedInstance().pushURL(SettingsActivity.this,"https://play.google.com/store/apps/details?id=com.odyssey.apps.collagingpic");
                         break;
 
-                    case 7 : //Header
+                    case 6 : //Header
                         break;
 
-                    case 8 :
+                    case 7 :
                         browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/Odyssey-Apps-Ltd-1430982826963290/"));
                         startActivity(browserIntent);
                         break;
 
-                    case 9 :
+                    case 8 :
                         browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/odysseyappsltd"));
                         startActivity(browserIntent);
                         break;
-                    case 10 :
+                    case 9 :
                         browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/odysseyapps/"));
                         startActivity(browserIntent);
                         break;
-                    case 11 :
+                    case 10 :
                         browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.linkedin.com/company/odyssey-apps-ltd/"));
                         startActivity(browserIntent);
                         break;
-                    case 12 : //Footer
+                    case 11 : //Footer
                         break ;
 
 

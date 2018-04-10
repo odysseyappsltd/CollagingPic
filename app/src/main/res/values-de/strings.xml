@@ -1,6 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="app_name">FotoCollage</string>
+    <string name="RestoreToast">Ihre In-App-Abrechnung wurde wiederhergestellt</string>
+    <string name="BuyPro">Kaufen</string>
+    <string name="Cancel">Cancel</string>
+    <string name="PRO_VERSION">Holen Sie sich Pro-Funktionen</string>
+    <string name="HelpSettings">Hilfe &amp; Unterstützung</string>
+    <string name="Help">Hilfe</string>
+    <string name="TellAFriend">Weiterempfehlen</string>
+    <string name="ContactUs">Kontaktiere uns</string>
+    <string name="ShareApp">App teilen</string>
+    <string name="RateUs">Geben Sie Bewertung</string>
+    <string name="Font">Schriftarten</string>
+    <string name="FollowUs">Kontaktiere uns</string>
+    <string name="Facebook">Facebook</string>
+    <string name="Twitter">Twitter</string>
+    <string name="Instagram">Instagram</string>
+    <string name="LinkedIn">LinkedIn</string>
+    <string name="TellAFriendMessage">Ich finde diese App sehr hilfreich. Ich denke du magst es auch! Hör zu:</string>
+    <string name="AppLink">App-Link</string>
+    <string name="CollagingPhoto">FotoCollage</string>
+    <string name="ContactUsTitle">Feedback for Collaging Photo</string>
+    <string name="ContactUsBody">Verfasse deine Nachricht hier ..</string>
+    <string name="DeviceOS">Device OS: Android</string>
+    <string name="version">Device OS version: </string>
+    <string name="AppVersion">App Version: </string>
+    <string name="DeviceBrand">Device Brand: </string>
+    <string name="DeviceModel">Device Model: </string>
+    <string name="DeviceManufacturer">Device Manufacturer:</string>
+    <string name="Share">Teilen</string>
+    <string name="SaveToAlbum">Auf FotoGalerie speichern</string>
+    <string name="ShareURLMessage">Lassen Sie mich Ihnen diese Anwendung empfehlen</string>
+    <string name="CompanyName">Odyssey Apps Ltd.</string>
+    <string name="PatternsTitle">Hintergründe</string>
+    <string name="AdvertisementsTitle">Werbung</string>
+    <string name="PatternsSubitle">Schalte 200+ Hintergrundmuster frei</string>
+    <string name="AdvertisementsSubitle">Entfernen Sie lästige Werbung</string>
+    <string name="Store">Geschäft</string>
+    <string name="ShareImage">Bild teilen</string>
+    <string name="OK">OK</string>
+    <string name="Done">Erledigt</string>
+    <string name="Filter">Filtern</string>
+    <string name="SuccessfullySavePhotoAlbum">Erfolgreich in Fotoalbum gespeichert.</string>
+    <string name="GoSettingsMsg">Benötigen Sie Zugang zu Fotos und Speicherplatz\n Lassen Sie FotoCollage auf Ihre Fotos und Ihren Speicher zugreifen, um bearbeitete Fotos zu erstellen und zu speichern. Sie können Ihre Berechtigung jederzeit ändern, indem Sie zu Einstellungen / Apps / FotoCollage / Berechtigungen gehen.</string>
+
+    <!-- newly added -->
+    <string name="Share_Title">Teilen</string>
+
+    <!-- Help -->
+    <string name="Howtoaddphoto">How to add photo</string>
+    <string name="Taponthegreyareatoaddaphotototheframe">Tap on the grey area to add a photo to the frame.</string>
+    <string name="AdjustingFramesize">Adjusting Frame size</string>
+    <string name="Dragtheborderstoadjustframesize">Drag the borders to adjust frame size.</string>
+    <string name="Movetonewarea">Move to new area</string>
+    <string name="Holdaphotountilitpopstomoveitinnewarea">Hold a photo until it pops to move it in new area.</string>
+    <string name="Moveandzoom">Move and zoom</string>
+    <string name="Pantomoveaphotoaroundandpinchtozoominandout">Pan to move a photo around and pinch to zoom in and out.</string>
+    <string name="Editing">Editing</string>
+    <string name="Doubletaponapicturetoopenediting">Double tap on a picture to open editing.</string>
+
+    <!-- Skeleton Activity -->
+    <string name="selectanimagetoswap">Seleziona un'altra immagine da scambiare</string>
+
+    <!--Monir vai Starting-->
+    <string name="PhotoCollage">Photo Collage</string>
+    <string name="CutPastePhoto">Cut Paste Photo</string>
+    <string name="CameraRoll">Aufnahmen</string>
+
+    <!--Style-->
+    <string name="COLOR">Farbe</string>
+    <string name="PATTERN">MUSTER</string>
+    <string name="SHAPE">GESTALTEN</string>
+
+    <!--Seetings-->
+    <string name="Settings">Einstellungen</string>
+
+    <!--popupView-->
+    <string name="Edit">BEARBEITEN</string>
+    <string name="Swap">WECHSEL</string>
+    <string name="Album">VERÄNDERUNG</string>
+
+    <!--Main View-->
+    <string name="Camera">KAMERA</string>
+    <string name="ChooseLayout">WÄHLEN SIE LAYOUT</string>
 
 
 

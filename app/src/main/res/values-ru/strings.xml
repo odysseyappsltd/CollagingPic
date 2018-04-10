@@ -2,4 +2,88 @@
 <resources>
 
 
+    <string name="app_name">Фото коллаж</string>
+    <string name="RestoreToast">Восстановлен биллинг в приложении.</string>
+    <string name="BuyPro">купить</string>
+    <string name="Cancel">Отмена</string>
+    <string name="PRO_VERSION">Получить функции Pro</string>
+    <string name="HelpSettings">Помощь &amp; Поддержка</string>
+    <string name="Help">Помогите</string>
+    <string name="TellAFriend">Расскажи другу</string>
+    <string name="ContactUs">Свяжитесь с нами</string>
+    <string name="ShareApp">Поделиться приложением</string>
+    <string name="RateUs">Дайте обзор</string>
+    <string name="Font">шрифты</string>
+    <string name="FollowUs">Свяжитесь с нами</string>
+    <string name="Facebook">Facebook</string>
+    <string name="Twitter">Twitter</string>
+    <string name="Instagram">Instagram</string>
+    <string name="LinkedIn">LinkedIn</string>
+    <string name="TellAFriendMessage">Я считаю это приложение очень полезным. Думаю, тебе тоже может понравиться! Проверьте это:</string>
+    <string name="AppLink">Ссылка приложения</string>
+    <string name="CollagingPhoto">Фото коллаж</string>
+    <string name="ContactUsTitle">Feedback for Collaging Photo</string>
+    <string name="ContactUsBody">Составьте свое сообщение здесь ..</string>
+    <string name="DeviceOS">Device OS: Android</string>
+    <string name="version">Device OS version: </string>
+    <string name="AppVersion">App Version: </string>
+    <string name="DeviceBrand">Device Brand: </string>
+    <string name="DeviceModel">Device Model: </string>
+    <string name="DeviceManufacturer">Device Manufacturer:</string>
+    <string name="Share">Поделиться</string>
+    <string name="SaveToAlbum">Сохранить в фотоальбоме</string>
+    <string name="ShareURLMessage">Позвольте мне порекомендовать вам это приложение</string>
+    <string name="CompanyName">Odyssey Apps Ltd.</string>
+    <string name="PatternsTitle">Задний план</string>
+    <string name="AdvertisementsTitle">Объявления</string>
+    <string name="PatternsSubitle">Разблокировать 200+ фоновых рисунков</string>
+    <string name="AdvertisementsSubitle">Удалить раздражающие объявления</string>
+    <string name="Store">Магазин</string>
+    <string name="ShareImage">Поделиться</string>
+    <string name="OK">ОК</string>
+    <string name="Done">Готово</string>
+    <string name="Filter">Фильтр</string>
+    <string name="SuccessfullySavePhotoAlbum">Успешно сохранено в фотоальбоме.</string>
+    <string name="GoSettingsMsg">Нужен доступ к фотографиям и хранилищу\n Позвольте Фото коллаж Доступ к вашим фотографиям и хранилищу для создания и сохранения отредактированных фотографий. Вы всегда можете изменить свое разрешение, выбрав Настройки / Приложения / Фото коллаж / Разрешения.</string>
+
+
+    <!-- newly added -->
+    <string name="Share_Title">Поделиться</string>
+
+    <!-- Help -->
+    <string name="Howtoaddphoto">How to add photo</string>
+    <string name="Taponthegreyareatoaddaphotototheframe">Tap on the grey area to add a photo to the frame.</string>
+    <string name="AdjustingFramesize">Adjusting Frame size</string>
+    <string name="Dragtheborderstoadjustframesize">Drag the borders to adjust frame size.</string>
+    <string name="Movetonewarea">Move to new area</string>
+    <string name="Holdaphotountilitpopstomoveitinnewarea">Hold a photo until it pops to move it in new area.</string>
+    <string name="Moveandzoom">Move and zoom</string>
+    <string name="Pantomoveaphotoaroundandpinchtozoominandout">Pan to move a photo around and pinch to zoom in and out.</string>
+    <string name="Editing">Editing</string>
+    <string name="Doubletaponapicturetoopenediting">Double tap on a picture to open editing.</string>
+
+    <!-- Skeleton Activity -->
+    <string name="selectanimagetoswap">Выберите другое изображение для обмена</string>
+
+    <!--Monir vai Starting-->
+    <string name="PhotoCollage">Photo Collage</string>
+    <string name="CutPastePhoto">Cut Paste Photo</string>
+    <string name="CameraRoll">Фотогалерея</string>
+
+    <!--Style-->
+    <string name="COLOR">цвет</string>
+    <string name="PATTERN">ШАБЛОН</string>
+    <string name="SHAPE">ФОРМУ</string>
+
+    <!--Seetings-->
+    <string name="Settings">Настройки</string>
+
+    <!--popupView-->
+    <string name="Edit">РЕДАКТИРОВАТЬ</string>
+    <string name="Swap">ЗАМЕНА</string>
+    <string name="Album">ИЗМЕНЕНИЕ</string>
+
+    <!--Main View-->
+    <string name="Camera">КАМЕРЫ</string>
+    <string name="ChooseLayout">ВЫБЕРИТЕ ПЛАН</string>
 </resources>

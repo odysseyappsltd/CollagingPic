@@ -48,28 +48,45 @@
                     android:layout_height="35dp"
                     android:layout_marginLeft="14dp"
                     android:layout_marginTop="10dp"
+                    android:background="@android:color/transparent"
                     android:minHeight="35dp"
                     android:onClick="edit"
-                    android:text="Edit" />
+                    android:text="Edit"
+                    android:textColor="@android:color/holo_orange_dark" />
 
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="14dp"
+                    android:background="#ffffff" />
 
                 <Button
                     android:id="@+id/button6"
                     android:layout_width="80dp"
                     android:layout_height="35dp"
                     android:layout_marginLeft="14dp"
+                    android:background="@android:color/transparent"
                     android:minHeight="35dp"
                     android:onClick="swap"
-                    android:text="swap" />
+                    android:text="swap"
+                    android:textColor="@android:color/holo_orange_dark" />
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="14dp"
+                    android:background="#ffffff" />
 
                 <Button
                     android:id="@+id/button7"
                     android:layout_width="80dp"
                     android:layout_height="35dp"
                     android:layout_marginLeft="14dp"
+                    android:background="@android:color/transparent"
                     android:minHeight="35dp"
                     android:onClick="album"
-                    android:text="ALbum" />
+                    android:text="ALbum"
+                    android:textColor="@android:color/holo_orange_dark" />
 
 
             </LinearLayout>

@@ -90,4 +90,7 @@
     <string name="Corner">Esquina</string>
     <string name="Shadow">Sombra</string>
 
+    <!--Home Activity -->
+    <string name="DoubleTapMsg">Toca dos veces una imagen para editar.</string>
+
 </resources>

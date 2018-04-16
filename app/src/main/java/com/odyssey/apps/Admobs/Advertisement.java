@@ -30,8 +30,8 @@ public class Advertisement {
 
 
     //Ad Info
-    private final String ADMOB_AD_UNIT_ID = /*"ca-app-pub-9079664095868787/1632087318";*/"ca-app-pub-3940256099942544/2247696110";
-    private final String ADMOB_APP_ID = /*"ca-app-pub-9079664095868787~5745757992";*/"ca-app-pub-3940256099942544~3347511713";
+    private final String ADMOB_AD_UNIT_ID = "ca-app-pub-9079664095868787/1632087318";//"ca-app-pub-3940256099942544/2247696110";
+    private final String ADMOB_APP_ID = "ca-app-pub-9079664095868787~5745757992";//"ca-app-pub-3940256099942544~3347511713";
 
 
     public String getNativeAdvanceAdUnitID(){

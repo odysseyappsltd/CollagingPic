@@ -13,7 +13,7 @@ public class Custom {
 
     public static String makeFileNameFrom(String format) {
         String dateString = new SimpleDateFormat("yyyyMMddhhssSS", Locale.getDefault()).format(new Date());
-        String filename = "CutPastePhoto"  + dateString + format ;
+        String filename = "CollagingPic"  + dateString + format ;
         return  filename ;
     }
 

@@ -79,6 +79,7 @@ import com.odyssey.apps.StaticClasses.NotiData;
 import com.odyssey.apps.StaticClasses.NotificationCenter;
 import com.odyssey.apps.collagingpic.DSPhotoLab;
 import com.odyssey.apps.collagingpic.R;
+import com.odyssey.apps.collagingpic.starting.DataPassingSingelton;
 import com.odyssey.apps.collagingpic.starting.FilterActivity;
 import com.odyssey.apps.collagingpic.starting.HomeActivity;
 import com.odyssey.apps.collagingpic.starting.MainActivity;
@@ -307,6 +308,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         for(int i=0;i<NO_OF_COLLAGE_FRAMES;i++) {
             Colage col = allColages[i];
             CardView cv = (CardView) col.getChildAt(0);
+            if(shadeValue<=6.0f)
             cv.setCardElevation(shadeValue);
 
         }
@@ -370,8 +372,8 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
 
 
         super.onCreate(savedInstanceState);
-        for(int i=0;i<MainActivity.selection.size();i++) {
-            Bitmap bitmap = BitmapFactory.decodeFile(MainActivity.selection.get(i));
+        for(int i=0;i<MainActivity.MainBitmapArrayList.size();i++) {
+            Bitmap bitmap = MainActivity.MainBitmapArrayList.get(i);
             int rotateImage = getCameraPhotoOrientation(this, Uri.parse(MainActivity.selection.get(i)), MainActivity.selection.get(i));
             System.out.println("asdf"+rotateImage);
             Matrix matrix = new Matrix();
@@ -379,7 +381,7 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
             bitmap = Bitmap.createBitmap(bitmap , 0, 0,
                     bitmap.getWidth(), bitmap.getHeight(),
                     matrix, true);
-            imgSet[i] = resize(bitmap, 800, 800);
+            imgSet[i] = bitmap;//resize(bitmap, 800, 800);
         }
 
         layerid = getIntent().getIntExtra("layerId",1);
@@ -581,17 +583,18 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         RelativeLayout.LayoutParams cvp = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.MATCH_PARENT);
-        //cvp.setMargins(10,10,10,10);
+        cvp.setMargins(5,5,5,5);
         cv.setLayoutParams(cvp);
+
         cv.setPreventCornerOverlap(false);
-        //cv.setMaxCardElevation(10.0f);
+        cv.setMaxCardElevation(6.0f);
 
 
 
         ImageView iv = new ImageView(this);
         iv.setTag(Integer.valueOf(i));
         iv.setImageBitmap(imgSet[i]);
-        iv.setBackgroundColor(Color.parseColor("#225465"));
+        //iv.setBackgroundColor(Color.parseColor("#225465"));
         iv.setScaleType(ImageView.ScaleType.MATRIX);
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
@@ -1231,36 +1234,58 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         /*Intent help = new Intent(SkeletonActivity.this,HelpActivity.class);
         startActivity(help);*/
     }
+    public Bitmap roundCornerImage(Bitmap raw, float round) {
+        int width = raw.getWidth();
+        int height = raw.getHeight();
+        Bitmap result = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(result);
+        canvas.drawARGB(0, 0, 0, 0);
+
+        final Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setColor(Color.parseColor("#000000"));
+
+        final Rect rect = new Rect(0, 0, width, height);
+        final RectF rectF = new RectF(rect);
+
+        canvas.drawRoundRect(rectF, round, round, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(raw, rect, rect, paint);
+
+        return result;
+    }
     public void shareAct(View view){
         if(pop.getVisibility()==View.VISIBLE)
             pop.setVisibility(View.INVISIBLE);
 
-        // If the input image uri for DS Photo Editor is "inputImageUri", launch the editor UI
 
-        // using the following code
-        /*
-        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.pp2);
-        File f = new File(getExternalCacheDir()+"/collagingpictempimage.png");
-        try {
-            FileOutputStream outStream = new FileOutputStream(f);
-            bm.compress(Bitmap.CompressFormat.PNG, 100, outStream);
-            outStream.flush();
-            outStream.close();
-        } catch (Exception e) { throw new RuntimeException(e); }
-        Intent dsPhotoEditorIntent = new Intent(this,DsPhotoEditorActivity.class);
-        dsPhotoEditorIntent.setData(Uri.fromFile(f));
-        dsPhotoEditorIntent.putExtra(DsPhotoEditorConstants.DS_PHOTO_EDITOR_API_KEY, DSPhotoLab.API_KEY);
-        startActivityForResult(dsPhotoEditorIntent,IMAGE_EDITOR_RESULT); */
+        for(int i=0;i<NO_OF_COLLAGE_FRAMES;i++) {
 
-       // Set actions at the listener below . . .
-        mainView.setDrawingCacheEnabled(true);
-        Bitmap result = mainView.getDrawingCache();
+            //iv.setClipBounds();
+            CardView cv = (CardView) allColages[i].getChildAt(0);
+            ImageView iv = (ImageView) cv.getChildAt(0);
+            Bitmap res=roundCornerImage(loadBitmapFromView(iv,iv.getWidth(),iv.getHeight()),PopUpData.getSharedInstance().getRoundValue());
+            iv.setScaleType(ImageView.ScaleType.FIT_XY);
+            iv.setImageBitmap(res);
+        }
 
-        ByteArrayOutputStream bs = new ByteArrayOutputStream();
-        result.compress(Bitmap.CompressFormat.PNG, 100, bs);
-        byte[] byteArray = bs.toByteArray();
+        Bitmap result=loadBitmapFromView(mainView,mainView.getWidth(),mainView.getHeight());
+        DataPassingSingelton.getInstance().setImage(result);
+
+        for(int i=0;i<NO_OF_COLLAGE_FRAMES;i++) {
+
+            //iv.setClipBounds();
+            CardView cv = (CardView) allColages[i].getChildAt(0);
+            ImageView iv = (ImageView) cv.getChildAt(0);
+            iv.setScaleType(ImageView.ScaleType.MATRIX);
+            iv.setImageBitmap(imgSet[i]);
+        }
+
+
+
         Intent send = new Intent(SkeletonActivity.this, FilterActivity.class);
-        send.putExtra("collageBitmap",byteArray);
+        //send.putExtra("collageBitmap",byteArray);
         startActivity(send);
         mainView.setDrawingCacheEnabled(false);
 
@@ -1302,6 +1327,12 @@ public class SkeletonActivity extends AppCompatActivity implements View.OnTouchL
         */
 
 
+    }
+    public static Bitmap loadBitmapFromView(View v, int width, int height) {
+        Bitmap b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(b);
+        v.draw(c);
+        return b;
     }
     public void settingAct(View view){
         if(pop.getVisibility()==View.VISIBLE)

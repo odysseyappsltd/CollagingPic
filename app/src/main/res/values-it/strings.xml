@@ -89,5 +89,8 @@
     <string name="Corner">Angolo</string>
     <string name="Shadow">Ombra</string>
 
+    <!--Home Activity -->
+    <string name="DoubleTapMsg">Tocca due volte su un'immagine da modificare.</string>
+
 
 </resources>

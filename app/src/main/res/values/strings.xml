@@ -89,4 +89,11 @@
     <string name="Shadow">Shadow</string>
 
 
+    <!--Home Activity -->
+    <string name="DoubleTapMsg">Double tap on an image to edit.</string>
+
+
+
+
+
 </resources>

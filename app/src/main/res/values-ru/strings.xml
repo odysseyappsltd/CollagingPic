@@ -90,4 +90,7 @@
     <string name="Corner">Угол</string>
     <string name="Shadow">Тень</string>
 
+    <!--Home Activity -->
+    <string name="DoubleTapMsg">Дважды нажмите на изображение для редактирования.</string>
+
 </resources>

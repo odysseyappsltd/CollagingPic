@@ -89,5 +89,8 @@
     <string name="Corner">Góc</string>
     <string name="Shadow">Bóng</string>
 
+    <!--Home Activity -->
+    <string name="DoubleTapMsg">Nhấn đúp vào hình ảnh để chỉnh sửa.</string>
+
 
 </resources>

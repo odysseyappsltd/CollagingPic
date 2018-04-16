@@ -90,4 +90,7 @@
     <string name="Corner">コーナー</string>
     <string name="Shadow">影</string>
 
+    <!--Home Activity -->
+    <string name="DoubleTapMsg">編集する画像をダブルタップします。</string>
+
 </resources>

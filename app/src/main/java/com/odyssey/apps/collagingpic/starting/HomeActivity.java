@@ -1,9 +1,12 @@
 package com.odyssey.apps.collagingpic.starting;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,6 +24,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -62,7 +66,7 @@ import com.odyssey.apps.collagingpic.skeleton.LayerFrame;
 import com.odyssey.apps.collagingpic.skeleton.aspectActivityForFreeStyle;
 import com.odyssey.apps.popUp.PopUpData;
 import com.odyssey.apps.collagingpic.skeleton.SkeletonActivity;
-import com.odyssey.apps.popUp.PopUpActivity;
+import com.odyssey.apps.popUp.PopUpFreeStyleActivity;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -198,7 +202,7 @@ public class HomeActivity extends AppCompatActivity {
 //        imageView.setVisibility(View.INVISIBLE);
 
 
-        int receviedColor = PopUpData.getSharedInstance().getColor() ;
+        int receviedColor = PopUpData.getSharedInstance().getColorFreeStyle() ;
         System.out.println("Chosen color : " + receviedColor );
 
         imageView.setBackgroundColor(receviedColor);
@@ -228,10 +232,10 @@ public class HomeActivity extends AppCompatActivity {
 
     private void changeShrinkValue(){
 
-        shrinkValue = PopUpData.getSharedInstance().getShrinkValue();
+        shrinkValue = PopUpData.getSharedInstance().getShrinkValueFreeStyle();
         System.out.println("Shrink Value Received :" + shrinkValue);
 
-        for( int i=0; i<MainActivity.selection.size(); i++) {
+        for( int i=0; i<MainActivity.MainBitmapArrayList.size(); i++) {
             CardView cv = (CardView) rootLayout.findViewWithTag(i);
             cv.setContentPadding(shrinkValue,shrinkValue,shrinkValue,shrinkValue);
         }
@@ -241,18 +245,19 @@ public class HomeActivity extends AppCompatActivity {
 
     private void changeRoundValue(){
 
-        int roundValue = PopUpData.getSharedInstance().getRoundValue();
+        int roundValue = PopUpData.getSharedInstance().getRoundValueFreeStyle();
         System.out.println("Round Value Received :" +roundValue);
 
         // Code here . . .
 
-
-        for( int i=0; i<MainActivity.selection.size(); i++) {
+        for( int i=0; i<MainActivity.MainBitmapArrayList.size(); i++) {
 //            ImageView img = (ImageView) rootLayout.findViewWithTag(i);
 //            img.setImageBitmap(roundCornerImage(bitmapArray.get(i),roundValue));
             CardView cv = (CardView) rootLayout.findViewWithTag(i);
             cv.setRadius((float)roundValue);
 
+            ImageView img = (ImageView) cv.getChildAt(0);
+            img.setImageBitmap(roundCornerImage(bitmapArray.get(i),roundValue));
 
         }
 
@@ -263,11 +268,11 @@ public class HomeActivity extends AppCompatActivity {
 
     private void changeShadeValue() {
 
-        int shadeValue = PopUpData.getSharedInstance().getShadeValue();
+        int shadeValue = PopUpData.getSharedInstance().getShadeValueFreeStyle();
         System.out.println("Shade Value Received :" + shadeValue);
 
         // Code here . . .
-        for (int i = 0; i < MainActivity.selection.size(); i++) {
+        for (int i = 0; i < MainActivity.MainBitmapArrayList.size(); i++) {
             CardView cv = (CardView) rootLayout.findViewWithTag(i);
             cv.setCardElevation(shadeValue);
         }
@@ -460,10 +465,37 @@ public class HomeActivity extends AppCompatActivity {
             });
         }
 
+        SharedPreferences preferences = this.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        Boolean isFirstTime = preferences.getBoolean("firstTimeHome",true);
+        if(isFirstTime) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("firstTimeHome", false);
+            editor.commit();
+            helpScreen();
+        }
+
+
 
 
     }
 
+    public void helpScreen(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setMessage(getString(R.string.DoubleTapMsg));
+        builder.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //if user pressed "yes", then he is allowed to exit from application
+                dialog.cancel();
+
+
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+
+    }
 
     private void createImageView(){
 
@@ -471,7 +503,7 @@ public class HomeActivity extends AppCompatActivity {
         System.out.println("xMaxDp====="+xMaxDp);
         System.out.println("yMaxDp====="+yMaxDp);
 
-        for(i=0; i<MainActivity.selection.size(); i++) {
+        for(i=0; i<MainActivity.MainBitmapArrayList.size(); i++) {
 
 
             Random r = new Random();
@@ -509,13 +541,14 @@ public class HomeActivity extends AppCompatActivity {
 
 
             ImageView mImageView = new ImageView(this);
-            Bitmap imgBitmap = resize(BitmapFactory.decodeFile(MainActivity.selection.get(i)),800,800);
+            Bitmap imgBitmap = MainActivity.MainBitmapArrayList.get(i);
             mImageView.setImageBitmap( imgBitmap );
             bitmapArray.add(imgBitmap);
 
             mImageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
-            mImageView.setBackgroundColor(Color.WHITE);
+//            mImageView.setBackgroundColor(Color.WHITE);
+            mImageView.setBackgroundColor(Color.TRANSPARENT);
             mImageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
 
@@ -595,7 +628,7 @@ public class HomeActivity extends AppCompatActivity {
             mainParam.height = (int) (layoutWidth);
 
             if(aspectRatioBool == true) {
-                for (int i = 0; i < MainActivity.selection.size(); i++) {
+                for (int i = 0; i < MainActivity.MainBitmapArrayList.size(); i++) {
 
 
                     rootLayout.findViewWithTag(i).setLayoutParams(new RelativeLayout.LayoutParams( SingletonArrayList.getInstance().getWidthtListArray().get(i)*1 , SingletonArrayList.getInstance().getHeightListArray().get(i)*1));
@@ -629,7 +662,7 @@ public class HomeActivity extends AppCompatActivity {
             mainParam.width = (int) (layoutWidth);
             mainParam.height = (int) (layoutWidth*aspectratio);
 
-            for (int i = 0; i < MainActivity.selection.size(); i++) {
+            for (int i = 0; i < MainActivity.MainBitmapArrayList.size(); i++) {
                 float a = (float) rootLayout.findViewWithTag(i).getWidth()/(float) rootLayout.findViewWithTag(i).getHeight();
                 System.out.println("a====="+a);
                 System.out.println("findViewWithTag(i).getWidth()====="+rootLayout.findViewWithTag(i).getWidth());
@@ -652,7 +685,7 @@ public class HomeActivity extends AppCompatActivity {
             mainParam.width = (int) (layoutWidth);
             mainParam.height = (int) (layoutWidth*aspectratio);
 
-            for (int i = 0; i < MainActivity.selection.size(); i++) {
+            for (int i = 0; i < MainActivity.MainBitmapArrayList.size(); i++) {
                 float a = (float) rootLayout.findViewWithTag(i).getWidth()/(float) rootLayout.findViewWithTag(i).getHeight();
                 System.out.println("a====="+a);
                 System.out.println("findViewWithTag(i).getWidth()====="+rootLayout.findViewWithTag(i).getWidth());
@@ -675,7 +708,7 @@ public class HomeActivity extends AppCompatActivity {
             mainParam.width = (int) (layoutWidth);
             mainParam.height = (int) (layoutWidth*aspectratio);
 
-            for (int i = 0; i < MainActivity.selection.size(); i++) {
+            for (int i = 0; i < MainActivity.MainBitmapArrayList.size(); i++) {
 //                    rootLayout.findViewWithTag(i).setX(xPosition.get(i)*(float) 0.9);
 //                    rootLayout.findViewWithTag(i).setY(yPosition.get(i)*aspectratio);
                 rootLayout.findViewWithTag(i).setLayoutParams(new RelativeLayout.LayoutParams( SingletonArrayList.getInstance().getWidthtListArray().get(i)*1 , SingletonArrayList.getInstance().getHeightListArray().get(i)*(int)aspectratio));
@@ -690,7 +723,7 @@ public class HomeActivity extends AppCompatActivity {
             mainParam.width = (int) (layoutWidth);
             mainParam.height = (int) (layoutWidth*aspectratio);
 
-            for (int i = 0; i < MainActivity.selection.size(); i++) {
+            for (int i = 0; i < MainActivity.MainBitmapArrayList.size(); i++) {
                 rootLayout.findViewWithTag(i).setLayoutParams(new RelativeLayout.LayoutParams( SingletonArrayList.getInstance().getWidthtListArray().get(i)*1 , SingletonArrayList.getInstance().getHeightListArray().get(i)*(int)aspectratio));
 
             }
@@ -712,7 +745,7 @@ public class HomeActivity extends AppCompatActivity {
     }
     public void styleAct(View view){
 
-        Intent style = new Intent(HomeActivity.this,PopUpActivity.class);
+        Intent style = new Intent(HomeActivity.this,PopUpFreeStyleActivity.class);
         startActivity(style);
         findViewById(R.id.AHStylEButton).setEnabled(false);
 
@@ -733,7 +766,7 @@ public class HomeActivity extends AppCompatActivity {
 ////        finish(); // Comment this out to receive edited image
 
         if(SingletonArrayList.getInstance().getHeightListArray().size() == 0) {
-            for (int i = 0; i < MainActivity.selection.size(); i++) {
+            for (int i = 0; i < MainActivity.MainBitmapArrayList.size(); i++) {
                 SingletonArrayList.getInstance().getHeightListArray().add(rootLayout.findViewWithTag(i).getHeight());
                 SingletonArrayList.getInstance().getWidthtListArray().add(rootLayout.findViewWithTag(i).getWidth());
             }
@@ -751,22 +784,23 @@ public class HomeActivity extends AppCompatActivity {
 
     public void shareAct(View view){
 
-//    layout to bitmap image
-        RelativeLayout forImage = (RelativeLayout)findViewById(R.id.RelativeLayout);
 
-        forImage.setDrawingCacheEnabled(true);
+//        RelativeLayout forImage = (RelativeLayout)findViewById(R.id.RelativeLayout);
+//        forImage.setDrawingCacheEnabled(true);
+//        forImage.buildDrawingCache();
+//        Bitmap result = forImage.getDrawingCache();
 
-        forImage.buildDrawingCache();
-
-        Bitmap result = forImage.getDrawingCache();
+        //    layout to bitmap image
+        Bitmap result = loadBitmapFromView(rootLayout,rootLayout.getWidth(),rootLayout.getHeight());//rootLayout.getDrawingCache();
+        DataPassingSingelton.getInstance().setImage(result);
 
       //image filtering
 
-        ByteArrayOutputStream bs = new ByteArrayOutputStream();
-        result.compress(Bitmap.CompressFormat.PNG, 100, bs);
-        byte[] byteArray = bs.toByteArray();
+//        ByteArrayOutputStream bs = new ByteArrayOutputStream();
+//        result.compress(Bitmap.CompressFormat.PNG, 100, bs);
+//        byte[] byteArray = bs.toByteArray();
         Intent send = new Intent(HomeActivity.this, FilterActivity.class);
-        send.putExtra("collageBitmap",byteArray);
+//        send.putExtra("collageBitmap",byteArray);
         startActivity(send);
 
 
@@ -776,6 +810,14 @@ public class HomeActivity extends AppCompatActivity {
         Intent setting = new Intent(HomeActivity.this,SettingsActivity.class);
         startActivity(setting);
 
+    }
+
+
+    public static Bitmap loadBitmapFromView(View v, int width, int height) {
+        Bitmap b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(b);
+        v.draw(c);
+        return b;
     }
 
 

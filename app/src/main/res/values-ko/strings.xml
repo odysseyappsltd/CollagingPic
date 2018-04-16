@@ -90,4 +90,7 @@
     <string name="Corner">구석</string>
     <string name="Shadow">그림자</string>
 
+    <!--Home Activity -->
+    <string name="DoubleTapMsg">편집 할 이미지를 두 번 탭합니다.</string>
+
 </resources>

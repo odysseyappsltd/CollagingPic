@@ -25,17 +25,35 @@ public class PopUpData {
     public int getRoundValue(){return roundValue; }
     public void saveRoundValue(int value){this.roundValue = value ;}
 
+
+    //round picker FreeStyle
+
+    private int roundValueFreeStyle = 0;
+    public int getRoundValueFreeStyle(){return roundValueFreeStyle; }
+    public void saveRoundValueFreeStyle(int value){this.roundValueFreeStyle = value ;}
+
     //shade picker
 
     private int shadeValue = 0;
     public int getShadeValue(){return shadeValue; }
     public void saveShadeValue(int value){this.shadeValue = value ;}
 
+    //shade picker FreeStyle
+
+    private int shadeValueFreeStyle = 0;
+    public int getShadeValueFreeStyle(){return shadeValueFreeStyle; }
+    public void saveShadeValueFreeStyle(int value){this.shadeValueFreeStyle = value ;}
+
     //Shape picker
 
     private int shrinkValue = 0;
     public int getShrinkValue(){return shrinkValue; }
     public void saveShrinkValue(int value){this.shrinkValue = value ;}
+
+    //Shape picker FreeStyle
+    private int shrinkValueFreeStyle = 0;
+    public int getShrinkValueFreeStyle(){return shrinkValueFreeStyle; }
+    public void saveShrinkValueFreeStyle(int value){this.shrinkValueFreeStyle = value ;}
 
     // ColorPicker
     private int color = Color.WHITE;
@@ -46,6 +64,15 @@ public class PopUpData {
         this.color = color;
     }
 
+    // ColorPicker FreeStyle
+    private int colorFreeStyle = Color.WHITE;
+    public int getColorFreeStyle(){
+        return  colorFreeStyle ;
+    }
+    public void saveColorFreeStyle(int color){
+        this.colorFreeStyle = color;
+    }
+
     //Pattern Picker
     private int pattern = R.drawable.p1 ;
     public int getPattern(){
@@ -54,6 +81,8 @@ public class PopUpData {
     public void savePatternForIndex(int index){
         this.pattern = getPatternsAt(index);
     }
+
+
 
 
     //Patterns

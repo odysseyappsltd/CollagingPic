@@ -87,4 +87,7 @@
 
     <string name="Corner">Canto</string>
     <string name="Shadow">Sombra</string>
+
+    <!--Home Activity -->
+    <string name="DoubleTapMsg">Toque duas vezes em uma imagem para editá-la.</string>
 </resources>

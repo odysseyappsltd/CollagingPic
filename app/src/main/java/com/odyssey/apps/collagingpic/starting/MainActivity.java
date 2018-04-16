@@ -59,6 +59,7 @@ import com.odyssey.apps.StaticClasses.NotificationCenter;
 import com.odyssey.apps.collagingpic.BuildConfig;
 import com.odyssey.apps.collagingpic.R;
 import com.odyssey.apps.collagingpic.skeleton.SkeletonActivity;
+import com.odyssey.apps.popUp.PopUpData;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -101,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static ArrayList<String> allImage = new ArrayList<String>();
     public static ArrayList<String> selection = new ArrayList<String>();
+    public static ArrayList<Bitmap> MainBitmapArrayList = new ArrayList<Bitmap>();
      ArrayList<Bitmap> bitmapArrayList = new ArrayList<Bitmap>();
 
     File photoFile = null;
@@ -111,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
     int j;
     int[] layout;
     Bitmap myBitmap;
+    Bitmap MainBitmap;
 
     //private FirebaseAnalytics mFirebaseAnalytics;
 
@@ -133,6 +136,14 @@ public class MainActivity extends AppCompatActivity {
         if(CheckIf.isPurchased(IAPData.getSharedInstance().ADMOB,this)) {
             findViewById(R.id.AMAdmob).setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        bitmapArrayList.clear();
+        selection.clear();
+        MainBitmapArrayList.clear();
     }
 
 
@@ -204,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
                 button5.setVisibility(View.INVISIBLE);
                 selection.clear();
                 bitmapArrayList.clear();
+                MainBitmapArrayList.clear();
                 imageView.setVisibility(View.VISIBLE);
                 gridViewAdapter.notifyDataSetChanged();
             }
@@ -298,18 +310,21 @@ public class MainActivity extends AppCompatActivity {
 
                     if (listViewCellNumber == 0) {
                         selectedPath = allImage.get(i);
-                        Bitmap bitmap = BitmapFactory.decodeFile(selectedPath);
-                        myBitmap = resize(bitmap,300,300);
+                         Bitmap bitmap = BitmapFactory.decodeFile(selectedPath);
+                         MainBitmap = resize(bitmap,800,800);
+                        myBitmap = resize(MainBitmap,300,300);
                     } else {
                         selectedPath = al_images.get(listViewCellNumber - 1).getAl_imagepath().get(i);
                         Bitmap bitmap = BitmapFactory.decodeFile(selectedPath);
-                        myBitmap = resize(bitmap,300,300);
+                        MainBitmap = resize(bitmap,800,800);
+                        myBitmap = resize(MainBitmap,300,300);
                     }
 
 
                     if (selection.contains(selectedPath)) {
 
                         bitmapArrayList.remove(selection.indexOf(selectedPath));
+                        MainBitmapArrayList.remove(selection.indexOf(selectedPath));
                         selection.remove(selectedPath);
                         gridViewAdapter.notifyDataSetChanged();
 //                        if (selection.contains(myBitmap)) {
@@ -508,6 +523,7 @@ public class MainActivity extends AppCompatActivity {
                             selection.add(selectedPath);
                             gridViewAdapter.notifyDataSetChanged();
                             bitmapArrayList.add(myBitmap);
+                            MainBitmapArrayList.add(MainBitmap);
                             System.out.println("selection.size()====="+selection.size());
 
 
@@ -618,6 +634,10 @@ public class MainActivity extends AppCompatActivity {
                                                 System.out.println("Layout====="+layout[(Integer) v.getTag()]);
 
                                                 if(layout[(Integer) v.getTag()]==1000){
+
+                                                    PopUpData.getSharedInstance().saveShadeValueFreeStyle(0);
+                                                    PopUpData.getSharedInstance().saveShrinkValueFreeStyle(0);
+                                                    PopUpData.getSharedInstance().saveRoundValueFreeStyle(0);
 
                                                     Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                                                     startActivity ( intent );
@@ -826,7 +846,8 @@ public class MainActivity extends AppCompatActivity {
                 gridViewAdapter.notifyDataSetChanged();
                 gridViewAdapter = new GridViewAdapter(MainActivity.this,MainActivity.al_images,0);
                 gv_folder.setAdapter(gridViewAdapter);
-
+                listViewCellNumber = 0;
+                galleryButton.setText(getString(R.string.CameraRoll));
 
             } catch (FileNotFoundException e) {
                 return;

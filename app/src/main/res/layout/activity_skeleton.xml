@@ -51,7 +51,7 @@
                     android:background="@android:color/transparent"
                     android:minHeight="35dp"
                     android:onClick="edit"
-                    android:text="Edit"
+                    android:text="@string/Edit"
                     android:textColor="@android:color/holo_orange_dark" />
 
                 <View
@@ -68,7 +68,7 @@
                     android:background="@android:color/transparent"
                     android:minHeight="35dp"
                     android:onClick="swap"
-                    android:text="swap"
+                    android:text="@string/Swap"
                     android:textColor="@android:color/holo_orange_dark" />
 
                 <View
@@ -85,7 +85,7 @@
                     android:background="@android:color/transparent"
                     android:minHeight="35dp"
                     android:onClick="album"
-                    android:text="ALbum"
+                    android:text="@string/Album"
                     android:textColor="@android:color/holo_orange_dark" />
 
 

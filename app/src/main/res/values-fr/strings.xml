@@ -90,4 +90,7 @@
     <string name="Corner">Coin</string>
     <string name="Shadow">Ombre</string>
 
+    <!--Home Activity -->
+    <string name="DoubleTapMsg">Appuyez deux fois sur une image pour l'éditer.</string>
+
 </resources>

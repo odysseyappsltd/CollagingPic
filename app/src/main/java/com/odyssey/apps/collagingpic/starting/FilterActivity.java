@@ -99,14 +99,12 @@ public class FilterActivity extends AppCompatActivity implements ActionSheet.Act
         doneButton = (Button)  findViewById(R.id.buttonDone);
         cancelButton = (Button) findViewById(R.id.buttonCancel);
 
-        Bundle extras = getIntent().getExtras();
-        byte[] byteArray = extras.getByteArray("collageBitmap");
+//        Bundle extras = getIntent().getExtras();
+//        byte[] byteArray = extras.getByteArray("collageBitmap");
+//
+//        bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
 
-        bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-
-        //bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.smily1);
-
-//        bitmap = DataPassingSingelton.getInstance().getImage();
+        bitmap = DataPassingSingelton.getInstance().getImage();
         imageView.setImageBitmap(bitmap);
 //        Bitmap resized = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
         Bitmap resized = resize(bitmap,100,100);
